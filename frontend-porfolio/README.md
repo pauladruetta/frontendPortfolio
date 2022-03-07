@@ -25,3 +25,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Add FontAwesone
+
+npm install @fortawesome/angular-fontawesome
+npm install @fortawesome/fontawesome-svg-core
+npm install @fortawesome/free-brands-svg-icons
+npm install @fortawesome/free-regular-svg-icons
+npm install @fortawesome/free-solid-svg-icons
+
+ejmplo de uso:
+<fa-icon [icon]="['fas','arrow-down']"></fa-icon>
