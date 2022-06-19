@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "experiencia.component.sass"
+        "proyectos.component.sass"
     ],
     "names": [],
-    "file": "experiencia.component.css"
+    "file": "proyectos.component.css"
 }
