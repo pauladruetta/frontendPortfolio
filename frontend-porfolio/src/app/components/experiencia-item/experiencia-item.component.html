@@ -1,0 +1,20 @@
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="assets/LogoAguapey.gif" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Consultor técnico</h5>
+        <p class="card-text empresa mb-1">Aguapey Ingeniería Sustentable.</p>
+        <p class="card-text tipo mb-1">Profesional independiente.</p>
+        <p class="card-text periodo mb-1"><small class="text-muted"> 2008 - Actualidad </small></p>
+        <p class="card-text lugar mb-1"><small class="text-muted"> Santa Fe - Argentina </small></p>
+      </div>
+    </div>
+  </div>
+  <div class="buttons d-flex position-absolute">
+    <app-edition-button  *ngIf="visibleButton"  ></app-edition-button>
+    <app-eliminate-button  *ngIf="visibleButton"  ></app-eliminate-button>
+  </div>
+</div>

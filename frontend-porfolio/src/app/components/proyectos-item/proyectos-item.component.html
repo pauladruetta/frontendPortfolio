@@ -1,0 +1,25 @@
+<div class="card mb-3" style="max-width: 540px;">
+  <a href="https://www.abriendoeljuego.ar/home/" target="_blank">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="assets/AbriendoElJuego.ico" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title nombre">Abriendo el Juego - Sitio Web</h5>
+          <p class="card-text descripcion">Sitio web desarrollado para la Asociación "Colectivo Abriendo el Juego" .</p>
+          <p class="card-text"><small class="text-muted">@2022</small></p>
+          <div class="card-text languages" >
+            <span class="badge bg-primary">Vue</span>
+            <span class="badge bg-warning text-dark">Wordpress</span>
+            <span class="badge bg-success">Tailwing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <div class="buttons d-flex position-absolute">
+    <app-edition-button  *ngIf="visibleButton"  ></app-edition-button>
+    <app-eliminate-button  *ngIf="visibleButton"  ></app-eliminate-button>
+  </div>
+</div>

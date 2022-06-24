@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faArrowDown as faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { faGithub as faGithub, faLinkedinIn as faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { faArrowDown as faArrowDown, faPencil as faPencil, faXmark as faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faGithub as faGithub, faLinkedinIn as faLinkedinIn,  } from '@fortawesome/free-brands-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,13 @@ import { EducacionComponent } from './inicio/educacion/educacion.component';
 import { HabilidadesComponent } from './inicio/habilidades/habilidades.component';
 import { CardComponent } from './components/card/card.component';
 import { ExperienciasPageComponent } from './pages/experiencias-page/experiencias-page.component';
+import { ExperienciaItemComponent } from './components/experiencia-item/experiencia-item.component';
+import { EducacionItemComponent } from './components/educacion-item/educacion-item.component';
+import { HabilidadesItemComponent } from './components/habilidades-item/habilidades-item.component';
+import { ProyectosItemComponent } from './components/proyectos-item/proyectos-item.component';
+import { EditionButtonComponent } from './components/edition-button/edition-button.component';
+import { EliminateButtonComponent } from './components/eliminate-button/eliminate-button.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +51,14 @@ import { ExperienciasPageComponent } from './pages/experiencias-page/experiencia
     EducacionComponent,
     HabilidadesComponent,
     CardComponent,
-    ExperienciasPageComponent
+    ExperienciasPageComponent,
+    ExperienciaItemComponent,
+    EducacionItemComponent,
+    HabilidadesItemComponent,
+    ProyectosItemComponent,
+    EditionButtonComponent,
+    EliminateButtonComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +70,6 @@ import { ExperienciasPageComponent } from './pages/experiencias-page/experiencia
 })
 export class AppModule {
   constructor (library: FaIconLibrary) {
-    library.addIcons(faArrowDown, faGithub, faLinkedinIn);
+    library.addIcons(faArrowDown, faGithub, faLinkedinIn, faPencil, faXmark);
   }
  }

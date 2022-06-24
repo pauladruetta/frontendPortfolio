@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { LoginService } from 'src/app/login.service';
+import { Persona } from 'src/app/models/persona.model';
+import { PersonasService } from 'src/app/personas.service';
 
 @Component({
   selector: 'app-acerca',
@@ -9,9 +12,41 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AcercaComponent implements OnInit {
 
-  constructor() { }
+  arrPersonas: Persona[];
+  persona:  Persona;
+  visibleButton: Boolean;
 
-  ngOnInit(): void {
+  constructor(
+    private personasServices: PersonasService,
+    private loginService: LoginService
+
+  ) {
+   this.loginService.toggleView.subscribe(data =>  {
+    console.log('toggleView')
+    this.visibleButton = data
+   })
+
+    console.log(this.visibleButton )
   }
 
+  ngOnChanges() {
+
+  }
+
+  // ngOnInit(): void {
+  //   // this.arrPersonas = this.personasServices.getAll();
+  //   this.personasServices.getAllPromise()
+  //   .then(personas => {
+  //     this.arrPersonas = personas;
+  //     this.persona = this.arrPersonas[0];
+  //     console.log(this.arrPersonas)
+  //   })
+  // }
+
+  async ngOnInit() {
+    this.arrPersonas = await this.personasServices.getAllPromise()
+    this.persona = this.arrPersonas[0];
+    console.log(this.arrPersonas);
+    this.visibleButton = this.loginService.getView();
+  }
 }
