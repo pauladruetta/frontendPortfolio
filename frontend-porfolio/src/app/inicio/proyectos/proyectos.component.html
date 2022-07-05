@@ -1,8 +1,9 @@
 <app-card title="Proyectos">
   <div class="card-body">
     <h5 class="card-title"> Proyectos </h5>
-    <app-proyectos-item></app-proyectos-item>
-    <app-proyectos-item></app-proyectos-item>
-    <app-proyectos-item></app-proyectos-item>
+    <app-proyectos-item
+    *ngFor="let proyecto of arrProyectos"
+    [proyecto]="proyecto"
+  ></app-proyectos-item>
   </div>
 </app-card>

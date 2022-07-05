@@ -1,15 +1,15 @@
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="assets/LogoAguapey.gif" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+      <img [src]="experiencia.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">Consultor técnico</h5>
-        <p class="card-text empresa mb-1">Aguapey Ingeniería Sustentable.</p>
-        <p class="card-text tipo mb-1">Profesional independiente.</p>
-        <p class="card-text periodo mb-1"><small class="text-muted"> 2008 - Actualidad </small></p>
-        <p class="card-text lugar mb-1"><small class="text-muted"> Santa Fe - Argentina </small></p>
+        <h5 class="card-title">{{ experiencia.titulo }}</h5>
+        <p class="card-text empresa mb-1">{{ experiencia.empresa }}</p>
+        <p class="card-text tipo mb-1">{{ experiencia.tipo }}</p>
+        <p class="card-text periodo mb-1"><small class="text-muted"> {{ experiencia.fecha_inicio }} - {{ fecha_fin }} </small></p>
+        <p class="card-text lugar mb-1"><small class="text-muted"> {{ experiencia.provincia }} - {{experiencia.pais}} </small></p>
       </div>
     </div>
   </div>

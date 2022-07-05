@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Habilidad } from 'src/app/models/habilidad.model';
+import { HabilidadesService } from 'src/app/services/habilidades.service';
 
 @Component({
   selector: 'app-habilidades',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HabilidadesComponent implements OnInit {
 
-  constructor() { }
+  arrHabilidad: Habilidad[];
 
-  ngOnInit(): void {
+  constructor(
+    private habilidadesService: HabilidadesService
+  ) { }
+
+  async ngOnInit() {
+
+    this.habilidadesService.getAllProyetos().subscribe(data => {
+      this.arrHabilidad = data;
+      console.log(this.arrHabilidad);
+    })
+
+    console.log();
   }
-
 }

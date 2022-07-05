@@ -15,6 +15,7 @@ export class AcercaComponent implements OnInit {
   arrPersonas: Persona[];
   persona:  Persona;
   visibleButton: Boolean;
+  personasHTTP: [];
 
   constructor(
     private personasServices: PersonasService,
@@ -44,9 +45,14 @@ export class AcercaComponent implements OnInit {
   // }
 
   async ngOnInit() {
-    this.arrPersonas = await this.personasServices.getAllPromise()
-    this.persona = this.arrPersonas[0];
-    console.log(this.arrPersonas);
+    // this.arrPersonas = await this.personasServices.getAllPromise()
     this.visibleButton = this.loginService.getView();
+    this.personasServices.getAllPersonas().subscribe(data => {
+      this.arrPersonas = data
+      this.persona = this.arrPersonas[0];
+      console.log(this.arrPersonas);
+    })
+
+    console.log();
   }
 }

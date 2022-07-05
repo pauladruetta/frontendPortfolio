@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/login.service';
-import { Persona } from 'src/app/models/persona.model';
-import { PersonasService } from 'src/app/personas.service';
+import { Educacion } from 'src/app/models/educacion.model';
+import { EducacionService } from 'src/app/services/educacion.service';
 
 @Component({
   selector: 'app-educacion-item',
@@ -10,12 +10,12 @@ import { PersonasService } from 'src/app/personas.service';
 })
 export class EducacionItemComponent implements OnInit {
 
+  @Input() educacion:  Educacion;
   visibleButton: Boolean;
-  arrPersonas: Persona[];
-  persona:  Persona;
+  fecha_fin: String
 
   constructor(
-    private personasServices: PersonasService,
+    private educacionService: EducacionService,
     private loginService: LoginService
 
   ) {
@@ -28,9 +28,6 @@ export class EducacionItemComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.arrPersonas = await this.personasServices.getAllPromise()
-    this.persona = this.arrPersonas[0];
-    console.log(this.arrPersonas);
     this.visibleButton = this.loginService.getView();
   }
 

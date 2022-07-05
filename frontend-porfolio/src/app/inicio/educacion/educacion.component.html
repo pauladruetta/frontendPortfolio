@@ -1,8 +1,9 @@
 <app-card title="Educacion">
   <div class="card-body">
     <h5 class="card-title"> Educación </h5>
-    <app-educacion-item></app-educacion-item>
-    <app-educacion-item></app-educacion-item>
-    <app-educacion-item></app-educacion-item>
+    <app-educacion-item
+      *ngFor="let educacion of arrEducacion"
+      [educacion]="educacion"
+    ></app-educacion-item>
   </div>
 </app-card>

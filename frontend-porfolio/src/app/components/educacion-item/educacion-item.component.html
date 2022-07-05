@@ -1,13 +1,14 @@
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="assets/LogoAguapey.gif" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+      <img [src]="educacion.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title institucion">Universidad Nacional del Litoral</h5>
-        <p class="card-text titulo-estudio">Doctorado en Tecnologías Químicas.</p>
-        <p class="card-text periodo"><small class="text-muted">2010 - 2017</small></p>
+        <h5 class="card-title institucion">{{ educacion.institucion }}</h5>
+        <p class="card-text titulo-estudio">{{ educacion.titulo }}</p>
+        <p class="card-text periodo"><small class="text-muted">{{ educacion.fecha_inicio }} - {{ educacion.fecha_fin }}</small></p>
+        <p class="card-text pais"><small class="text-muted">{{ educacion.pais }}</small></p>
       </div>
     </div>
   </div>

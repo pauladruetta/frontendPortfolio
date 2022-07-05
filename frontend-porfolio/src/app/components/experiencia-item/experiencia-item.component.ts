@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/login.service';
-import { Persona } from 'src/app/models/persona.model';
-import { PersonasService } from 'src/app/personas.service';
+import { Experiencia } from 'src/app/models/experiencia.model';
 
 @Component({
   selector: 'app-experiencia-item',
@@ -10,12 +9,11 @@ import { PersonasService } from 'src/app/personas.service';
 })
 export class ExperienciaItemComponent implements OnInit {
 
-  arrPersonas: Persona[];
-  persona:  Persona;
+  @Input() experiencia:  Experiencia;
   visibleButton: Boolean;
+  fecha_fin: String
 
   constructor(
-    private personasServices: PersonasService,
     private loginService: LoginService
 
   ) {
@@ -24,14 +22,16 @@ export class ExperienciaItemComponent implements OnInit {
     this.visibleButton = data
    })
 
-    console.log(this.visibleButton )
   }
 
   async ngOnInit() {
-    this.arrPersonas = await this.personasServices.getAllPromise()
-    this.persona = this.arrPersonas[0];
-    console.log(this.arrPersonas);
     this.visibleButton = this.loginService.getView();
+    console.log(this.visibleButton )
+    console.log(this.experiencia )
+    if  (this.experiencia.fecha_fin == 0) {
+      this.fecha_fin = "Actualidad"
+    }
+
   }
 
 }

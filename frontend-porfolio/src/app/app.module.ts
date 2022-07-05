@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -31,6 +32,7 @@ import { ProyectosItemComponent } from './components/proyectos-item/proyectos-it
 import { EditionButtonComponent } from './components/edition-button/edition-button.component';
 import { EliminateButtonComponent } from './components/eliminate-button/eliminate-button.component';
 import { LoginComponent } from './components/login/login.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -58,12 +60,14 @@ import { LoginComponent } from './components/login/login.component';
     ProyectosItemComponent,
     EditionButtonComponent,
     EliminateButtonComponent,
-    LoginComponent
+    LoginComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,10 @@
 <app-card title="Experiencia">
   <div class="card-body">
     <h5 class="card-title"> Experiencia </h5>
-    <app-experiencia-item></app-experiencia-item>
-    <app-experiencia-item></app-experiencia-item>
-    <app-experiencia-item></app-experiencia-item>
+    <app-experiencia-item
+      *ngFor="let experiencia of arrExperiencias"
+      [experiencia]="experiencia"
+    >
+    </app-experiencia-item>
   </div>
 </app-card>

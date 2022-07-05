@@ -1,8 +1,9 @@
 <app-card title="Habilidades">
   <div class="card-body">
     <h5 class="card-title"> Habilidades blandas y duras </h5>
-    <app-habilidades-item></app-habilidades-item>
-    <app-habilidades-item></app-habilidades-item>
-    <app-habilidades-item></app-habilidades-item>
+    <app-habilidades-item
+      *ngFor="let habilidad of arrHabilidad"
+      [habilidad]="habilidad"
+    ></app-habilidades-item>
   </div>
 </app-card>

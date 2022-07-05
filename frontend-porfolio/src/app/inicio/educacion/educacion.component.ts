@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Educacion } from 'src/app/models/educacion.model';
+import { EducacionService } from 'src/app/services/educacion.service';
 
 @Component({
   selector: 'app-educacion',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EducacionComponent implements OnInit {
 
-  constructor() { }
+  arrEducacion: Educacion[];
 
-  ngOnInit(): void {
+  constructor(
+    private educacionService: EducacionService
+  ) { }
+
+  async ngOnInit() {
+    this.educacionService.getAllEducacion().subscribe(data => {
+      this.arrEducacion = data;
+      console.log(this.arrEducacion);
+    })
+
+    console.log();
   }
 
 }
