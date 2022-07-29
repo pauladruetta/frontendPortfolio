@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PERSONAS } from './db/Personas.db';
-import { Persona } from './models/persona.model';
+import { Persona } from '../models/persona.model';
 
 
 @Injectable({
@@ -29,11 +28,18 @@ export class PersonasService {
   // }
 
   getAllPersonas(): Observable<Persona[]> {
-    return this.http.get<Persona[]>(this.baseUrl+"/ver-todas");  }
-
-  getAllPromise(): Promise<Persona[]> {
-    return new Promise((resolve, reject) => {
-      resolve(PERSONAS);
-    });
+    return this.http.get<Persona[]>(this.baseUrl+"/ver-todas");
   }
+
+  editPersona( persona: Persona ): Observable<Persona> {
+    console.log("Editando persona")
+    return this.http.put<Persona>(this.baseUrl+"/edit", persona);
+
+  }
+
+  // getAllPromise(): Promise<Persona[]> {
+  //   return new Promise((resolve, reject) => {
+  //     resolve(PERSONAS);
+  //   });
+  // }
 }

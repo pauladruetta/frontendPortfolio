@@ -1,5 +1,12 @@
-<div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
+<div
+  class="card mb-3"
+  style="max-width: 540px;"
+  *ngIf="visibleItem"
+>
+  <div
+    class="row educacion-item g-0"
+    *ngIf="!editable"
+  >
     <div class="col-md-4">
       <img [src]="educacion.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
     </div>
@@ -12,8 +19,51 @@
       </div>
     </div>
   </div>
+
+  <div
+    class="row educacion-item-editable g-0"
+    *ngIf="editable"
+  >
+    <div class="col-md-4">
+      <img [src]="educacion.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+    </div>
+    <!--TODO editable-->
+    <div class="col-md-8">
+      <div class="card-body">
+        <input class="card-title institucion" [value]="educacion.institucion">
+        <input class="card-text titulo-estudio"  [value]="educacion.titulo">
+        <small class="text-muted">
+          <input class="card-text periodo-inicio" [value]="educacion.fecha_inicio">
+          <input class="card-text periodo-fin" [value]="educacion.fecha_fin">
+        </small>
+        <small class="text-muted">
+          <input class="card-text pais" [value]="educacion.pais">
+        </small>
+      </div>
+      <!--TODO: Estilo-->
+    </div>
+  </div>
+
   <div class="buttons d-flex position-absolute">
-    <app-edition-button  *ngIf="visibleButton"  ></app-edition-button>
-    <app-eliminate-button  *ngIf="visibleButton"  ></app-eliminate-button>
+    <app-edition-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onEdit($event)"
+    >
+    </app-edition-button>
+    <app-eliminate-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onDelete()"
+    >
+    </app-eliminate-button>
+    <app-aceptar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onAcept($event)"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onCancel()"
+    ></app-cancelar-button>
   </div>
 </div>

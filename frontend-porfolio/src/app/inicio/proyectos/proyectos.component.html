@@ -1,9 +1,15 @@
 <app-card title="Proyectos">
   <div class="card-body">
-    <h5 class="card-title"> Proyectos </h5>
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Proyectos </h5>
+      <app-agregar-button
+      *ngIf="visibleButton"
+      ></app-agregar-button>
+    </div>
     <app-proyectos-item
     *ngFor="let proyecto of arrProyectos"
     [proyecto]="proyecto"
   ></app-proyectos-item>
   </div>
+      <!--TODO: Hacer funcionar Botón para agregar nuevas-->
 </app-card>

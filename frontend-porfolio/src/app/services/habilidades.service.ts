@@ -14,11 +14,33 @@ export class HabilidadesService {
   constructor( private http: HttpClient) {
 
     this.baseUrl = "http://localhost:8080/habilidad"
-    console.log("El servicio de experiencias está corriendo")
+    console.log("El servicio de habilidades está corriendo")
 
   }
 
-  getAllProyetos(): Observable<Habilidad[]> {
+  getAllHabilidades(): Observable<Habilidad[]> {
     return this.http.get<Habilidad[]>(this.baseUrl+"/ver-todas");
   }
+
+
+  //FIXME check
+  editEHabilidad( Habilidad: Habilidad ): Observable<Habilidad> {
+    let id = Habilidad.id
+    console.log("Editando Habilidad" + id)
+    return this.http.put<Habilidad>(this.baseUrl+"/edit", Habilidad);
+
+  }
+    //TODO edit, add and delete
+
+  // deletePersona( id: number ): Observable<number> {
+  //   console.log("borrando persona")
+  //   return this.http.delete(this.baseUrl+"/delete", id);
+
+  // }
+
+  // addPersona( persona: Persona ): Observable<Persona> {
+  //   console.log("agregando persona")
+  //   return this.http.post(this.baseUrl+"/nueva", persona);
+
+  // }
 }

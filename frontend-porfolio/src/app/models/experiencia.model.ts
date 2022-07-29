@@ -1,4 +1,5 @@
 export class Experiencia {
+  id: number;
   titulo: string;
   empresa: string;
   tipo: string;

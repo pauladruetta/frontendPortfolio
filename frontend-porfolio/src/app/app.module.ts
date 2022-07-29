@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faArrowDown as faArrowDown, faPencil as faPencil, faXmark as faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown as faArrowDown, faPencil as faPencil, faXmark as faXmark, faPlus as faPlus} from '@fortawesome/free-solid-svg-icons';
 import { faGithub as faGithub, faLinkedinIn as faLinkedinIn,  } from '@fortawesome/free-brands-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,9 @@ import { EditionButtonComponent } from './components/edition-button/edition-butt
 import { EliminateButtonComponent } from './components/eliminate-button/eliminate-button.component';
 import { LoginComponent } from './components/login/login.component';
 import { ButtonComponent } from './components/button/button.component';
+import { AceptarButtonComponent } from './components/aceptar-button/aceptar-button.component';
+import { CancelarButtonComponent } from './components/cancelar-button/cancelar-button.component';
+import { AgregarButtonComponent } from './components/agregar-button/agregar-button.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { ButtonComponent } from './components/button/button.component';
     EditionButtonComponent,
     EliminateButtonComponent,
     LoginComponent,
-    ButtonComponent
+    ButtonComponent,
+    AceptarButtonComponent,
+    CancelarButtonComponent,
+    AgregarButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +80,6 @@ import { ButtonComponent } from './components/button/button.component';
 })
 export class AppModule {
   constructor (library: FaIconLibrary) {
-    library.addIcons(faArrowDown, faGithub, faLinkedinIn, faPencil, faXmark);
+    library.addIcons(faArrowDown, faGithub, faLinkedinIn, faPencil, faXmark, faPlus);
   }
  }

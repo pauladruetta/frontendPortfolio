@@ -1,7 +1,35 @@
-<div class="progress m-2 ">
-  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" [style]="'width: ' + habilidad.porcentaje+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ habilidad.nombre }}</div>
-  <div class="buttons d-flex position-absolute">
-    <app-edition-button  *ngIf="visibleButton"  ></app-edition-button>
-    <app-eliminate-button  *ngIf="visibleButton"  ></app-eliminate-button>
+<div
+  class="progress-box  p-2 d-flex"
+  *ngIf="visibleItem"
+>
+  <div class="progress m-2 w-75" *ngIf="!editable">
+    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" [style]="'width: ' + habilidad.porcentaje+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ habilidad.nombre }}</div>
+  </div>
+  <div class="m-2 w-75" *ngIf="editable">
+    <input class="card-text lugar mb-1" [value]="habilidad.nombre ">
+    <input class="card-text lugar mb-1" [value]="habilidad.porcentaje">
+  </div>
+  <!--TODO: Estilo-->
+  <div class="buttons d-flex">
+    <app-edition-button
+      *ngIf="visibleButton && !editable"
+      class="ps-2"
+      (onClickButton)="onEdit($event)"
+    >
+    </app-edition-button>
+    <app-eliminate-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onDelete()"
+    >
+    </app-eliminate-button>
+    <app-aceptar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onAcept($event)"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onCancel()"
+    ></app-cancelar-button>
   </div>
 </div>

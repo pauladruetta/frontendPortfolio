@@ -1,9 +1,15 @@
 <app-card title="Habilidades">
   <div class="card-body">
-    <h5 class="card-title"> Habilidades blandas y duras </h5>
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Habilidades blandas y duras </h5>
+      <app-agregar-button
+      *ngIf="visibleButton"
+      ></app-agregar-button>
+    </div>
     <app-habilidades-item
       *ngFor="let habilidad of arrHabilidad"
       [habilidad]="habilidad"
     ></app-habilidades-item>
   </div>
+      <!--TODO: Hacer funcionar Botón para agregar nuevas-->
 </app-card>

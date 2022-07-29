@@ -11,6 +11,7 @@ export class LoginService {
   constructor() {
     this.showEdit = false
     this.toggleView = new EventEmitter();
+    console.log("El servicio de login está corriendo")
   }
 
   getView(): boolean {

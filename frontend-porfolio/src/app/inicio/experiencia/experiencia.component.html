@@ -1,10 +1,16 @@
 <app-card title="Experiencia">
   <div class="card-body">
-    <h5 class="card-title"> Experiencia </h5>
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Experiencia </h5>
+      <app-agregar-button
+      *ngIf="visibleButton"
+      ></app-agregar-button>
+    </div>
     <app-experiencia-item
       *ngFor="let experiencia of arrExperiencias"
       [experiencia]="experiencia"
     >
     </app-experiencia-item>
   </div>
+    <!--TODO: Hacer funcionar Botón para agregar nuevas-->
 </app-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-eliminate-button',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EliminateButtonComponent implements OnInit {
 
+  @Input() myStyles: object = {}
+  @Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onClick(){
+    console.log('Click on delete button');
+    this.onClickButton.emit(true);
+  }
 }

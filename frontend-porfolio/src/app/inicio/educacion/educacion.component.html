@@ -1,9 +1,15 @@
 <app-card title="Educacion">
   <div class="card-body">
-    <h5 class="card-title"> Educación </h5>
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Educación </h5>
+      <app-agregar-button
+      *ngIf="visibleButton"
+      ></app-agregar-button>
+    </div>
     <app-educacion-item
       *ngFor="let educacion of arrEducacion"
       [educacion]="educacion"
     ></app-educacion-item>
   </div>
+  <!--TODO: Hacer funcionar Botón para agregar nuevas-->
 </app-card>
