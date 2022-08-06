@@ -1,19 +1,38 @@
-<app-card title="Acerca">
+<app-card title="Acerca" >
   <div class="d-flex">
     <div class="card datos-personales">
-      <div class="box-container position-relative imagen-box" style="width: 10rem;">
+      <div class="box-container position-relative justify-content-evenly imagen-box">
         <div class="img-box rounded-circle ratio ratio-1x1 overflow-hidden border-0 ">
-          <img [src]="persona.imagen_perfil" class="card-img-top" id="imagen_perfil" alt="Foto"> <!--TODO: Editable-->
+          <img [src]="persona.imagen_perfil" class="card-img-top" id="imagen_perfil" alt="Foto">
         </div>
-        <!--TODO: Editable-->
-        <div class="buttons d-flex position-absolute">
+
+        <app-lector-imagen
+          *ngIf="editable.imagen_perfil"
+          class=" d-flex justify-content-center "
+        ></app-lector-imagen>
+
+        <div
+          class="buttons-image d-flex position-absolute  justify-content-evenly"
+          [ngClass]="{'edit':!editable.imagen_perfil}"
+        >
           <app-edition-button
-            *ngIf="visibleButton"
+            *ngIf="visibleButton && !editable.imagen_perfil"
             (onClickButton)="onEdit($event,'imagen_perfil')"
           >
-        </app-edition-button>
+          </app-edition-button>
+          <app-aceptar-button
+            *ngIf="visibleButton && editable.imagen_perfil"
+            class="m-2"
+            (onClickButton)="onAcept($event)"
+          ></app-aceptar-button>
+          <app-cancelar-button
+            class="m-2"
+            *ngIf="visibleButton && editable.imagen_perfil"
+            (onClickButton)="onCancel()"
+          ></app-cancelar-button>
         </div>
       </div>
+
       <div class="card-body person_info"
         *ngIf="!editable.person_info"
       >
@@ -23,14 +42,15 @@
         </p>
         <p class="card-text" id="person-tittle">{{ persona.titulo }}</p>
       </div>
+
       <div class="card-body person_info editable"
         *ngIf="editable.person_info"
       >
         <div class="card-text name d-flex w-75">
-          <input id="person-name-editable" type="text" [value]=persona.nombre>
-          <input id="person-apellido-editable" type="text" [value]=persona.apellido>
+          <input  class="form-control" id="person-name-editable" type="text" [value]=persona.nombre>
+          <input  class="form-control" id="person-apellido-editable" type="text" [value]=persona.apellido>
         </div>
-        <input class="card-text" id="person-tittle-editable" [value]="persona.titulo">
+        <input class="form-control" id="person-tittle-editable" [value]="persona.titulo">
         <!--TODO: Estilo-->
       </div>
       <div class="buttons d-flex position-absolute">
@@ -45,10 +65,12 @@
         <app-cancelar-button
           *ngIf="visibleButton && editable.person_info"
           (onClickButton)="onCancel()"
+          texto="Cancelar"
+          [cruz]="false"
         ></app-cancelar-button>
       </div>
     </div>
-    <div class="card acerca">
+    <div class="card acerca w-100">
       <div class="card-body ">
         <h5 class="card-title"> Acerca </h5>
         <p
@@ -59,7 +81,7 @@
           {{ persona.descripcion }}
         </p>
         <textarea
-          class="card-text h-75"
+          class="h-75 form-control"
           *ngIf="editable.acerca"
           id="acerca_edition"
         >

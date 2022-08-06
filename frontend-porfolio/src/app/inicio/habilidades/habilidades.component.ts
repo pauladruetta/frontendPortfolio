@@ -12,6 +12,7 @@ export class HabilidadesComponent implements OnInit {
 
   arrHabilidad: Habilidad[];
   visibleButton: Boolean = false;
+  agregandoNuevo: Boolean = false;
 
   constructor(
     private habilidadesService: HabilidadesService,
@@ -34,5 +35,22 @@ export class HabilidadesComponent implements OnInit {
     console.log();
   }
 
+  onAdd(agregandoNuevo: Boolean) {
+    this.agregandoNuevo = agregandoNuevo;
+  }
 
+  onCancelAdd() {
+    //TODO Falta dar estilo
+    console.log("No se Agregó nueva Habilidad");
+    this.agregandoNuevo = false;
+    // this.agregandoNuevo = false
+  }
+
+  onAddConfirm(){
+    this.agregandoNuevo = false;
+    this.habilidadesService.getAllHabilidades().subscribe(data => {
+      this.arrHabilidad = data;
+      console.log(this.arrHabilidad);
+    })
+  }
 }

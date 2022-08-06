@@ -82,20 +82,19 @@ export class AcercaComponent implements OnInit {
 
     console.log(element)
    //FIXME Permitir editar de a un sólo campo por vez
-
-    //TODO Falta agregar servicio que permite editar la Base de Datos
   }
 
   onAcept(editable: Boolean) {
     //FIXME Cambiar para hacerlo de manera más general y con validaciones
     //TODO Falta dar estilo
-    //TODO Falta poder editar imagen de perfil - investigar como
+    //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
     //TODO Faltan campos como la edad
 
     let descripcion;
     let nombre;
     let apellido;
     let titulo;
+    let imagen_perfil;
 
     if (document.getElementById("acerca_edition")){
       descripcion = (document.getElementById("acerca_edition") as HTMLTextAreaElement).value
@@ -121,13 +120,19 @@ export class AcercaComponent implements OnInit {
       titulo = this.persona.titulo
     }
 
+    if (document.getElementById("new_image_url")) {
+      imagen_perfil = (document.getElementById("new_image_url") as HTMLInputElement).value
+    } else {
+      imagen_perfil = this.persona.imagen_perfil
+    }
+
     this.personaEditada = {
       "id": this.persona.id,
       "nombre": nombre,
       "apellido": apellido,
       "titulo": titulo,
       "fecha_nacimiento": this.persona.fecha_nacimiento,
-      "imagen_perfil": this.persona.imagen_perfil,
+      "imagen_perfil": imagen_perfil,
       "imagen_portada": this.persona.imagen_portada,
       "descripcion": descripcion,
       "edad":37,
@@ -159,8 +164,6 @@ export class AcercaComponent implements OnInit {
       "person_info": false,
       "acerca": false
     };
-
-
     //FIXME Recoger información sobre la existencia o no del id,
     //si se quiere modificar una persona que no existe debe avisar
 
@@ -175,4 +178,5 @@ export class AcercaComponent implements OnInit {
       "acerca": false
     };
   }
+
 }

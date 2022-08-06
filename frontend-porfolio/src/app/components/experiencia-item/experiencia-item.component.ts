@@ -15,7 +15,9 @@ export class ExperienciaItemComponent implements OnInit {
   visibleButton: Boolean;
   visibleItem: Boolean = true;
   editable: Boolean = false;
-  fecha_fin: String
+  fecha_fin: String;
+  editable_imagen: Boolean = false;
+  imagen_editada: string;
 
   constructor(
     private loginService: LoginService,
@@ -35,27 +37,67 @@ export class ExperienciaItemComponent implements OnInit {
     console.log(this.experiencia )
     if  (this.experiencia.fecha_fin == 0) {
       this.fecha_fin = "Actualidad"
+    } else {
+      this.fecha_fin = String(this.experiencia.fecha_fin)
     }
 
   }
 
   onEdit(editable: Boolean) {
     this.editable = editable;
-    //TODO Falta agregar servicio que permite editar la Base de Datos
-
+    this.imagen_editada = this.experiencia.imagen;
+    console.log(this.imagen_editada )
   }
+
+//   onEditImage(editable: Boolean) {
+//     //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
+//    this.editable_imagen = editable;
+//  }
+
+//  onAceptImage() {
+//   let imagen;
+
+//   if (document.getElementById("new_image_url")) {
+//     imagen = (document.getElementById("new_image_url") as HTMLInputElement).value
+//   } else {
+//     imagen = this.experiencia.imagen
+//   }
+
+//   this.imagen_editada = imagen
+//   console.log( this.imagen_editada)
+
+//   this.editable_imagen= false
+// }
+
+// onCancelImage() {
+//   //TODO Falta dar estilo
+//   console.log("No se modifica la imagen")
+//   console.log( this.imagen_editada)
+
+//   this.editable_imagen= false
+// }
+
 
   onDelete() {
-    console.log("Item Eliminado");
     this.visibleItem = false;
-    //TODO Falta agregar servicio que permite eliminar de la Base de Datos
 
+    //TODO confirmaciones
+    try {
+        this.experienciasServise.deleteExperiencia(this.experiencia.id).subscribe(data =>
+          {
+            console.log(data);
+            console.log("Item Eliminado");
+            //TODO validaciones
+          })
+    } catch (error) {
+      console.log(error);
+      console.log("No se modificó la base de datos")
+    }
   }
 
-  onAcept(editable: Boolean) {
+  onAcept() {
     //FIXME validaciones
     //TODO Falta dar estilo
-    //TODO Falta poder editar imagen
 
     let empresa;
     let tipo;
@@ -116,12 +158,13 @@ export class ExperienciaItemComponent implements OnInit {
       provincia:  provincia,
       fecha_inicio: fecha_inicio,
       fecha_fin: fecha_fin,
-      imagen:  this.experiencia.imagen
+      imagen:  this.imagen_editada
     }
 
     console.log(this.experienciaEditada)
 
     this.editable = false
+    this.editable_imagen= false
 
     try {
       this.experienciasServise.editExperiencia(this.experienciaEditada).subscribe(data =>
@@ -142,10 +185,28 @@ export class ExperienciaItemComponent implements OnInit {
 
   }
 
+
+  onConfirm() {
+    console.log("Se hicieron modificaciones")
+    this.editable = false
+    this.editable_imagen= false
+    try {
+          this.experienciasServise.getExperienciaByID(this.experiencia.id).subscribe(data => {
+            console.log(data);
+            this.experiencia = data;
+          })
+          //TODO validaciones
+    } catch (error) {
+      console.log(error);
+      console.log("No se modificó la base de datos")
+    }
+  }
+
   onCancel() {
     //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editable = false
+    this.editable_imagen= false
   }
 
 }

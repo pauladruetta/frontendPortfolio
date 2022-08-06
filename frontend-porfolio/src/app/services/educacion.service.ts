@@ -9,7 +9,7 @@ import { Educacion } from '../models/educacion.model';
 export class EducacionService {
 
   baseUrl: string;
-  personas: any[];
+  educacionArr: any[];
 
   constructor( private http: HttpClient) {
 
@@ -22,25 +22,26 @@ export class EducacionService {
     return this.http.get<Educacion[]>(this.baseUrl+"/ver-todas");
   }
 
-    //FIXME check
-    editEducacion( Educacion: Educacion ): Observable<Educacion> {
-      let id = Educacion.id
-      console.log("Editando Educacion" + id)
-      return this.http.put<Educacion>(this.baseUrl+"/edit", Educacion);
+  getEducacionByID(id: number): Observable<Educacion> {
+    return this.http.get<Educacion>(this.baseUrl+`/${id}`);
+  }
 
-    }
-      //TODO edit, add and delete
+  editEducacion( Educacion: Educacion ): Observable<Educacion> {
+    let id = Educacion.id
+    console.log("Editando Educacion" + id)
+    return this.http.put<Educacion>(this.baseUrl+"/edit", Educacion);
 
-    // deletePersona( id: number ): Observable<number> {
-    //   console.log("borrando persona")
-    //   return this.http.delete(this.baseUrl+"/delete", id);
+  }
 
-    // }
+  deleteEducacion( id: number ): Observable<Educacion> {
+    console.log("borrando Educacion" + id)
+    return this.http.delete<Educacion>(this.baseUrl+`/delete/${id}`);
+  }
 
-    // addPersona( persona: Persona ): Observable<Persona> {
-    //   console.log("agregando persona")
-    //   return this.http.post(this.baseUrl+"/nueva", persona);
+  addEducacion( Educacion: Educacion ): Observable<Educacion> {
+    console.log("agregando Educacion")
+    return this.http.post<Educacion>(this.baseUrl+"/new", Educacion);
 
-    // }
+  }
 
 }

@@ -1,0 +1,119 @@
+<!-- <div
+  class="mb-3"
+>
+  <div class="col-md-4">
+    <img [src]="educacionEditada.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+  </div>
+  <div class="col-md-8">
+    <div class="card-body">
+      <input
+        id="institucion_edition"
+        class="card-title"
+        placeholder="Institución"
+        [value]="educacionEditada.institucion"
+      >
+      <input
+        id="institucion_titulo"
+        class="card-text titulo-estudio"
+        placeholder="Título"
+        [value]="educacionEditada.titulo"
+      >
+      <small class="text-muted">
+        <input
+          id="fecha_inicio_edition"
+          class="card-text periodo"
+          placeholder="Fecha de inicio"
+          [value]="educacionEditada.fecha_inicio"
+        >
+        <input
+          id="fecha_fin_edition"
+          class="card-text periodo"
+          placeholder="Fecha de finalización"
+          [value]="educacionEditada.fecha_fin"
+        >
+      </small>
+      <small class="text-muted">
+        <input
+          id="pais_edition"
+          class="card-text"
+          placeholder="País"
+          [value]="educacionEditada.pais"
+        >
+      </small>
+    </div>
+
+  </div>
+  <div class="d-flex justify-content-between">
+    <app-aceptar-button
+      (onClickButton)="onAcept()"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      (onClickButton)="onCancel()"
+    ></app-cancelar-button>
+  </div>
+</div> -->
+
+<form [formGroup]="formulario" (ngSubmit)="onAcept()">
+  <div
+  class="image-box position-relative d-flex justify-content-evenly"
+>
+  <div
+    class="col-md-4 rounded-circle ratio ratio-1x1 overflow-hidden border-0  bg-opacity-10 bg-info"
+    style="width: 10rem;"
+  >
+    <img [src]="imagen_editada" class="img-fluid rounded-start" alt="...">
+  </div>
+
+  <app-lector-imagen
+    *ngIf="editable_imagen"
+  ></app-lector-imagen>
+  <div
+    class="buttons-image d-flex position-absolute"
+    [ngClass]="{'edit':!editable_imagen}"
+  >
+    <app-edition-button
+      *ngIf="!editable_imagen"
+      (onClickButton)="onEditImage($event)"
+    >
+    </app-edition-button>
+    <app-aceptar-button
+      *ngIf="editable_imagen"
+      class="m-2"
+      (onClickButton)="onAceptImage()"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      class="m-2"
+      *ngIf="editable_imagen"
+      (onClickButton)="onCancelImage()"
+    ></app-cancelar-button>
+  </div>
+</div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="text" placeholder="Institución" formControlName="institucion" >
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="text" placeholder="Título" formControlName="titulo">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="number" placeholder="Fecha de Inicio" formControlName="fecha_inicio">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="number" placeholder="Fecha de Finalización" formControlName="fecha_fin">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="text" placeholder="País" formControlName="pais">
+  </div>
+  <input type="submit" value="Aceptar" class="btn btn-ligth float-end">
+  <app-cancelar-button
+    texto="Cancelar"
+    [cruz]="false"
+    (onClickButton)="onCancel()"
+  >
+  </app-cancelar-button>
+</form>
+

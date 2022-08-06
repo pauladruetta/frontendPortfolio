@@ -22,25 +22,25 @@ export class HabilidadesService {
     return this.http.get<Habilidad[]>(this.baseUrl+"/ver-todas");
   }
 
+  getHabilidadByID(id: number): Observable<Habilidad> {
+    return this.http.get<Habilidad>(this.baseUrl+`/${id}`);
+  }
 
-  //FIXME check
   editEHabilidad( Habilidad: Habilidad ): Observable<Habilidad> {
     let id = Habilidad.id
     console.log("Editando Habilidad" + id)
     return this.http.put<Habilidad>(this.baseUrl+"/edit", Habilidad);
 
   }
-    //TODO edit, add and delete
 
-  // deletePersona( id: number ): Observable<number> {
-  //   console.log("borrando persona")
-  //   return this.http.delete(this.baseUrl+"/delete", id);
+    deleteHabilidad( id: number ): Observable<Habilidad> {
+      console.log("borrando Habilidad" + id)
+      return this.http.delete<Habilidad>(this.baseUrl+`/delete/${id}`);
+    }
 
-  // }
+    addhabilidad( habilidad: Habilidad ): Observable<Habilidad> {
+      console.log("agregando habilidad")
+      return this.http.post<Habilidad>(this.baseUrl+"/new", habilidad);
 
-  // addPersona( persona: Persona ): Observable<Persona> {
-  //   console.log("agregando persona")
-  //   return this.http.post(this.baseUrl+"/nueva", persona);
-
-  // }
+    }
 }

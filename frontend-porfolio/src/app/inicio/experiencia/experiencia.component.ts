@@ -12,6 +12,7 @@ export class ExperienciaComponent implements OnInit {
 
   arrExperiencias: Experiencia[];
   visibleButton: Boolean = false;
+  agregandoNuevo: Boolean = false;
 
   constructor(
     private experienciasServise: ExperienciasService,
@@ -32,6 +33,25 @@ export class ExperienciaComponent implements OnInit {
     })
 
     console.log();
+  }
+
+  onAdd(agregandoNuevo: Boolean) {
+    this.agregandoNuevo = agregandoNuevo;
+  }
+
+  onCancelAdd() {
+    //TODO Falta dar estilo
+    console.log("No se Agregó nueva experiencia");
+    this.agregandoNuevo = false;
+    // this.agregandoNuevo = false
+  }
+
+  onAddConfirm(){
+    this.agregandoNuevo = false;
+    this.experienciasServise.getAllExperiencias().subscribe(data => {
+      this.arrExperiencias = data;
+      console.log(this.arrExperiencias);
+    })
   }
 
 }

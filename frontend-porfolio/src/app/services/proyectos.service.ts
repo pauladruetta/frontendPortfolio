@@ -22,25 +22,25 @@ export class ProyectosService {
     return this.http.get<Proyecto[]>(this.baseUrl+"/ver-todos");
   }
 
+  getProyectoByID(id: number): Observable<Proyecto> {
+    return this.http.get<Proyecto>(this.baseUrl+`/${id}`);
+  }
 
-  //FIXME check
   editProyecto( Proyecto: Proyecto ): Observable<Proyecto> {
     let id = Proyecto.id
     console.log("Editando Proyecto" + id)
     return this.http.put<Proyecto>(this.baseUrl+"/edit", Proyecto);
 
   }
-    //TODO edit, add and delete
 
-  // deletePersona( id: number ): Observable<number> {
-  //   console.log("borrando persona")
-  //   return this.http.delete(this.baseUrl+"/delete", id);
+    deleteProyecto( id: number ): Observable<Proyecto> {
+      console.log("borrando Proyecto" + id)
+      return this.http.delete<Proyecto>(this.baseUrl+`/delete/${id}`);
+    }
 
-  // }
+    addProyecto( Proyecto: Proyecto ): Observable<Proyecto> {
+      console.log("agregando Proyecto")
+      return this.http.post<Proyecto>(this.baseUrl+"/new", Proyecto);
 
-  // addPersona( persona: Persona ): Observable<Persona> {
-  //   console.log("agregando persona")
-  //   return this.http.post(this.baseUrl+"/nueva", persona);
-
-  // }
+    }
 }

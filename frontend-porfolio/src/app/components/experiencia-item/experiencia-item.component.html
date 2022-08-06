@@ -1,6 +1,5 @@
 <div
-  class="card mb-3"
-  style="max-width: 540px;"
+  class="card experiencia mb-3"
   *ngIf="visibleItem"
   >
   <div
@@ -22,13 +21,45 @@
   </div>
 
   <div
+    *ngIf="editable"
+  >
+    <div class="row g-0">
+      <app-experiencia-item-edit
+        [Experiencia] = "experiencia"
+        (onClickAcept)="onConfirm()"
+        (onClickCancel)="onCancel()"
+        [editando]="true"
+      ></app-experiencia-item-edit>
+    </div>
+  </div>
+
+  <!-- <div
     class="row experiencia-item-editable g-0"
     *ngIf="editable"
   >
     <div class="col-md-4">
-      <img [src]="experiencia.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+      <img [src]="imagen_editada" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
     </div>
-    <!--TODO editable-->
+
+    <app-lector-imagen
+      *ngIf="editable_imagen"
+    ></app-lector-imagen>
+    <div class="buttons-image d-flex position-absolute">
+      <app-edition-button
+        *ngIf="visibleButton && !editable_imagen"
+        (onClickButton)="onEditImage($event)"
+      >
+      </app-edition-button>
+      <app-aceptar-button
+        *ngIf="visibleButton && editable_imagen"
+        (onClickButton)="onAceptImage()"
+      ></app-aceptar-button>
+      <app-cancelar-button
+        *ngIf="visibleButton && editable_imagen"
+        (onClickButton)="onCancelImage()"
+      ></app-cancelar-button>
+    </div>
+
     <div class="col-md-8">
       <div class="card-body">
         <input id="titulo_edition" class="card-title" [value]="experiencia.titulo">
@@ -42,10 +73,9 @@
           <input id="provincia_edition" class="card-text lugar mb-1" [value]="experiencia.provincia">
           <input id="pais_edition" class="card-text lugar mb-1" [value]="experiencia.pais">
         </small>
-        <!--TODO: Estilo-->
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="buttons d-flex position-absolute">
     <app-edition-button
@@ -60,13 +90,13 @@
       (onClickButton)="onDelete()"
     >
     </app-eliminate-button>
-    <app-aceptar-button
+    <!-- <app-aceptar-button
       *ngIf="visibleButton && editable"
-      (onClickButton)="onAcept($event)"
+      (onClickButton)="onAcept()"
     ></app-aceptar-button>
     <app-cancelar-button
       *ngIf="visibleButton && editable"
       (onClickButton)="onCancel()"
-    ></app-cancelar-button>
+    ></app-cancelar-button> -->
   </div>
 </div>

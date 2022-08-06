@@ -8,7 +8,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CancelarButtonComponent implements OnInit {
 
   @Input() myStyles: object = {}
+  @Input() buttonClass: string
+  @Input() cruz: boolean = true
+  @Input() texto: string = ""
   @Output() onClickButton: EventEmitter<String> = new EventEmitter()
+
 
   constructor() { }
 
@@ -18,6 +22,5 @@ export class CancelarButtonComponent implements OnInit {
   onClick(){
     console.log('Click on cancel button');
     this.onClickButton.emit('cancel');
-    //FIXME: Copiado de edicion
   }
 }

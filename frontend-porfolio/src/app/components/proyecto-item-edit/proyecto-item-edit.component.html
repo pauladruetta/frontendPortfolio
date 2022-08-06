@@ -1,0 +1,119 @@
+<form [formGroup]="formulario" (ngSubmit)="onAcept()">
+  <div
+    class="image-box position-relative d-flex justify-content-evenly"
+  >
+    <div
+      class="col-md-4 rounded-circle ratio ratio-1x1 overflow-hidden border-0 bg-opacity-10 bg-info"
+      style="width: 10rem;"
+    >
+      <img [src]="imagen_editada" class="img-fluid rounded-start" alt="...">
+    </div>
+
+    <app-lector-imagen
+      *ngIf="editable_imagen"
+    ></app-lector-imagen>
+    <div
+      class="buttons-image d-flex position-absolute"
+      [ngClass]="{'edit':!editable_imagen}"
+    >
+      <app-edition-button
+        *ngIf="!editable_imagen"
+        (onClickButton)="onEditImage($event)"
+      >
+      </app-edition-button>
+      <app-aceptar-button
+        *ngIf="editable_imagen"
+        class="m-2"
+        (onClickButton)="onAceptImage()"
+      ></app-aceptar-button>
+      <app-cancelar-button
+        class="m-2"
+        *ngIf="editable_imagen"
+        (onClickButton)="onCancelImage()"
+      ></app-cancelar-button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="text" placeholder="Título" formControlName="titulo">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="number" placeholder="Fecha" formControlName="fecha">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input class="form-control" type="text" placeholder="Url" formControlName="url">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <textarea class="form-control" type="text" placeholder="Descripción" formControlName="descripcion"></textarea>
+  </div>
+  <div
+    class="form-group"
+    *ngIf="!editando || agregando_habilidad"
+  >
+    <label>Habilidad a agregar</label>
+    <input id="nueva_habilidad" class="form-control" type="text" placeholder="habilidad" formControlName="nueva_habilidad">
+  </div>
+  <app-agregar-button
+    *ngIf="editando && !agregando_habilidad"
+    (onClickButton)="OnAdd($event)"
+  ></app-agregar-button>
+  <!--TODO como hacer para agregar formcontrol de lista de objetos-->
+  <button
+    class="btn btn-light"
+    *ngIf="!editando || agregando_habilidad"
+    (click)="OnAddHabilidad($event)"
+  >
+    Agregar
+  </button>
+  <div class="languages" formArrayName="habilidades">
+    <div
+      *ngFor="let habilidad of getCtrl('habilidades', formulario)?.controls; index as i"
+    >
+      <!-- <div [formGroupName]="i"> -->
+        <span
+          class="badge bg-primary text-dark"
+        >
+          {{ habilidad.value.nombre }}
+        </span>
+        <app-eliminate-button
+          class="px-2"
+          (onClickButton)="onDelete(habilidad)"
+        >
+        </app-eliminate-button>
+      <!-- </div> -->
+    </div>
+  </div>
+  <!-- <div class="card-text languages">
+    <div
+      *ngFor="let habilidad of habilidadesNombres"
+    >
+      <span
+        class="badge bg-primary text-dark"
+
+      >
+      {{habilidad}}
+      </span>
+      <app-eliminate-button
+        class="px-2"
+        (onClickButton)="onDelete(habilidad)"
+      >
+      </app-eliminate-button>
+    </div>
+  </div> -->
+
+  <!--TODO Validaciones, estética, controlar que esté bien-->
+  <!--Al crear un proyecto crea una habilidad y no deja eliminarla si no se elimina el proyecto-->
+
+  <input type="submit" value="Aceptar" class="btn btn-ligth float-end">
+  <app-cancelar-button
+    texto="Cancelar"
+    [cruz]="false"
+    (onClickButton)="onCancel()"
+  >
+  </app-cancelar-button>
+</form>
+
+

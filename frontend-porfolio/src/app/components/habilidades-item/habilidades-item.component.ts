@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Habilidad } from 'src/app/models/habilidad.model';
+import { HabilidadesService } from 'src/app/services/habilidades.service';
 
 @Component({
   selector: 'app-habilidades-item',
@@ -14,9 +15,11 @@ export class HabilidadesItemComponent implements OnInit {
   visibleButton: Boolean;
   visibleItem: Boolean = true;
   editable: Boolean = false;
+  habilidadEditada: Habilidad;
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private habilidadesService: HabilidadesService
 
   ) {
    this.loginService.toggleView.subscribe(data =>  {
@@ -35,17 +38,89 @@ export class HabilidadesItemComponent implements OnInit {
     //TODO Falta agregar servicio que permite editar de la Base de Datos
   }
 
+
   onDelete() {
     console.log("Item Eliminado");
     this.visibleItem = false;
-    //TODO Falta agregar servicio que permite eliminar de la Base de Datos
+
+    //TODO confirmaciones
+    try {
+        this.habilidadesService.deleteHabilidad(this.habilidad.id).subscribe(data =>
+          {
+            console.log(data);
+            console.log("Se modificó la base de datos");
+            //TODO validaciones
+          })
+    } catch (error) {
+      console.log(error);
+      console.log("No se modificó la base de datos")
+    }
   }
 
-  onAcept(editable: Boolean) {
-    //FIXME Hacerlo funcionar de manera general y con validaciones
+  onAcept() {
+    //FIXME validaciones
     //TODO Falta dar estilo
-    //TODO Falta poder editar imagen
+    let nombre;
+    let porcentaje;
+
+    if (document.getElementById("nombre_edition")){
+      nombre = (document.getElementById("nombre_edition") as HTMLInputElement).value
+    } else {
+      nombre = this.habilidad.nombre
+    }
+
+    if (document.getElementById("porcentaje_edition")){
+      porcentaje = (document.getElementById("porcentaje_edition") as HTMLInputElement).value
+      porcentaje = Number(porcentaje)
+    } else {
+      porcentaje = this.habilidad.porcentaje
+    }
+
+    this.habilidadEditada  = {
+      id: this.habilidad.id,
+      nombre: nombre,
+      porcentaje: porcentaje,
+    }
+
+    console.log(this.habilidadEditada)
+
+    this.editable = false
+
+    try {
+      this.habilidadesService.editEHabilidad(this.habilidadEditada).subscribe(data =>
+        {
+          console.log(data);
+          console.log("Se modificó la base de datos");
+          this.habilidadesService.getHabilidadByID(this.habilidad.id).subscribe(data => {
+            console.log(data);
+            this.habilidad = data;
+          })
+
+          //TODO validaciones
+        })
+    } catch (error) {
+      console.log(error);
+      console.log("No se modificó la base de datos")
+    }
+
   }
+
+
+  onConfirm() {
+    console.log("Se hicieron modificaciones")
+    this.editable = false
+    try {
+          this.habilidadesService.getHabilidadByID(this.habilidad.id).subscribe(data => {
+            console.log(data);
+            this.habilidad = data;
+          })
+          //TODO validaciones
+    } catch (error) {
+      console.log(error);
+      console.log("No se modificó la base de datos")
+    }
+  }
+
 
   onCancel() {
     //TODO Falta dar estilo

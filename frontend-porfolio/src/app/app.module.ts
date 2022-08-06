@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -36,6 +37,11 @@ import { ButtonComponent } from './components/button/button.component';
 import { AceptarButtonComponent } from './components/aceptar-button/aceptar-button.component';
 import { CancelarButtonComponent } from './components/cancelar-button/cancelar-button.component';
 import { AgregarButtonComponent } from './components/agregar-button/agregar-button.component';
+import { EducacionItemEditComponent } from './components/educacion-item-edit/educacion-item-edit.component';
+import { ExperienciaItemEditComponent } from './components/experiencia-item-edit/experiencia-item-edit.component';
+import { HabilidadItemEditComponent } from './components/habilidad-item-edit/habilidad-item-edit.component';
+import { ProyectoItemEditComponent } from './components/proyecto-item-edit/proyecto-item-edit.component';
+import { LectorImagenComponent } from './components/lector-imagen/lector-imagen.component';
 
 @NgModule({
   declarations: [
@@ -67,13 +73,20 @@ import { AgregarButtonComponent } from './components/agregar-button/agregar-butt
     ButtonComponent,
     AceptarButtonComponent,
     CancelarButtonComponent,
-    AgregarButtonComponent
+    AgregarButtonComponent,
+    EducacionItemEditComponent,
+    ExperienciaItemEditComponent,
+    HabilidadItemEditComponent,
+    ProyectoItemEditComponent,
+    LectorImagenComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

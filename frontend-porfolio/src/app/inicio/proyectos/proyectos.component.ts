@@ -12,6 +12,7 @@ export class ProyectosComponent implements OnInit {
 
   arrProyectos: Proyecto[];
   visibleButton: Boolean = false;
+  agregandoNuevo: Boolean = false;
 
   constructor(
     private proyectosService: ProyectosService,
@@ -32,6 +33,25 @@ export class ProyectosComponent implements OnInit {
     })
 
     console.log();
+  }
+
+  onAdd(agregandoNuevo: Boolean) {
+    this.agregandoNuevo = agregandoNuevo;
+  }
+
+  onCancelAdd() {
+    //TODO Falta dar estilo
+    console.log("No se Agregó nuevo Proyecto");
+    this.agregandoNuevo = false;
+    // this.agregandoNuevo = false
+  }
+
+  onAddConfirm(){
+    this.agregandoNuevo = false;
+    this.proyectosService.getAllProyectos().subscribe(data => {
+      this.arrProyectos = data;
+      console.log(this.arrProyectos);
+    })
   }
 
 }

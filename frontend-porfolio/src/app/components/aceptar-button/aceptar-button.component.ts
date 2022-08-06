@@ -9,17 +9,15 @@ export class AceptarButtonComponent implements OnInit {
 
   @Input() myStyles: object = {}
   @Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
-  editable: Boolean
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   onClick(){
-    console.log('Click on edit button');
-    this.editable = !this.editable;
-    this.onClickButton.emit(this.editable);
-    //FIXME: Copiado de editcion
+    console.log('Click on Acept button');
+    this.onClickButton.emit();
   }
 }

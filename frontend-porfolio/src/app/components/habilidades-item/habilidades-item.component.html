@@ -2,13 +2,33 @@
   class="progress-box  p-2 d-flex"
   *ngIf="visibleItem"
 >
-  <div class="progress m-2 w-75" *ngIf="!editable">
-    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" [style]="'width: ' + habilidad.porcentaje+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ habilidad.nombre }}</div>
+  <div class="habilidad progress m-2" *ngIf="!editable">
+    <div
+      class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+      role="progressbar"
+      [style]="'width: '+ habilidad.porcentaje+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+    >
+      {{ habilidad.nombre }}
+    </div>
   </div>
-  <div class="m-2 w-75" *ngIf="editable">
-    <input class="card-text lugar mb-1" [value]="habilidad.nombre ">
-    <input class="card-text lugar mb-1" [value]="habilidad.porcentaje">
+  <!-- <div class="m-2 w-75" *ngIf="editable">
+    <input id="nombre_edition" class="card-text mb-1" [value]="habilidad.nombre ">
+    <input id="porcentaje_edition" class="card-text mb-1" [value]="habilidad.porcentaje">
+  </div> -->
+
+  <div
+    *ngIf="editable"
+  >
+    <div class="row g-0">
+      <app-habilidad-item-edit
+        [Habilidad] = "habilidad"
+        (onClickAcept)="onConfirm()"
+        (onClickCancel)="onCancel()"
+        [editando]="true"
+      ></app-habilidad-item-edit>
+    </div>
   </div>
+
   <!--TODO: Estilo-->
   <div class="buttons d-flex">
     <app-edition-button
@@ -23,13 +43,13 @@
       (onClickButton)="onDelete()"
     >
     </app-eliminate-button>
-    <app-aceptar-button
+    <!-- <app-aceptar-button
       *ngIf="visibleButton && editable"
-      (onClickButton)="onAcept($event)"
+      (onClickButton)="onAcept()"
     ></app-aceptar-button>
     <app-cancelar-button
       *ngIf="visibleButton && editable"
       (onClickButton)="onCancel()"
-    ></app-cancelar-button>
+    ></app-cancelar-button> -->
   </div>
 </div>

@@ -12,6 +12,7 @@ export class EducacionComponent implements OnInit {
 
   arrEducacion: Educacion[];
   visibleButton: Boolean = false;
+  agregandoNuevo: Boolean = false;
 
   constructor(
     private educacionService: EducacionService,
@@ -33,4 +34,29 @@ export class EducacionComponent implements OnInit {
     console.log();
   }
 
+
+  onAdd(agregandoNuevo: Boolean) {
+    this.agregandoNuevo = agregandoNuevo;
+  }
+
+  onCancelAdd() {
+    //TODO Falta dar estilo
+    console.log("No se Agregó nueva educacion");
+    this.agregandoNuevo = false;
+    // this.agregandoNuevo = false
+  }
+
+  onAddConfirm(){
+    this.agregandoNuevo = false;
+    this.educacionService.getAllEducacion().subscribe(data => {
+      this.arrEducacion = data;
+      console.log(this.arrEducacion);
+    })
+  }
+  // onCancel() {
+  //   console.log("No se Agregó");
+  //   this.onClickCancel.emit();
+
+  //   // this.agregandoNuevo = false
+  // }
 }

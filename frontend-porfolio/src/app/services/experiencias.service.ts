@@ -26,25 +26,22 @@ export class ExperienciasService {
     return this.http.get<Experiencia>(this.baseUrl+`/${id}`);
   }
 
-  //FIXME check
   editExperiencia( Experiencia: Experiencia ): Observable<Experiencia> {
     let id = Experiencia.id
     console.log("Editando experiencia" + id)
     return this.http.put<Experiencia>(this.baseUrl+"/edit", Experiencia);
 
   }
-    //TODO edit, add and delete
 
-  // deletePersona( id: number ): Observable<number> {
-  //   console.log("borrando persona")
-  //   return this.http.delete(this.baseUrl+"/delete", id);
+  deleteExperiencia( id: number ): Observable<Experiencia> {
+    console.log("borrando experiencia" + id)
+    return this.http.delete<Experiencia>(this.baseUrl+`/delete/${id}`);
+  }
 
-  // }
+  addExperiencia( Experiencia: Experiencia ): Observable<Experiencia> {
+    console.log("agregando Experiencia")
+    return this.http.post<Experiencia>(this.baseUrl+"/new", Experiencia);
 
-  // addPersona( persona: Persona ): Observable<Persona> {
-  //   console.log("agregando persona")
-  //   return this.http.post(this.baseUrl+"/nueva", persona);
-
-  // }
+  }
 }
 

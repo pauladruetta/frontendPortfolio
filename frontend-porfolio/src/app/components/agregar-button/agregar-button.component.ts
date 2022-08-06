@@ -9,7 +9,7 @@ export class AgregarButtonComponent implements OnInit {
 
   @Input() myStyles: object = {}
   @Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
-  editable: Boolean
+  agregando: Boolean
 
   constructor() { }
 
@@ -18,9 +18,8 @@ export class AgregarButtonComponent implements OnInit {
 
   onClick(){
     console.log('Click on add button');
-    this.editable = !this.editable;
-    this.onClickButton.emit(this.editable);
-    //FIXME: Copiado de edicion
+    this.agregando = !this.agregando;
+    this.onClickButton.emit(this.agregando);
   }
 
 }

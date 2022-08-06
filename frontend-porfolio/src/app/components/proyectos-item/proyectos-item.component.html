@@ -1,5 +1,5 @@
 <div
-  class="card mb-3"
+  class="card proyecto mb-3"
   style="max-width: 540px;"
   *ngIf="visibleItem"
 >
@@ -18,11 +18,14 @@
           <p class="card-text descripcion"> {{ proyecto.descripcion }} </p>
           <p class="card-text"><small class="text-muted">@{{ proyecto.fecha }}</small></p>
           <div class="card-text languages" >
-            <span class="badge bg-primary">Vue</span>
-            <span class="badge bg-warning text-dark">Wordpress</span>
-            <span class="badge bg-success">Tailwing</span>
+            <span
+              class="badge text-dark"
+              *ngFor="let habilidad of proyecto.habilidades"
+              [ngClass]="habilidad.nombre"
+            >
+              {{ habilidad.nombre }}
+            </span>
           </div>
-          <!--TODO Hacer dinámico-->
         </div>
       </div>
     </div>
@@ -32,27 +35,33 @@
     *ngIf="editable"
   >
     <div class="row g-0">
-      <div class="col-md-4">
-        <img [src]="proyecto.imagen" class="img-fluid rounded-start" alt="...">
-      </div>
-          <!--TODO editable-->
-      <div class="col-md-8">
+      <app-proyecto-item-edit
+        [Proyecto] = "proyecto"
+        (onClickAcept)="onConfirm()"
+        (onClickCancel)="onCancel()"
+        [editando]="true"
+      ></app-proyecto-item-edit>
+      <!--  -->
+      <!-- <div class="col-md-8">
         <div class="card-body">
-          <input  class="card-title titulo" [value]="proyecto.titulo">
-          <input  class="card-title url" [value]="proyecto.url">
+          <input id="titulo_edition" class="card-title titulo" [value]="proyecto.titulo">
+          <input id="url_edition" class="card-title url" [value]="proyecto.url">
           <textarea
             class="card-text descripcion"
+            id="descripcion_edition"
           >
             {{ proyecto.descripcion }}
           </textarea>
-          <input  class="card-text" [value]="proyecto.fecha">
+          <input id="fecha_edition" class="card-text" [value]="proyecto.fecha">
           <div class="card-text languages" >
             <span class="badge bg-primary">Vue</span>
             <span class="badge bg-warning text-dark">Wordpress</span>
             <span class="badge bg-success">Tailwing</span>
           </div>
         </div>
-      </div>
+      </div> -->
+           <!--TODO hacer dinámico-->
+
     </div>
   </div>
 
@@ -69,13 +78,14 @@
       (onClickButton)="onDelete()"
     >
     </app-eliminate-button>
-    <app-aceptar-button
+    <!--   <app-aceptar-button
       *ngIf="visibleButton && editable"
-      (onClickButton)="onAcept($event)"
+      (onClickButton)="onAcept()"
     ></app-aceptar-button>
     <app-cancelar-button
       *ngIf="visibleButton && editable"
       (onClickButton)="onCancel()"
     ></app-cancelar-button>
+  </div> -->
   </div>
 </div>
