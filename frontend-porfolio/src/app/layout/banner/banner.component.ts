@@ -17,15 +17,16 @@ export class BannerComponent implements OnInit {
 
   constructor(
     private personasServices: PersonasService,
-    private loginService: LoginService
+    //FIXME Acá no llama al login servise
+    // private loginService: LoginService
 
   ) {
-   this.loginService.toggleView.subscribe(data =>  {
-    console.log('toggleView')
-    this.visibleButton = data
-   })
+  //  this.loginService.toggleView.subscribe(data =>  {
+  //   console.log('toggleView')
+  //   this.visibleButton = data
+  //  })
 
-    console.log(this.visibleButton )
+  //   console.log(this.visibleButton )
   }
 
   // ngOnInit() {}
@@ -36,11 +37,16 @@ export class BannerComponent implements OnInit {
   //   this.visibleButton = this.loginService.getView();
   // }
 
+//FIXME cambiar al nuevo tipo de login con JWT
+//FIXME Controlar todos los otros
+
+
   async ngOnInit() {
     this.personasServices.getAllPersonas().subscribe(data => {
+      console.log(data);
       this.arrPersonas = data
       this.persona = this.arrPersonas[0];
-      console.log(this.arrPersonas);
+      console.log(this.persona);
     })
   }
 

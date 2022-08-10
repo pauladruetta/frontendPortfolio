@@ -6,15 +6,16 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
 </button>
 <form
   [formGroup]="formulario"
-  (ngSubmit)="onAcept()"
+  (ngSubmit)="onEnviar($event)"
   *ngIf="iniciarLogin"
   class=" formularioLogin bg-black rounded-3 px-3 position-absolute "
 >
+  <!-- (ngSubmit)="onAcept()" -->
   <div class="p-2">
     <div class="form-group d-flex flex-column align-items-center py-1 px-4">
       <label class=" align-self-start">Usuario</label>
       <input class="form-control" type="text" formControlName="usuario" [maxlength]="15">
-      <div class="error" *ngIf="formulario.get('usuario')?.invalid && formulario.get('usuario')?.touched">
+      <div class="error" *ngIf="formulario.get('usuario')?.errors && formulario.get('usuario')?.touched">
         <div class="container-error-message" *ngIf="formulario.get('usuario')?.hasError('required')">
           El Usuario es requerido
         </div>
@@ -29,7 +30,7 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
     <div class="form-group d-flex flex-column align-items-center py-1 px-4">
       <label  class=" align-self-start">Contraseña</label>
       <input class="form-control" type="password" formControlName="password" [maxlength]="16">
-      <div class="error" *ngIf="formulario.get('password')?.invalid && formulario.get('password')?.touched">
+      <div class="error" *ngIf="formulario.get('password')?.errors && formulario.get('password')?.touched">
         <div class="container-error-message" *ngIf="formulario.get('password')?.hasError('required')">
           La contraseña es requerida
         </div>
@@ -45,7 +46,7 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
   </div>
 
   <input type="submit" value="Aceptar" class="btn btn-dark float-end mb-3" [disabled]="formulario.invalid">
-
+<!--TODO dar información al usuario cuando la contraseña y el usuario son incorrectos-->
   <app-cancelar-button
     texto="Cancelar"
     buttonClass="btn btn-dark "

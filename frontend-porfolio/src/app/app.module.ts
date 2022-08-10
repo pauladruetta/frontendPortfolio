@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -42,6 +42,13 @@ import { ExperienciaItemEditComponent } from './components/experiencia-item-edit
 import { HabilidadItemEditComponent } from './components/habilidad-item-edit/habilidad-item-edit.component';
 import { ProyectoItemEditComponent } from './components/proyecto-item-edit/proyecto-item-edit.component';
 import { LectorImagenComponent } from './components/lector-imagen/lector-imagen.component';
+import { InterceptorService } from './services/interceptor.service';
+import { PersonasService } from './services/personas.service';
+import { EducacionService } from './services/educacion.service';
+import { ExperienciasService } from './services/experiencias.service';
+import { HabilidadesService } from './services/habilidades.service';
+import { ProyectosService } from './services/proyectos.service';
+import { ImageServiceService } from './services/image-service.service';
 
 @NgModule({
   declarations: [
@@ -88,7 +95,14 @@ import { LectorImagenComponent } from './components/lector-imagen/lector-imagen.
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    PersonasService,
+    EducacionService,
+    ExperienciasService,
+    HabilidadesService,
+    ProyectosService,
+    ImageServiceService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

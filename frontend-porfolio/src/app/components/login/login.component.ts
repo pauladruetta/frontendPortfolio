@@ -1,5 +1,7 @@
+import { JsonPipe } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   loggin: boolean = false;
   formulario: FormGroup;
 
-  constructor() {
+  constructor(private loginService: LoginService) {
     this.toggleEdit = new EventEmitter();
     this.formulario = new FormGroup({
       usuario: new FormControl("",[
@@ -29,13 +31,26 @@ export class LoginComponent implements OnInit {
         Validators.minLength(8),
         Validators.maxLength(16),
         Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
-      ])
+      ]),
+      deviceInfo: new FormGroup({
+        deviceId: new FormControl("156465464",[]),
+        deviceType: new FormControl("Device_Type_Windows",[]),
+        notificationToken: new FormControl("asdfasdfasd",[])
+      })
    })
+   //TODO información hardcodiada
   }
 
 //TODO validaciones
   ngOnInit(): void {
   }
+
+  onEnviar(event:Event){
+    event.preventDefault;
+    this.loginService.IniciarSesion(this.formulario.value).subscribe(data => {
+      console.log("DATA:" + JSON.stringify(data));
+    })
+  };
 
   onClick() {
     if (this.loggin) {
@@ -52,9 +67,11 @@ export class LoginComponent implements OnInit {
   }
 
   onAcept() {
+    //FIXME cambiar al nuevo tipo de login con JWT
+    //FIXME el formato del token es incorrecto
     console.log(this.formulario.controls);
     try {
-      if (this.formulario.value.usuario == "admin") {
+      if (this.formulario.value.usuario == "admin4") {
         if (this.formulario.value.password == "1234Paula") {
           console.log("Se inició sesión");
           this.iniciarLogin = !this.iniciarLogin;
