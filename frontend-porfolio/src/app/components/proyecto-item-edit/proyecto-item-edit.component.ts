@@ -206,7 +206,6 @@ export class ProyectoItemEditComponent implements OnInit {
 }
 
 onCancelImage() {
-  //TODO Falta dar estilo
   console.log("No se modifica la imagen")
   this.editable_imagen = false
 }

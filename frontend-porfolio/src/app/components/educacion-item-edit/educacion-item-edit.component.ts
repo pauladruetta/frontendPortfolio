@@ -101,7 +101,6 @@ export class EducacionItemEditComponent implements OnInit {
   }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editando = false;
     this.editable_imagen= false;

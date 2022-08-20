@@ -14,15 +14,15 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
   <div class="p-2">
     <div class="form-group d-flex flex-column align-items-center py-1 px-4">
       <label class=" align-self-start">Usuario</label>
-      <input class="form-control" type="text" formControlName="usuario" [maxlength]="15">
-      <div class="error" *ngIf="formulario.get('usuario')?.errors && formulario.get('usuario')?.touched">
-        <div class="container-error-message" *ngIf="formulario.get('usuario')?.hasError('required')">
+      <input class="form-control" type="text" formControlName="nombreUsuario" [maxlength]="15">
+      <div class="error" *ngIf="formulario.get('nombreUsuario')?.errors && formulario.get('nombreUsuario')?.touched">
+        <div class="container-error-message" *ngIf="formulario.get('nombreUsuario')?.hasError('required')">
           El Usuario es requerido
         </div>
-        <div class="container-error-message" *ngIf="formulario.get('usuario')?.hasError('minlength') || formulario.get('usuario')?.hasError('maxlength') ">
+        <div class="container-error-message" *ngIf="formulario.get('nombreUsuario')?.hasError('minlength') || formulario.get('nombreUsuario')?.hasError('maxlength') ">
           El usuario debe tener entre 5 y 15 caracteres
         </div>
-        <div class="container-error-message" *ngIf="formulario.get('usuario')?.hasError('pattern')">
+        <div class="container-error-message" *ngIf="formulario.get('nombreUsuario')?.hasError('pattern')">
           El usuario sólo puede tener letras y números
         </div>
       </div>
@@ -46,7 +46,6 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
   </div>
 
   <input type="submit" value="Aceptar" class="btn btn-dark float-end mb-3" [disabled]="formulario.invalid">
-<!--TODO dar información al usuario cuando la contraseña y el usuario son incorrectos-->
   <app-cancelar-button
     texto="Cancelar"
     buttonClass="btn btn-dark "
@@ -55,5 +54,8 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
   >
   </app-cancelar-button>
   <!--FIXME Margin button-->
+  <div class="alert alert-danger" role="alert" *ngIf="isLoginFail">
+    {{ error_mensaje }}
+  </div>
 </form>
-<!--TODO login con jwt-->
+

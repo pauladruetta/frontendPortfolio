@@ -70,7 +70,6 @@ export class ExperienciaItemComponent implements OnInit {
 // }
 
 // onCancelImage() {
-//   //TODO Falta dar estilo
 //   console.log("No se modifica la imagen")
 //   console.log( this.imagen_editada)
 
@@ -203,7 +202,6 @@ export class ExperienciaItemComponent implements OnInit {
   }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editable = false
     this.editable_imagen= false

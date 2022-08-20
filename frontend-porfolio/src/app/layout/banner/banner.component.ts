@@ -17,16 +17,15 @@ export class BannerComponent implements OnInit {
 
   constructor(
     private personasServices: PersonasService,
-    //FIXME Acá no llama al login servise
-    // private loginService: LoginService
+    private loginService: LoginService
 
   ) {
-  //  this.loginService.toggleView.subscribe(data =>  {
-  //   console.log('toggleView')
-  //   this.visibleButton = data
-  //  })
+   this.loginService.toggleView.subscribe(data =>  {
+    console.log('toggleView')
+    this.visibleButton = data
+   })
 
-  //   console.log(this.visibleButton )
+    console.log(this.visibleButton )
   }
 
   // ngOnInit() {}
@@ -36,10 +35,6 @@ export class BannerComponent implements OnInit {
   //   console.log(this.arrPersonas);
   //   this.visibleButton = this.loginService.getView();
   // }
-
-//FIXME cambiar al nuevo tipo de login con JWT
-//FIXME Controlar todos los otros
-
 
   async ngOnInit() {
     this.personasServices.getAllPersonas().subscribe(data => {
@@ -52,7 +47,7 @@ export class BannerComponent implements OnInit {
 
   onEdit(editable: Boolean) {
     this.editable = editable;
-    // Falta agregar servicio que permite editar la Base de Datos
+    // TODO:Falta agregar servicio que permite editar la Base de Datos
   }
 }
 

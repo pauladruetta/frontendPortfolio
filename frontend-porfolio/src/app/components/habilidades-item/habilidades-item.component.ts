@@ -35,7 +35,6 @@ export class HabilidadesItemComponent implements OnInit {
 
   onEdit(editable: Boolean) {
     this.editable = editable;
-    //TODO Falta agregar servicio que permite editar de la Base de Datos
   }
 
 
@@ -123,7 +122,7 @@ export class HabilidadesItemComponent implements OnInit {
 
 
   onCancel() {
-    //TODO Falta dar estilo
+
     console.log("No se hicieron modificaciones")
     this.editable = false
   }

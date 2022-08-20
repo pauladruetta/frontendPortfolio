@@ -170,7 +170,6 @@ export class AcercaComponent implements OnInit {
   }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editable = {
       "imagen_perfil": false,

@@ -154,7 +154,6 @@ export class ProyectosItemComponent implements OnInit {
   }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editable = false
     this.editable_imagen= false
