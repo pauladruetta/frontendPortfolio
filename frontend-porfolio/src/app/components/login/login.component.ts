@@ -51,10 +51,8 @@ export class LoginComponent implements OnInit {
     this.loginService.isAdmin()
    }
     console.log('Login: '+this.loggin)
-   //TODO información hardcodiada
   }
 
-//TODO validaciones
   ngOnInit(): void {
     console.log("Login component")
   }
@@ -138,7 +136,6 @@ export class LoginComponent implements OnInit {
   // }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("Cancelo inicio de sesión")
     this.onClickCancel.emit();
     this.formulario.reset();

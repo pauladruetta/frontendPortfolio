@@ -48,7 +48,7 @@ export class EducacionItemComponent implements OnInit {
     this.editable_imagen= false
     try {
           this.educacionService.getEducacionByID(this.educacion.id).subscribe(data => {
-            console.log(data);
+            console.log("educacion: " + data);
             this.educacion = data;
           })
           //TODO validaciones
@@ -81,7 +81,6 @@ export class EducacionItemComponent implements OnInit {
   }
   onAcept() {
     //FIXME validaciones
-    //TODO Falta dar estilo
 
     let institucion;
     let pais;
@@ -170,7 +169,6 @@ export class EducacionItemComponent implements OnInit {
   // }
 
   // onCancelImage() {
-  //   //TODO Falta dar estilo
   //   console.log("No se modifica la imagen")
   //   this.editable_imagen = false
   // }

@@ -13,7 +13,8 @@ export class HabilidadesService {
 
   constructor( private http: HttpClient) {
 
-    this.baseUrl = "http://localhost:8080/habilidad"
+    //this.baseUrl = "http://localhost:8080/habilidad"
+    this.baseUrl = "https://backendapdruetta.herokuapp.com/habilidad";
     console.log("El servicio de habilidades está corriendo")
 
   }

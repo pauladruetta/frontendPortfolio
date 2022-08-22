@@ -8,21 +8,24 @@ import { Educacion } from '../models/educacion.model';
 })
 export class EducacionService {
 
-  baseUrl: string;
+  baseUrl: string = "https://backendapdruetta.herokuapp.com/educacion";
   educacionArr: any[];
 
   constructor( private http: HttpClient) {
 
-    this.baseUrl = "http://localhost:8080/educacion"
-    console.log("El servicio de educacion está corriendo")
+    //this.baseUrl = "http://localhost:8080/educacion"
+    // this.baseUrl = "https://backendapdruetta.herokuapp.com/educacion";
+    console.log("El servicio de educacion está corriendo hasta acá")
 
   }
 
   getAllEducacion(): Observable<Educacion[]> {
-    return this.http.get<Educacion[]>(this.baseUrl+"/ver-todas");
+    console.log("trayendo educacion");
+    return this.http.get<Educacion[]>(this.baseUrl+`/ver-todas`);
   }
 
   getEducacionByID(id: number): Observable<Educacion> {
+    console.log("trayendo educacion por id :" + id);
     return this.http.get<Educacion>(this.baseUrl+`/${id}`);
   }
 

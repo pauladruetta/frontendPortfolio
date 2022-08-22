@@ -13,7 +13,8 @@ export class ProyectosService {
 
   constructor( private http: HttpClient) {
 
-    this.baseUrl = "http://localhost:8080/proyecto"
+    //this.baseUrl = "http://localhost:8080/proyecto"
+    this.baseUrl = "https://backendapdruetta.herokuapp.com/proyecto";
     console.log("El servicio de proyectos está corriendo")
 
   }

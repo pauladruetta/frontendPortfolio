@@ -22,11 +22,15 @@ export class EducacionComponent implements OnInit {
       console.log('toggleView')
       this.visibleButton = data
     })
-      console.log(this.visibleButton )
+      console.log(this.visibleButton );
+      console.log("creo al componente Educacion");
   }
 
   async ngOnInit() {
+    console.log("llamo al servicio de Educacion");
+
     this.educacionService.getAllEducacion().subscribe(data => {
+      console.log("llamando al servicio de Educacion");
       this.arrEducacion = data;
       console.log(this.arrEducacion);
     })
@@ -50,6 +54,7 @@ export class EducacionComponent implements OnInit {
     this.agregandoNuevo = false;
     this.educacionService.getAllEducacion().subscribe(data => {
       this.arrEducacion = data;
+      console.log("Educacion : ");
       console.log(this.arrEducacion);
     })
   }

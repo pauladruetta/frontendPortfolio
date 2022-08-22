@@ -28,6 +28,7 @@ export class AcercaComponent implements OnInit {
     private loginService: LoginService
 
   ) {
+    console.log("creo al componente acerca");
    this.loginService.toggleView.subscribe(data =>  {
     console.log('toggleView')
     this.visibleButton = data
@@ -61,12 +62,16 @@ export class AcercaComponent implements OnInit {
   // }
 
   async ngOnInit() {
-    // this.arrPersonas = await this.personasServices.getAllPromise()
+//    this.arrPersonas = await this.personasServices.getAllPromise()
     this.visibleButton = this.loginService.getView();
+    console.log("llamo a servicio personas");
     this.personasServices.getAllPersonas().subscribe(data => {
       this.arrPersonas = data
+      console.log(data);
       this.persona = this.arrPersonas[0];
+      console.log("traigo personas");
       console.log(this.arrPersonas);
+
     })
   }
 

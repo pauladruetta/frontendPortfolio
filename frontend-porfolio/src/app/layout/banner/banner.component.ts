@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Persona } from 'src/app/models/persona.model';
 import { PersonasService } from 'src/app/services/personas.service';
+import { EducacionService } from 'src/app/services/educacion.service';
 
 @Component({
   selector: 'app-banner',
@@ -17,6 +18,7 @@ export class BannerComponent implements OnInit {
 
   constructor(
     private personasServices: PersonasService,
+    private educacionService: EducacionService,
     private loginService: LoginService
 
   ) {
@@ -37,11 +39,15 @@ export class BannerComponent implements OnInit {
   // }
 
   async ngOnInit() {
+    console.log("banner");
     this.personasServices.getAllPersonas().subscribe(data => {
       console.log(data);
       this.arrPersonas = data
       this.persona = this.arrPersonas[0];
       console.log(this.persona);
+    }, err => {
+      console.log("error")
+      console.log(err)
     })
   }
 

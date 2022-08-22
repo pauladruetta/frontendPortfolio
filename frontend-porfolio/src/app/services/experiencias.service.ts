@@ -13,7 +13,8 @@ export class ExperienciasService {
 
   constructor( private http: HttpClient) {
 
-    this.baseUrl = "http://localhost:8080/experiencia"
+    //this.baseUrl = "http://localhost:8080/experiencia"
+    this.baseUrl = "https://backendapdruetta.herokuapp.com/experiencia";
     console.log("El servicio de experiencias está corriendo")
 
   }

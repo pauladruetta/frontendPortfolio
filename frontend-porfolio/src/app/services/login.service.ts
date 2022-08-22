@@ -41,7 +41,9 @@ export class LoginService {
     }
       console.log('Login: '+ this.loggin)
       this.toggleView = new EventEmitter();
-    this.baseUrl = "http://localhost:8080/auth";
+//    this.baseUrl = "http://localhost:8080/auth";
+    this.baseUrl = "https://backendapdruetta.herokuapp.com/auth";
+    //TODO: revisar que se llama a la misma url desde varios lugares, cambiar eso
     console.log("El servicio de login está corriendo");
     // this.currentUserSubject = new BehaviorSubject<JwtDTO>(
     //   {
