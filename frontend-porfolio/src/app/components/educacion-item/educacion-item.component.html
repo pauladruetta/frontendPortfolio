@@ -1,0 +1,98 @@
+<div
+  class="card educacion mb-3"
+  *ngIf="visibleItem"
+>
+  <div
+    class="row educacion-item g-0"
+    *ngIf="!editable"
+  >
+    <div class="col-md-4">
+      <img [src]="educacion.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title institucion">{{ educacion.institucion }}</h5>
+        <p class="card-text titulo-estudio">{{ educacion.titulo }}</p>
+        <p class="card-text periodo"><small class="text-muted">{{ educacion.fecha_inicio }} - {{ educacion.fecha_fin }}</small></p>
+        <p class="card-text pais"><small class="text-muted">{{ educacion.pais }}</small></p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="editable"
+  >
+    <div class="row g-0">
+      <app-educacion-item-edit
+        [Educacion] = "educacion"
+        (onClickAcept)="onConfirm()"
+        (onClickCancel)="onCancel()"
+        [editando]="true"
+      ></app-educacion-item-edit>
+    </div>
+  </div>
+  <!-- <div
+    class="row educacion-item-editable g-0"
+    *ngIf="editable"
+  >
+    <div class="col-md-4">
+      <img [src]="imagen_editada" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+    </div>
+
+    <app-lector-imagen
+      *ngIf="editable_imagen"
+    ></app-lector-imagen>
+    <div class="buttons-image d-flex position-absolute">
+      <app-edition-button
+        *ngIf="visibleButton && !editable_imagen"
+        (onClickButton)="onEditImage($event)"
+      >
+      </app-edition-button>
+      <app-aceptar-button
+        *ngIf="visibleButton && editable_imagen"
+        (onClickButton)="onAceptImage()"
+      ></app-aceptar-button>
+      <app-cancelar-button
+        *ngIf="visibleButton && editable_imagen"
+        (onClickButton)="onCancelImage()"
+      ></app-cancelar-button>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card-body">
+        <input id="institucion_edition" class="card-title" [value]="educacion.institucion">
+        <input id="institucion_titulo"  class="card-text titulo-estudio"  [value]="educacion.titulo">
+        <small class="text-muted">
+          <input id="fecha_inicio_edition" class="card-text periodo" [value]="educacion.fecha_inicio">
+          <input id="fecha_fin_edition" class="card-text periodo" [value]="educacion.fecha_fin">
+        </small>
+        <small class="text-muted">
+          <input id="pais_edition" class="card-text" [value]="educacion.pais">
+        </small>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="buttons d-flex position-absolute">
+    <app-edition-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onEdit($event)"
+    >
+    </app-edition-button>
+    <app-eliminate-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onDelete()"
+    >
+    </app-eliminate-button>
+    <!-- <app-aceptar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onAcept()"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onCancel()"
+    ></app-cancelar-button> -->
+  </div>
+</div>

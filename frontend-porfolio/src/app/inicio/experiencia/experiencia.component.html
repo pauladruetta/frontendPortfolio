@@ -1,0 +1,32 @@
+<app-card title="Experiencia">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Experiencia </h5>
+      <app-agregar-button
+        *ngIf="visibleButton && !agregandoNuevo"
+        (onClickButton)="onAdd($event)"
+      ></app-agregar-button>
+      <app-cancelar-button
+        *ngIf="visibleButton && agregandoNuevo"
+        class="float-end"
+        (onClickButton)="onCancelAdd()"
+      ></app-cancelar-button>
+    </div>
+    <div
+      class="row experiencia-item-editable g-0"
+      *ngIf="agregandoNuevo"
+    >
+      <app-experiencia-item-edit
+      (onClickAcept)="onAddConfirm()"
+      (onClickCancel)="onCancelAdd()"
+      [editando]="false"
+    ></app-experiencia-item-edit>
+    </div>
+    <app-experiencia-item
+      *ngFor="let experiencia of arrExperiencias"
+      [experiencia]="experiencia"
+      class=" d-flex justify-content-around"
+    >
+    </app-experiencia-item>
+  </div>
+</app-card>

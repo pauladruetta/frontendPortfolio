@@ -1,0 +1,31 @@
+<app-card title="Educacion">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Educación </h5>
+      <app-agregar-button
+        *ngIf="visibleButton && !agregandoNuevo"
+        (onClickButton)="onAdd($event)"
+      ></app-agregar-button>
+      <app-cancelar-button
+        *ngIf="visibleButton && agregandoNuevo"
+        class="float-end"
+        (onClickButton)="onCancelAdd()"
+      ></app-cancelar-button>
+    </div>
+    <div
+      class="row educacion-item-editable g-0 justify-content-around"
+      *ngIf="agregandoNuevo"
+    >
+      <app-educacion-item-edit
+        (onClickAcept)="onAddConfirm()"
+        (onClickCancel)="onCancelAdd()"
+        [editando]="false"
+      ></app-educacion-item-edit>
+    </div>
+    <app-educacion-item
+      *ngFor="let educacion of arrEducacion"
+      [educacion]="educacion"
+      class=" d-flex justify-content-around"
+    ></app-educacion-item>
+  </div>
+</app-card>

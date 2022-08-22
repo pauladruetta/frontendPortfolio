@@ -1,0 +1,102 @@
+<div
+  class="card experiencia mb-3"
+  *ngIf="visibleItem"
+  >
+  <div
+    class="row experiencia-item g-0"
+    *ngIf="!editable"
+  >
+    <div class="col-md-4">
+      <img [src]="experiencia.imagen" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ experiencia.titulo }}</h5>
+        <p class="card-text empresa mb-1">{{ experiencia.empresa }}</p>
+        <p class="card-text tipo mb-1">{{ experiencia.tipo }}</p>
+        <p class="card-text periodo mb-1"><small class="text-muted"> {{ experiencia.fecha_inicio }} - {{ fecha_fin }} </small></p>
+        <p class="card-text lugar mb-1"><small class="text-muted"> {{ experiencia.provincia }} - {{experiencia.pais}} </small></p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="editable"
+  >
+    <div class="row g-0">
+      <app-experiencia-item-edit
+        [Experiencia] = "experiencia"
+        (onClickAcept)="onConfirm()"
+        (onClickCancel)="onCancel()"
+        [editando]="true"
+      ></app-experiencia-item-edit>
+    </div>
+  </div>
+
+  <!-- <div
+    class="row experiencia-item-editable g-0"
+    *ngIf="editable"
+  >
+    <div class="col-md-4">
+      <img [src]="imagen_editada" class="img-fluid rounded-start" alt="logo" style="max-width: 6rem;">
+    </div>
+
+    <app-lector-imagen
+      *ngIf="editable_imagen"
+    ></app-lector-imagen>
+    <div class="buttons-image d-flex position-absolute">
+      <app-edition-button
+        *ngIf="visibleButton && !editable_imagen"
+        (onClickButton)="onEditImage($event)"
+      >
+      </app-edition-button>
+      <app-aceptar-button
+        *ngIf="visibleButton && editable_imagen"
+        (onClickButton)="onAceptImage()"
+      ></app-aceptar-button>
+      <app-cancelar-button
+        *ngIf="visibleButton && editable_imagen"
+        (onClickButton)="onCancelImage()"
+      ></app-cancelar-button>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card-body">
+        <input id="titulo_edition" class="card-title" [value]="experiencia.titulo">
+        <input id="empresa_edition" class="card-text mb-1" [value]="experiencia.empresa">
+        <input id="tipo_edition" class="card-text mb-1" [value]="experiencia.tipo">
+        <small class="text-muted">
+          <input id="fecha_inicio_edition" class="card-text periodo mb-1" [value]="experiencia.fecha_inicio">
+          <input id="fecha_fin_edition"  class="card-text periodo mb-1" [value]="fecha_fin">
+        </small>
+        <small class="text-muted">
+          <input id="provincia_edition" class="card-text lugar mb-1" [value]="experiencia.provincia">
+          <input id="pais_edition" class="card-text lugar mb-1" [value]="experiencia.pais">
+        </small>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="buttons d-flex position-absolute">
+    <app-edition-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onEdit($event)"
+    >
+    </app-edition-button>
+    <app-eliminate-button
+      *ngIf="visibleButton  && !editable"
+      class="px-2"
+      (onClickButton)="onDelete()"
+    >
+    </app-eliminate-button>
+    <!-- <app-aceptar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onAcept()"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onCancel()"
+    ></app-cancelar-button> -->
+  </div>
+</div>

@@ -26,6 +26,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Add Bootstrap
+
+npm install bootstrap
+
+    "styles": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "src/styles.scss"
+    ],
+    "scripts": [
+    "node_modules/jquery/dist/jquery.min.js",
+    "node_modules/@popperjs/core/dist/umd/popper.min.js",
+    "node_modules/bootstrap/dist/js/bootstrap.min.js"
+    ]
+
 ## Add FontAwesone
 
 npm install @fortawesome/angular-fontawesome
@@ -34,5 +48,22 @@ npm install @fortawesome/free-brands-svg-icons
 npm install @fortawesome/free-regular-svg-icons
 npm install @fortawesome/free-solid-svg-icons
 
-ejmplo de uso:
+en app.module.ts 
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faArrowDown as faArrowDown } from '@fortawesome/free-solid-svg-icons';
+
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule
+  ],
+  export class AppModule {
+  constructor (library: FaIconLibrary) {
+    library.addIcons(faArrowDown);
+  }
+}
+
+ejemplo de uso:
 <fa-icon [icon]="['fas','arrow-down']"></fa-icon>

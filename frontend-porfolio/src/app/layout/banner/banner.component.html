@@ -1,0 +1,16 @@
+<div class="portada-container w-100 p-3 relative">
+  <img
+    class="img-fluid w-100"
+    [src]="persona.imagen_portada"
+    alt="LogoAp"
+  />
+  <!--TODO: Editable y el botón está desaparecido-->
+  <div class="buttons d-flex position-absolute">
+    <div class="buttons d-flex position-absolute">
+      <app-edition-button
+        *ngIf="visibleButton"
+        (onClickButton)="onEdit($event)"
+      >
+      </app-edition-button>
+  </div>
+</div>

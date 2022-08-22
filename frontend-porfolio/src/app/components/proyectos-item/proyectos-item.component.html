@@ -1,0 +1,91 @@
+<div
+  class="card proyecto mb-3"
+  style="max-width: 540px;"
+  *ngIf="visibleItem"
+>
+  <a
+    [href]="proyecto.url"
+    target="_blank"
+    *ngIf="!editable"
+  >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="proyecto.imagen" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title titulo">{{ proyecto.titulo }}</h5>
+          <p class="card-text descripcion"> {{ proyecto.descripcion }} </p>
+          <p class="card-text"><small class="text-muted">@{{ proyecto.fecha }}</small></p>
+          <div class="card-text languages" >
+            <span
+              class="badge text-dark"
+              *ngFor="let habilidad of proyecto.habilidades"
+              [ngClass]="habilidad.nombre"
+            >
+              {{ habilidad.nombre }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <div
+    *ngIf="editable"
+  >
+    <div class="row g-0">
+      <app-proyecto-item-edit
+        [Proyecto] = "proyecto"
+        (onClickAcept)="onConfirm()"
+        (onClickCancel)="onCancel()"
+        [editando]="true"
+      ></app-proyecto-item-edit>
+      <!--  -->
+      <!-- <div class="col-md-8">
+        <div class="card-body">
+          <input id="titulo_edition" class="card-title titulo" [value]="proyecto.titulo">
+          <input id="url_edition" class="card-title url" [value]="proyecto.url">
+          <textarea
+            class="card-text descripcion"
+            id="descripcion_edition"
+          >
+            {{ proyecto.descripcion }}
+          </textarea>
+          <input id="fecha_edition" class="card-text" [value]="proyecto.fecha">
+          <div class="card-text languages" >
+            <span class="badge bg-primary">Vue</span>
+            <span class="badge bg-warning text-dark">Wordpress</span>
+            <span class="badge bg-success">Tailwing</span>
+          </div>
+        </div>
+      </div> -->
+           <!--TODO hacer dinámico-->
+
+    </div>
+  </div>
+
+  <div class="buttons d-flex position-absolute">
+    <app-edition-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onEdit($event)"
+    >
+    </app-edition-button>
+    <app-eliminate-button
+      *ngIf="visibleButton && !editable"
+      class="px-2"
+      (onClickButton)="onDelete()"
+    >
+    </app-eliminate-button>
+    <!--   <app-aceptar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onAcept()"
+    ></app-aceptar-button>
+    <app-cancelar-button
+      *ngIf="visibleButton && editable"
+      (onClickButton)="onCancel()"
+    ></app-cancelar-button>
+  </div> -->
+  </div>
+</div>

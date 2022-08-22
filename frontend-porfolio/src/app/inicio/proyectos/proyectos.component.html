@@ -1,0 +1,31 @@
+<app-card title="Proyectos">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title"> Proyectos </h5>
+      <app-agregar-button
+        *ngIf="visibleButton && !agregandoNuevo"
+        (onClickButton)="onAdd($event)"
+      ></app-agregar-button>
+      <app-cancelar-button
+        *ngIf="visibleButton && agregandoNuevo"
+        class="float-end"
+        (onClickButton)="onCancelAdd()"
+      ></app-cancelar-button>
+    </div>
+    <div
+    class="row proyecto-item-editable g-0"
+    *ngIf="agregandoNuevo"
+  >
+    <app-proyecto-item-edit
+      (onClickAcept)="onAddConfirm()"
+      (onClickCancel)="onCancelAdd()"
+      [editando]="false"
+    ></app-proyecto-item-edit>
+  </div>
+    <app-proyectos-item
+    *ngFor="let proyecto of arrProyectos"
+    [proyecto]="proyecto"
+    class=" d-flex justify-content-around"
+  ></app-proyectos-item>
+  </div>
+</app-card>
