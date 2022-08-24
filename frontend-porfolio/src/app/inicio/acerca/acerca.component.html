@@ -27,6 +27,8 @@
           ></app-aceptar-button>
           <app-cancelar-button
             class="m-2"
+            [cruz]="false"
+            texto="Cancelar"
             *ngIf="visibleButton && editable.imagen_perfil"
             (onClickButton)="onCancel()"
           ></app-cancelar-button>
