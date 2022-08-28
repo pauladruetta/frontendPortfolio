@@ -7,5 +7,5 @@ export class Proyecto {
   url: string;
   fecha: number;
   imagen: string;
-  habilidades: Array<Habilidad>;
+  habilidades: Array<String>;
 }

@@ -10,7 +10,8 @@ export class ImageServiceService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "http://localhost:8080/persona/image-upload"
+    //this.baseUrl = "http://localhost:8080/persona/image-upload"
+    this.baseUrl = "https://backendapdruetta.herokuapp.com/persona/image-upload";
     console.log("El servicio de imágenes está corriendo")
    }
 

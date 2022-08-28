@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ImageServiceService } from 'src/app/services/image-service.service';
 
 class ImageSnippet {
@@ -17,6 +17,7 @@ export class LectorImagenComponent implements OnInit {
 
   selectedFile: ImageSnippet;
   url: string = "";
+  @Input() textColor: string = "black";
 
   constructor(
     private imageService: ImageServiceService

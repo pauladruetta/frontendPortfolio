@@ -1,0 +1,43 @@
+<div
+  class="image-box position-relative d-flex flex-column align-items-center justify-content-md-evenly"
+  [ngClass]="{' flex-md-row ':editable_imagen}"
+>
+  <div
+    class="col-md-4 rounded-circle ratio ratio-1x1 overflow-hidden border-0 bg-opacity-10 bg-info"
+    style="width: 10rem;"
+  >
+    <img [src]="imagen_editada" class="img-fluid rounded-start" alt="...">
+  </div>
+  <div class=""
+    [ngClass]="{'flex flex-column':!editable_imagen}"
+  >
+    <app-lector-imagen
+      *ngIf="editable_imagen"
+    ></app-lector-imagen>
+    <div
+      class="buttons-image d-flex justify-content-center"
+      [ngClass]="{'edit position-absolute':!editable_imagen}"
+    >
+      <app-edition-button
+        *ngIf="!editable_imagen"
+        [newComponent] = true
+        (onClickButton)="onEditImage($event)"
+      >
+      </app-edition-button>
+      <app-aceptar-button
+        *ngIf="editable_imagen"
+        class="m-2"
+        (onClickButton)="onAceptImage()"
+      ></app-aceptar-button>
+      <app-cancelar-button
+        class="m-2"
+        texto="Cancelar"
+        [cruz]="false"
+        *ngIf="editable_imagen"
+        (onClickButton)="onCancelImage()"
+      ></app-cancelar-button>
+    </div>
+</div>
+
+
+</div>

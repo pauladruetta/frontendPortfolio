@@ -1,7 +1,9 @@
+$layout-breakpoint-small: 500px
+$layout-breakpoint-medium: 768px
+
 .imagen-box
-  top: -6rem
-  max-width: 10rem
-  width: 30vw
+  width: 60vw
+  top: -3rem
 
 img
   object-fit: cover
@@ -13,19 +15,60 @@ img
 
 
 .datos-personales
-  width: 30rem
+  width: 100%
   padding-bottom: 2rem
-  align-items: center
+  border: 0
 
-textarea.acerca
+#acerca
+  width: 90%
+
+#acerca_edition
+  height: 10rem
   max-width: 100%
-  width: 100rem
 
 .buttons-image.edit
   bottom: 1rem
   right: 0rem
 
 .buttons-image
-  bottom: -4rem
+  bottom: 10rem
+
+.buttons.acerca-edit
+  position: absolute
 
 
+
+@media screen and (min-width: $layout-breakpoint-small)
+  .datos-personales
+
+
+  .imagen-box
+    top: -4rem
+    width: 40vw
+
+  .buttons-image
+    bottom: 11rem
+
+@media screen and (min-width: $layout-breakpoint-medium)
+  .datos-personales
+    width: 30rem
+
+  .imagen-box
+    top: -6rem
+    max-width: 15rem
+    width: 30vw
+
+  .buttons-image
+    bottom: 12rem
+
+  .acerca
+    .card-body
+      padding: 2rem
+      justify-items: center
+
+  #acerca_edition
+    height: 80%
+    max-width: 100%
+
+  .card.acerca
+    border: 0

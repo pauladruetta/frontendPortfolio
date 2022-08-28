@@ -48,10 +48,9 @@ export class EducacionItemComponent implements OnInit {
     this.editable_imagen= false
     try {
           this.educacionService.getEducacionByID(this.educacion.id).subscribe(data => {
-            console.log(data);
+            console.log("educacion: " + data);
             this.educacion = data;
           })
-          //TODO validaciones
     } catch (error) {
       console.log(error);
       console.log("No se modificó la base de datos")
@@ -63,96 +62,92 @@ export class EducacionItemComponent implements OnInit {
   //   this.editable_imagen = editable;
   // }
 
-  onDelete() {
+  onDelete(elemento:any) {
     this.visibleItem = false;
-
-    //TODO confirmaciones
+    console.log(elemento)
+    console.log(event)
     try {
         this.educacionService.deleteEducacion(this.educacion.id).subscribe(data =>
           {
             console.log(data);
             console.log("Item Eliminado");
-            //TODO validaciones
           })
     } catch (error) {
       console.log(error);
       console.log("No se modificó la base de datos")
     }
   }
-  onAcept() {
-    //FIXME validaciones
-    //TODO Falta dar estilo
+  // onAcept() {
 
-    let institucion;
-    let pais;
-    let titulo;
-    let fecha_inicio;
-    let fecha_fin;
+  //   let institucion;
+  //   let pais;
+  //   let titulo;
+  //   let fecha_inicio;
+  //   let fecha_fin;
 
-    if (document.getElementById("institucion_edition")){
-      institucion = (document.getElementById("institucion_edition") as HTMLInputElement).value
-    } else {
-      institucion = this.educacion.institucion
-    }
+  //   if (document.getElementById("institucion_edition")){
+  //     institucion = (document.getElementById("institucion_edition") as HTMLInputElement).value
+  //   } else {
+  //     institucion = this.educacion.institucion
+  //   }
 
-    if (document.getElementById("pais_edition")){
-      pais = (document.getElementById("pais_edition") as HTMLInputElement).value
-    } else {
-      pais = this.educacion.pais
-    }
-    if (document.getElementById("titulo_edition")){
-      titulo = (document.getElementById("titulo_edition") as HTMLInputElement).value
-    } else {
-      titulo = this.educacion.titulo
-    }
-    if (document.getElementById("fecha_inicio_edition")){
-      fecha_inicio = Number((document.getElementById("fecha_inicio_edition") as HTMLInputElement).value)
-    } else {
-      fecha_inicio = this.educacion.fecha_inicio
-    }
-    if (document.getElementById("fecha_fin_edition")){
-      fecha_fin = (document.getElementById("fecha_fin_edition") as HTMLInputElement).value
-      if (fecha_fin == "Actualidad"){
-        fecha_fin = 0
-      } else {
-        fecha_fin = Number(fecha_fin)
-      }
-    } else {
-      fecha_fin = this.educacion.fecha_fin
-    }
+  //   if (document.getElementById("pais_edition")){
+  //     pais = (document.getElementById("pais_edition") as HTMLInputElement).value
+  //   } else {
+  //     pais = this.educacion.pais
+  //   }
+  //   if (document.getElementById("titulo_edition")){
+  //     titulo = (document.getElementById("titulo_edition") as HTMLInputElement).value
+  //   } else {
+  //     titulo = this.educacion.titulo
+  //   }
+  //   if (document.getElementById("fecha_inicio_edition")){
+  //     fecha_inicio = Number((document.getElementById("fecha_inicio_edition") as HTMLInputElement).value)
+  //   } else {
+  //     fecha_inicio = this.educacion.fecha_inicio
+  //   }
+  //   if (document.getElementById("fecha_fin_edition")){
+  //     fecha_fin = (document.getElementById("fecha_fin_edition") as HTMLInputElement).value
+  //     if (fecha_fin == "Actualidad"){
+  //       fecha_fin = 0
+  //     } else {
+  //       fecha_fin = Number(fecha_fin)
+  //     }
+  //   } else {
+  //     fecha_fin = this.educacion.fecha_fin
+  //   }
 
-    this.educacionEditada = {
-      id: this.educacion.id,
-      titulo: titulo,
-      institucion: institucion,
-      pais: pais,
-      fecha_inicio: fecha_inicio,
-      fecha_fin: fecha_fin,
-      imagen:  this.imagen_editada
-    }
+  //   this.educacionEditada = {
+  //     id: this.educacion.id,
+  //     titulo: titulo,
+  //     institucion: institucion,
+  //     pais: pais,
+  //     fecha_inicio: fecha_inicio,
+  //     fecha_fin: fecha_fin,
+  //     imagen:  this.imagen_editada
+  //   }
 
-    console.log(this.educacionEditada)
+  //   console.log(this.educacionEditada)
 
-    this.editable = false
-    this.editable_imagen= false
+  //   this.editable = false
+  //   this.editable_imagen= false
 
-    try {
-      this.educacionService.editEducacion(this.educacionEditada).subscribe(data =>
-        {
-          console.log(data);
-          console.log("Se modificó la base de datos");
-          this.educacionService.getEducacionByID(this.educacion.id).subscribe(data => {
-            console.log(data);
-            this.educacion = data;
-          })
-          //TODO validaciones
-        })
-    } catch (error) {
-      console.log(error);
-      console.log("No se modificó la base de datos")
-    }
+  //   try {
+  //     this.educacionService.editEducacion(this.educacionEditada).subscribe(data =>
+  //       {
+  //         console.log(data);
+  //         console.log("Se modificó la base de datos");
+  //         this.educacionService.getEducacionByID(this.educacion.id).subscribe(data => {
+  //           console.log(data);
+  //           this.educacion = data;
+  //         })
+  //       })
+  //   } catch (error) {
+  //     console.log(error);
+  //     console.log("No se modificó la base de datos")
+  //   }
 
-  }
+  // }
 
   // onAceptImage() {
   //   let imagen;
@@ -170,13 +165,11 @@ export class EducacionItemComponent implements OnInit {
   // }
 
   // onCancelImage() {
-  //   //TODO Falta dar estilo
   //   console.log("No se modifica la imagen")
   //   this.editable_imagen = false
   // }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editable = false
     this.editable_imagen= false

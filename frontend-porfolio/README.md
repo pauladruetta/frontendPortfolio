@@ -67,3 +67,17 @@ import { faArrowDown as faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 ejemplo de uso:
 <fa-icon [icon]="['fas','arrow-down']"></fa-icon>
+
+
+## Para actualizar el proyecto luego de hacer deploy:
+- Cada cambio en el BACK:
+1) Abrir el CMD como administrador, en la carpeta del back del proyecto.
+2) git add .
+3) git commit -m "mensaje"
+4) git push heroku main (o máster, el que usaron al principio)
+  (ver en que rama estoy)
+  si no es la main git push heroku rama:main
+
+- Cada cambio en el FRONT:
+1) ng build o ng build --configuration=productiond
+2) firebase deploy 

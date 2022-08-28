@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EditionService } from 'src/app/services/edition.service';
 
 @Component({
   selector: 'app-cancelar-button',
@@ -14,7 +15,7 @@ export class CancelarButtonComponent implements OnInit {
   @Output() onClickButton: EventEmitter<String> = new EventEmitter()
 
 
-  constructor() { }
+  constructor(private editionService: EditionService) { }
 
   ngOnInit(): void {
   }
@@ -22,5 +23,10 @@ export class CancelarButtonComponent implements OnInit {
   onClick(){
     console.log('Click on cancel button');
     this.onClickButton.emit('cancel');
+    this.onDisactivete()
+  }
+
+  onDisactivete() {
+    this.editionService.sendDesactivete(true)
   }
 }

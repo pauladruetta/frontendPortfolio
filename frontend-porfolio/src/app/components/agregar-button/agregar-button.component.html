@@ -1,8 +1,14 @@
-<button
-  type="button"
-  class="btn btn-sm text-success"
-  [ngStyle]="myStyles"
-  (click)="onClick()"
->
-  <fa-icon [icon]="['fas','plus']"></fa-icon>
-</button>
+<div class="position-relative">
+  <button
+    type="button"
+    class="btn btn-sm text-success"
+    [ngStyle]="myStyles"
+    (click)="onClick()"
+    [disabled]="!isActived"
+    (mouseover)="onHover()"
+    (mouseout)="outHover()"
+  >
+    <fa-icon [icon]="['fas','plus']"></fa-icon>
+  </button>
+  <div class="aviso position-absolute " *ngIf="avisoVisible" >{{ aviso }}</div>
+</div>

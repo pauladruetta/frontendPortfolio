@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EditionService } from 'src/app/services/edition.service';
 
 @Component({
   selector: 'app-aceptar-button',
@@ -10,7 +11,7 @@ export class AceptarButtonComponent implements OnInit {
   @Input() myStyles: object = {}
   @Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
 
-  constructor() { }
+  constructor(private editionService: EditionService) { }
 
   ngOnInit(): void {
 
@@ -19,5 +20,10 @@ export class AceptarButtonComponent implements OnInit {
   onClick(){
     console.log('Click on Acept button');
     this.onClickButton.emit();
+    this.onDisactivete()
+  }
+
+  onDisactivete() {
+    this.editionService.sendDesactivete(true)
   }
 }

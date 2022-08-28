@@ -45,7 +45,7 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
     </div>
   </div>
 
-  <input type="submit" value="Aceptar" class="btn btn-dark float-end mb-3" [disabled]="formulario.invalid">
+  <input type="submit" value="Aceptar" class="btn btn-sm btn-dark float-end mb-3" [disabled]="formulario.invalid">
   <app-cancelar-button
     texto="Cancelar"
     buttonClass="btn btn-dark "
@@ -53,9 +53,7 @@ class=" btn btn-sm mb-0 border-light text-light text-light"
     (onClickButton)="onCancel()"
   >
   </app-cancelar-button>
-  <!--FIXME Margin button-->
   <div class="alert alert-danger" role="alert" *ngIf="isLoginFail">
     {{ error_mensaje }}
   </div>
 </form>
-

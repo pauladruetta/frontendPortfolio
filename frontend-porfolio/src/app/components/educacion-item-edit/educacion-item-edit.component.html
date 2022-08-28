@@ -54,7 +54,7 @@
 </div> -->
 
 <form [formGroup]="formulario" (ngSubmit)="onAcept()">
-  <div
+  <!-- <div
   class="image-box position-relative d-flex justify-content-evenly"
 >
   <div
@@ -87,7 +87,11 @@
       (onClickButton)="onCancelImage()"
     ></app-cancelar-button>
   </div>
-</div>
+</div> -->
+  <app-newimage
+    [imagenRecurso]=Educacion.imagen
+    (SendImage)="onSendImage($event)"
+  ></app-newimage>
   <div class="form-group">
     <label></label>
     <input class="form-control" type="text" placeholder="Institución" formControlName="institucion" >
