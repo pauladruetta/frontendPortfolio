@@ -22,12 +22,15 @@ export class EducacionComponent implements OnInit {
       console.log('toggleView')
       this.visibleButton = data
     })
-      console.log(this.visibleButton );
+    // this.visibleButton = this.loginService.getView();
+    // console.log(this.visibleButton )
+    //   console.log(this.visibleButton );
       console.log("creo al componente Educacion");
   }
 
   async ngOnInit() {
     console.log("llamo al servicio de Educacion");
+    this.visibleButton = this.loginService.getView();
 
     this.educacionService.getAllEducacion().subscribe(data => {
       console.log("llamando al servicio de Educacion");
@@ -44,7 +47,6 @@ export class EducacionComponent implements OnInit {
   }
 
   onCancelAdd() {
-    //TODO Falta dar estilo
     console.log("No se Agregó nueva educacion");
     this.agregandoNuevo = false;
     // this.agregandoNuevo = false

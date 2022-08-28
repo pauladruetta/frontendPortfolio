@@ -1,7 +1,6 @@
 <form [formGroup]="formulario" (ngSubmit)="onAcept()">
-  <!--TODO Los formularios con un enter submit, controlar-->
-  <div
-    class="image-box position-relative d-flex justify-content-evenly"
+  <!-- <div
+    class="image-box position-relative d-flex flex-column flex-md-row align-items-center justify-content-md-evenly"
   >
     <div
       class="col-md-4 rounded-circle ratio ratio-1x1 overflow-hidden border-0 bg-opacity-10 bg-info"
@@ -14,11 +13,12 @@
       *ngIf="editable_imagen"
     ></app-lector-imagen>
     <div
-      class="buttons-image d-flex position-absolute"
-      [ngClass]="{'edit':!editable_imagen}"
+      class="buttons-image d-flex"
+      [ngClass]="{'edit position-absolute':!editable_imagen}"
     >
       <app-edition-button
         *ngIf="!editable_imagen"
+        [newComponent] = true
         (onClickButton)="onEditImage($event)"
       >
       </app-edition-button>
@@ -29,12 +29,18 @@
       ></app-aceptar-button>
       <app-cancelar-button
         class="m-2"
+        texto="Cancelar"
+        [cruz]="false"
         *ngIf="editable_imagen"
         (onClickButton)="onCancelImage()"
       ></app-cancelar-button>
     </div>
+  </div> -->
   <!--TODO Esto debería ser un componente, es igual en todos-->
-  </div>
+  <app-newimage
+    [imagenRecurso]=Experiencia.imagen
+    (SendImage)="onSendImage($event)"
+  ></app-newimage>
   <div class="form-group">
     <label></label>
     <input class="form-control" type="text" placeholder="Título" formControlName="titulo" >

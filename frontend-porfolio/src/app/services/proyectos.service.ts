@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Proyecto } from '../models/proyecto.model';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,15 @@ export class ProyectosService {
 
   baseUrl: string;
   proyectos: any[];
+  private API_URL = environment.API_URL;
 
+  //constructor( private http: HttpClient, private loginService: LoginService) {
   constructor( private http: HttpClient) {
 
     //this.baseUrl = "http://localhost:8080/proyecto"
-    this.baseUrl = "https://backendapdruetta.herokuapp.com/proyecto";
+    //this.baseUrl = "https://backendapdruetta.herokuapp.com/proyecto";
+    //this.baseUrl = this.loginService.getBackUrl() +'/proyecto';
+    this.baseUrl = this.API_URL +'/proyecto';
     console.log("El servicio de proyectos está corriendo")
 
   }
@@ -30,6 +36,7 @@ export class ProyectosService {
   editProyecto( Proyecto: Proyecto ): Observable<Proyecto> {
     let id = Proyecto.id
     console.log("Editando Proyecto" + id)
+    console.log(Proyecto)
     return this.http.put<Proyecto>(this.baseUrl+"/edit", Proyecto);
 
   }

@@ -22,11 +22,13 @@ export class ExperienciaComponent implements OnInit {
         console.log('toggleView')
         this.visibleButton = data
       })
-        console.log(this.visibleButton )
+      // this.visibleButton = this.loginService.getView();
+      // console.log(this.visibleButton )
+      //   console.log(this.visibleButton )
     }
 
   async ngOnInit() {
-
+    this.visibleButton = this.loginService.getView();
     this.experienciasServise.getAllExperiencias().subscribe(data => {
       this.arrExperiencias = data;
       console.log(this.arrExperiencias);

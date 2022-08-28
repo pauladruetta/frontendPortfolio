@@ -6,6 +6,7 @@ import { Usuario } from '../models/usuario.model';
 import { LoginUsuario } from '../models/loginUsuario.model';
 import { JwtDTO } from '../models/jwtDTO.mode';
 import { TokenService } from './token.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -14,9 +15,10 @@ import { TokenService } from './token.service';
 export class LoginService {
 
   baseUrl: string;
+  private API_URL = environment.API_URL;
   loggin: boolean = false;
   isLoginFail: boolean = false;
-  showEdit: boolean
+  showEdit: boolean = false
   roles: string[]=[];
   @Output() public toggleView: EventEmitter<boolean>
   // currentUserSubject: BehaviorSubject<any>;
@@ -41,9 +43,10 @@ export class LoginService {
     }
       console.log('Login: '+ this.loggin)
       this.toggleView = new EventEmitter();
-//    this.baseUrl = "http://localhost:8080/auth";
-    this.baseUrl = "https://backendapdruetta.herokuapp.com/auth";
-    //TODO: revisar que se llama a la misma url desde varios lugares, cambiar eso
+    // this.baseUrl = "http://localhost:8080";
+      this.baseUrl = this.API_URL +'/auth';
+//    this.baseUrl = "https://backendapdruetta.herokuapp.com";
+    //this.baseUrl = "https://backendapdruetta.herokuapp.com/auth";
     console.log("El servicio de login está corriendo");
     // this.currentUserSubject = new BehaviorSubject<JwtDTO>(
     //   {
@@ -96,6 +99,10 @@ export class LoginService {
       return true
     }
     return false
+  }
+
+  public getBackUrl(){
+    return this.baseUrl
   }
 
 }

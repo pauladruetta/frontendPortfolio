@@ -86,12 +86,10 @@ export class AcercaComponent implements OnInit {
     }
 
     console.log(element)
-   //FIXME Permitir editar de a un sólo campo por vez
   }
 
   onAcept(editable: Boolean) {
     //FIXME Cambiar para hacerlo de manera más general y con validaciones
-    //TODO Falta dar estilo
     //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
     //TODO Faltan campos como la edad
 

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Experiencia } from '../models/experiencia.model';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +11,15 @@ import { Experiencia } from '../models/experiencia.model';
 export class ExperienciasService {
 
   baseUrl: string;
+  private API_URL = environment.API_URL;
   experiencias: any[];
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient, private loginService: LoginService) {
 
     //this.baseUrl = "http://localhost:8080/experiencia"
-    this.baseUrl = "https://backendapdruetta.herokuapp.com/experiencia";
+    //this.baseUrl = "https://backendapdruetta.herokuapp.com/experiencia";
+    //this.baseUrl = this.loginService.getBackUrl() +'/experiencia';
+    this.baseUrl = this.API_URL +'/experiencia';
     console.log("El servicio de experiencias está corriendo")
 
   }

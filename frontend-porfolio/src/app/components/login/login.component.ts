@@ -44,11 +44,13 @@ export class LoginComponent implements OnInit {
       //   notificationToken: new FormControl("asdfasdfasd",[])
       // })
    })
+   //FIXME: no se desconecta cuando el token está caduco, o no pide uno nuevo
    if (this.tokenService.getToken()){
     this.loggin = true;
     this.isLoginFail = false;
     this.roles = this.tokenService.getAuthorities();
     this.loginService.isAdmin()
+    this.toggleEdit.emit(true);
    }
     console.log('Login: '+this.loggin)
   }
@@ -99,8 +101,10 @@ export class LoginComponent implements OnInit {
     if (this.loggin) {
       this.loggin = false
       this.toggleEdit.emit(true);
+      // this.loginService.editView();
       this.formulario.reset;
       console.log("Se cerró sesión");
+      this.tokenService.logOut();
     } else {
       console.log("Toggle button");
       if (this.iniciarLogin) {

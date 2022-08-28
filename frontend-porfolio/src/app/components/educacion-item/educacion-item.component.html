@@ -83,7 +83,8 @@
     <app-eliminate-button
       *ngIf="visibleButton && !editable"
       class="px-2"
-      (onClickButton)="onDelete()"
+      [element]="'Ed'+educacion.id"
+      (onClickButton)="onDelete($event)"
     >
     </app-eliminate-button>
     <!-- <app-aceptar-button

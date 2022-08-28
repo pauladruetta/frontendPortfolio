@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EditionService } from 'src/app/services/edition.service';
 
 @Component({
   selector: 'app-edition-button',
@@ -8,19 +9,26 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class EditionButtonComponent implements OnInit {
 
   @Input() myStyles: object = {}
+  @Input() newComponent:boolean = false
+  isActived:boolean = true
   @Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
+
   editable: Boolean
 
-  constructor() { }
+  constructor(private editionService: EditionService ) { }
 
   ngOnInit(): void {
-
+    this.editionService.desactivete.subscribe(
+      data => {
+        this.isActived = data ;
+        })
   }
 
-  onClick(){
+  onClick() {
     console.log('Click on edit button');
     this.editable = !this.editable;
     this.onClickButton.emit(this.editable);
+    this.editionService.sendDesactivete(false)
   }
 
 }

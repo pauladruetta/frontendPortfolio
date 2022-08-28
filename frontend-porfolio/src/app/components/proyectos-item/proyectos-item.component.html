@@ -10,7 +10,7 @@
   >
     <div class="row g-0">
       <div class="col-md-4">
-        <img [src]="proyecto.imagen" class="img-fluid rounded-start" alt="...">
+        <img [src]="proyecto.imagen" class="proyect-image img-fluid rounded-start" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -21,9 +21,9 @@
             <span
               class="badge text-dark"
               *ngFor="let habilidad of proyecto.habilidades"
-              [ngClass]="habilidad.nombre"
+              [ngClass]="habilidad"
             >
-              {{ habilidad.nombre }}
+              {{ habilidad }}
             </span>
           </div>
         </div>
@@ -75,6 +75,7 @@
       *ngIf="visibleButton && !editable"
       class="px-2"
       (onClickButton)="onDelete()"
+      [element]="'Py'+proyecto.id"
     >
     </app-eliminate-button>
     <!--   <app-aceptar-button

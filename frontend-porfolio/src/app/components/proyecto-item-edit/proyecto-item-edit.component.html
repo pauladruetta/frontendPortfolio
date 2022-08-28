@@ -1,5 +1,5 @@
 <form [formGroup]="formulario" (ngSubmit)="onAcept()">
-  <div
+  <!-- <div
     class="image-box position-relative d-flex justify-content-evenly"
   >
     <div
@@ -32,7 +32,11 @@
         (onClickButton)="onCancelImage()"
       ></app-cancelar-button>
     </div>
-  </div>
+  </div> -->
+  <app-newimage
+    [imagenRecurso]=Proyecto.imagen
+    (SendImage)="onSendImage($event)"
+  ></app-newimage>
   <div class="form-group">
     <label></label>
     <input class="form-control" type="text" placeholder="Título" formControlName="titulo">
@@ -49,20 +53,35 @@
     <label></label>
     <textarea class="form-control" type="text" placeholder="Descripción" formControlName="descripcion"></textarea>
   </div>
+  <label class=" d-block m-2">Habilidades</label>
   <div
     class="form-group"
     *ngIf="!editando || agregando_habilidad"
   >
     <label>Habilidad a agregar</label>
-    <input id="nueva_habilidad" class="form-control" type="text" placeholder="habilidad" formControlName="nueva_habilidad">
+    <select class="form-select" aria-label="Default select example"  formControlName="added_habilidad">
+      <option value="Elije Habilidad" disabled>Elije Habilidad</option>
+      <option *ngFor="let habilidad of arrHabilidades" [value]="habilidad.nombre">{{habilidad.nombre}}</option>
+      <option value="nueva">Nueva</option>
+    </select>
+    <input *ngIf="writeNew" id="nueva_habilidad" class="form-control" type="text" placeholder="nueva habilidad" formControlName="nueva_habilidad">
+    <button
+    class="btn btn-light"
+    *ngIf="writeNew"
+    (click)="OnAddHabilidad($event)"
+  >
+    Agregar
+  </button>
   </div>
   <app-agregar-button
     *ngIf="editando && !agregando_habilidad"
     (onClickButton)="OnAdd($event)"
+    (onHoverButton)="OnHover($event)"
+    aviso="Agregar Habilidad"
   ></app-agregar-button>
   <button
     class="btn btn-light"
-    *ngIf="!editando || agregando_habilidad"
+    *ngIf="!editando || agregando_habilidad  && !writeNew"
     (click)="OnAddHabilidad($event)"
   >
     Agregar
@@ -75,7 +94,7 @@
         <span
           class="badge bg-primary text-dark"
         >
-          {{ habilidad.value.nombre }}
+          {{ habilidad.value }}
         </span>
         <app-eliminate-button
           class="px-2"
@@ -102,9 +121,6 @@
       </app-eliminate-button>
     </div>
   </div> -->
-
-  <!--TODO Validaciones, estética, controlar que esté bien-->
-  <!--Al crear un proyecto crea una habilidad y no deja eliminarla si no se elimina el proyecto-->
 
   <input type="submit" value="Aceptar" class="btn btn-ligth float-end">
   <app-cancelar-button

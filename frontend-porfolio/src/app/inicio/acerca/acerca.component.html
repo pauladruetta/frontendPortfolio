@@ -1,41 +1,40 @@
 <app-card title="Acerca" >
-  <div class="d-flex">
-    <div class="card datos-personales">
-      <div class="box-container position-relative justify-content-evenly imagen-box">
+  <div class="d-flex flex-column flex-md-row">
+    <div class="card datos-personales align-items-center ">
+      <div class="box-container position-relative justify-content-center justify-content-md-evenly imagen-box">
         <div class="img-box rounded-circle ratio ratio-1x1 overflow-hidden border-0 ">
           <img [src]="persona.imagen_perfil" class="card-img-top" id="imagen_perfil" alt="Foto">
         </div>
-
         <app-lector-imagen
           *ngIf="editable.imagen_perfil"
           class=" d-flex justify-content-center "
         ></app-lector-imagen>
 
         <div
-          class="buttons-image d-flex position-absolute  justify-content-evenly"
-          [ngClass]="{'edit':!editable.imagen_perfil}"
+          class="buttons-image edit d-flex position-absolute  justify-content-evenly"
         >
           <app-edition-button
             *ngIf="visibleButton && !editable.imagen_perfil"
             (onClickButton)="onEdit($event,'imagen_perfil')"
           >
           </app-edition-button>
-          <app-aceptar-button
-            *ngIf="visibleButton && editable.imagen_perfil"
-            class="m-2"
-            (onClickButton)="onAcept($event)"
-          ></app-aceptar-button>
-          <app-cancelar-button
-            class="m-2"
-            [cruz]="false"
-            texto="Cancelar"
-            *ngIf="visibleButton && editable.imagen_perfil"
-            (onClickButton)="onCancel()"
-          ></app-cancelar-button>
         </div>
       </div>
-
-      <div class="card-body person_info"
+      <div class="buttons-image">
+        <app-aceptar-button
+          *ngIf="visibleButton && editable.imagen_perfil"
+          class="m-2"
+          (onClickButton)="onAcept($event)"
+        ></app-aceptar-button>
+        <app-cancelar-button
+          class="m-2"
+          [cruz]="false"
+          texto="Cancelar"
+          *ngIf="visibleButton && editable.imagen_perfil"
+          (onClickButton)="onCancel()"
+        ></app-cancelar-button>
+      </div>
+      <div class="card-body person_info border-0"
         *ngIf="!editable.person_info"
       >
         <p class="card-text name">
@@ -48,11 +47,13 @@
       <div class="card-body person_info editable"
         *ngIf="editable.person_info"
       >
-        <div class="card-text name d-flex w-75">
+        <div class="form-group name mb-3 d-flex ">
           <input  class="form-control" id="person-name-editable" type="text" [value]=persona.nombre>
           <input  class="form-control" id="person-apellido-editable" type="text" [value]=persona.apellido>
         </div>
-        <input class="form-control" id="person-tittle-editable" [value]="persona.titulo">
+        <div class="form-group name  mb-2 d-flex ">
+          <input class="form-control" id="person-tittle-editable" [value]="persona.titulo">
+        </div>
       </div>
       <div class="buttons d-flex position-absolute">
         <app-edition-button
@@ -81,27 +82,33 @@
         >
           {{ persona.descripcion }}
         </p>
-        <textarea
-          class="h-75 form-control"
-          *ngIf="editable.acerca"
-          id="acerca_edition"
-        >
-          {{ persona.descripcion }}
-        </textarea>
-<!--TODO: Cambiar Estilos-->
-        <div class="buttons d-flex position-absolute">
-          <app-edition-button
-            *ngIf="visibleButton && !editable.acerca"
-            (onClickButton)="onEdit($event,'acerca')"
-          ></app-edition-button>
-          <app-aceptar-button
-            *ngIf="visibleButton && editable.acerca"
-            (onClickButton)="onAcept($event)"
-          ></app-aceptar-button>
-          <app-cancelar-button
-          *ngIf="visibleButton && editable.acerca"
-          (onClickButton)="onCancel()"
-        ></app-cancelar-button>
+        <div class="form-group h-100">
+          <textarea
+            class="form-control"
+            *ngIf="editable.acerca"
+            id="acerca_edition"
+          >
+            {{ persona.descripcion }}
+          </textarea>
+          <div
+            class="buttons d-flex"
+            [ngClass]="{'acerca-edit':!editable.acerca}"
+          >
+            <app-edition-button
+              *ngIf="visibleButton && !editable.acerca"
+              (onClickButton)="onEdit($event,'acerca')"
+            ></app-edition-button>
+            <app-aceptar-button
+              *ngIf="visibleButton && editable.acerca"
+              (onClickButton)="onAcept($event)"
+            ></app-aceptar-button>
+            <app-cancelar-button
+              *ngIf="visibleButton && editable.acerca"
+              [cruz]="false"
+              texto="Cancelar"
+              (onClickButton)="onCancel()"
+            ></app-cancelar-button>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Persona } from '../models/persona.model';
-
+import { LoginService } from './login.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,17 @@ import { Persona } from '../models/persona.model';
 export class PersonasService {
 
   baseUrl: string
+  private API_URL = environment.API_URL;
  // baseUrl: string = 'https://backendapdruetta.herokuapp.com/persona';
   personas: any[];
 
-  constructor( private http: HttpClient) {
-
+  // constructor( private http: HttpClient, private loginService: LoginService) {
+    constructor( private http: HttpClient) {
   //  this.baseUrl = "http://localhost:8080/persona"
-    this.baseUrl = 'https://backendapdruetta.herokuapp.com/persona';
+    //this.baseUrl = 'https://backendapdruetta.herokuapp.com/persona';
+    this.baseUrl = this.API_URL +'/persona';
     console.log("El servicio de usuario está corriendo")
-
+    console.log(this.API_URL)
   }
 
   // getAll(): Persona[] {

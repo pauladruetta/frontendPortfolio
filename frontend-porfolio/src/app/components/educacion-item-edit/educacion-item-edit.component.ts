@@ -45,8 +45,8 @@ export class EducacionItemEditComponent implements OnInit {
       fecha_inicio: new FormControl(this.Educacion.fecha_inicio,),
       fecha_fin: new FormControl(this.Educacion.fecha_fin,),
     })
-    this.imagen_editada = this.Educacion.imagen;
-//TODO Validaciones
+    //this.imagen_editada = this.Educacion.imagen;
+    //TODO Validaciones
     console.log(this.Educacion);
     console.log(this.formulario);
   }
@@ -107,30 +107,31 @@ export class EducacionItemEditComponent implements OnInit {
     this.onClickCancel.emit();
   }
 
-  onEditImage(editable: Boolean) {
-      //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
-    this.editable_imagen = editable;
+  // onEditImage(editable: Boolean) {
+  //   this.editable_imagen = editable;
+  // }
+
+  // onAceptImage() {
+  //   let imagen;
+
+  //   if (document.getElementById("new_image_url")) {
+  //     imagen = (document.getElementById("new_image_url") as HTMLInputElement).value
+  //   } else {
+  //     imagen = this.Educacion.imagen
+  //   }
+
+  //   this.imagen_editada = imagen
+  //   console.log( this.imagen_editada)
+
+  //   this.editable_imagen= false
+  // }
+
+  // onCancelImage() {
+  //   console.log("No se modifica la imagen")
+  //   this.editable_imagen = false
+  // }
+  onSendImage(imagen: string) {
+    console.log("llegó")
+    this.imagen_editada = imagen;
   }
-
-  onAceptImage() {
-    let imagen;
-
-    if (document.getElementById("new_image_url")) {
-      imagen = (document.getElementById("new_image_url") as HTMLInputElement).value
-    } else {
-      imagen = this.Educacion.imagen
-    }
-
-    this.imagen_editada = imagen
-    console.log( this.imagen_editada)
-
-    this.editable_imagen= false
-  }
-
-  onCancelImage() {
-    //TODO Falta dar estilo
-    console.log("No se modifica la imagen")
-    this.editable_imagen = false
-  }
-
 }

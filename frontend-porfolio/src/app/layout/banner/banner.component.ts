@@ -14,6 +14,7 @@ export class BannerComponent implements OnInit {
   persona:  Persona;
   visibleButton: Boolean;
   editable: Boolean = false;
+  imagen_editada: string;
 
   constructor(
     private personasServices: PersonasService,
@@ -38,6 +39,7 @@ export class BannerComponent implements OnInit {
 
   async ngOnInit() {
     console.log("banner");
+    this.visibleButton = this.loginService.getView();
     this.personasServices.getAllPersonas().subscribe(data => {
       console.log(data);
       this.arrPersonas = data
@@ -51,7 +53,35 @@ export class BannerComponent implements OnInit {
 
   onEdit(editable: Boolean) {
     this.editable = editable;
-    // TODO:Falta agregar servicio que permite editar la Base de Datos
   }
+
+  onAcept(editable: Boolean) {
+    //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
+
+    this.imagen_editada = (document.getElementById("new_image_url") as HTMLInputElement).value
+    this.persona.imagen_portada = this.imagen_editada
+    try {
+      this.personasServices.editPersona(this.persona).subscribe(data =>
+        {
+          console.log(data);
+          console.log("Se modificó la base de datos");
+          this.personasServices.getAllPersonas().subscribe(data => {
+          this.arrPersonas = data
+          this.persona = this.arrPersonas[0];
+          console.log(this.arrPersonas);
+          })
+        })
+    } catch (error) {
+      console.log(error);
+      console.log("No se modificó la base de datos")
+    }
+
+    this.editable = false
+  }
+
+  onCancel() {
+    console.log("No se hicieron modificaciones")
+    this.editable = false
+    }
 }
 
