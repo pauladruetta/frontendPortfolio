@@ -28,6 +28,7 @@ export class AcercaComponent implements OnInit {
     private loginService: LoginService
 
   ) {
+    console.log("creo al componente acerca");
    this.loginService.toggleView.subscribe(data =>  {
     console.log('toggleView')
     this.visibleButton = data
@@ -61,12 +62,16 @@ export class AcercaComponent implements OnInit {
   // }
 
   async ngOnInit() {
-    // this.arrPersonas = await this.personasServices.getAllPromise()
+//    this.arrPersonas = await this.personasServices.getAllPromise()
     this.visibleButton = this.loginService.getView();
+    console.log("llamo a servicio personas");
     this.personasServices.getAllPersonas().subscribe(data => {
       this.arrPersonas = data
+      console.log(data);
       this.persona = this.arrPersonas[0];
+      console.log("traigo personas");
       console.log(this.arrPersonas);
+
     })
   }
 
@@ -81,12 +86,10 @@ export class AcercaComponent implements OnInit {
     }
 
     console.log(element)
-   //FIXME Permitir editar de a un sólo campo por vez
   }
 
   onAcept(editable: Boolean) {
     //FIXME Cambiar para hacerlo de manera más general y con validaciones
-    //TODO Falta dar estilo
     //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
     //TODO Faltan campos como la edad
 

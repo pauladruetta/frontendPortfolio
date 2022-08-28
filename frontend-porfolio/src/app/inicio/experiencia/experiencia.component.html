@@ -17,10 +17,10 @@
       *ngIf="agregandoNuevo"
     >
       <app-experiencia-item-edit
-      (onClickAcept)="onAddConfirm()"
-      (onClickCancel)="onCancelAdd()"
-      [editando]="false"
-    ></app-experiencia-item-edit>
+        (onClickAcept)="onAddConfirm()"
+        (onClickCancel)="onCancelAdd()"
+        [editando]="false"
+      ></app-experiencia-item-edit>
     </div>
     <app-experiencia-item
       *ngFor="let experiencia of arrExperiencias"

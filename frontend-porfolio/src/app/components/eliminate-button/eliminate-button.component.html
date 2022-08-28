@@ -1,8 +1,14 @@
 <button
   type="button"
-  class="btn btn-success btn-sm rounded-circle"
+  data-bs-toggle="modal" attr.data-bs-target="#{{idModel}}"
+  class="btn btn-success btn-sm rounded-circle "
   [ngStyle]="myStyles"
-  (click)="onClick()"
+  (click)="onClick(element)"
+  [disabled]="!isActived"
 >
   <fa-icon [icon]="['fas','xmark']"></fa-icon>
 </button>
+<app-confirm-model [idModal]="idModel" (accion)="OnAccion($event)"></app-confirm-model>
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModel">
+  Launch demo modal
+</button> -->

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Habilidad } from 'src/app/models/habilidad.model';
+import { ActualizarService } from 'src/app/services/actualizar.service';
 import { HabilidadesService } from 'src/app/services/habilidades.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -10,19 +11,32 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class HabilidadesComponent implements OnInit {
 
+  //@Input() habilidades: Habilidad[];
   arrHabilidad: Habilidad[];
   visibleButton: Boolean = false;
   agregandoNuevo: Boolean = false;
 
   constructor(
     private habilidadesService: HabilidadesService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private actualizarService: ActualizarService
   ) {
+
+    //this.visibleButton = this.loginService.getView();
+    //console.log(this.visibleButton )
+
     this.loginService.toggleView.subscribe(data =>  {
       console.log('toggleView')
       this.visibleButton = data
     })
-      console.log(this.visibleButton )
+
+    this.actualizarService.getInfo.subscribe(data => {
+      console.log('get Info en Habilidades')
+      this.habilidadesService.getAllHabilidades().subscribe(data => {
+        this.arrHabilidad = data;
+        console.log(this.arrHabilidad);
+      })
+    })
   }
 
   async ngOnInit() {
@@ -31,6 +45,11 @@ export class HabilidadesComponent implements OnInit {
       this.arrHabilidad = data;
       console.log(this.arrHabilidad);
     })
+    this.visibleButton = this.loginService.getView();
+    // this.habilidadesService.refreshHabilidades()
+    // this.arrHabilidad = this.habilidadesService.getAllHabilidades();
+    console.log(this.arrHabilidad);
+    // })
 
     console.log();
   }
@@ -40,7 +59,6 @@ export class HabilidadesComponent implements OnInit {
   }
 
   onCancelAdd() {
-    //TODO Falta dar estilo
     console.log("No se Agregó nueva Habilidad");
     this.agregandoNuevo = false;
     // this.agregandoNuevo = false
@@ -48,6 +66,7 @@ export class HabilidadesComponent implements OnInit {
 
   onAddConfirm(){
     this.agregandoNuevo = false;
+   // this.habilidadesService.refreshHabilidades()
     this.habilidadesService.getAllHabilidades().subscribe(data => {
       this.arrHabilidad = data;
       console.log(this.arrHabilidad);

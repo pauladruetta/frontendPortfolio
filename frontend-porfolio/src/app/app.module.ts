@@ -49,6 +49,8 @@ import { ExperienciasService } from './services/experiencias.service';
 import { HabilidadesService } from './services/habilidades.service';
 import { ProyectosService } from './services/proyectos.service';
 import { ImageServiceService } from './services/image-service.service';
+import { NewimageComponent } from './components/newimage/newimage.component';
+import { ConfirmModelComponent } from './components/confirm-model/confirm-model.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { ImageServiceService } from './services/image-service.service';
     HabilidadItemEditComponent,
     ProyectoItemEditComponent,
     LectorImagenComponent,
+    NewimageComponent,
+    ConfirmModelComponent,
   ],
   imports: [
     BrowserModule,

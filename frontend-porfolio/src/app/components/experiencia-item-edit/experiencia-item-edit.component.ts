@@ -48,7 +48,7 @@ export class ExperienciaItemEditComponent implements OnInit {
       fecha_inicio: new FormControl(this.Experiencia.fecha_inicio,),
       fecha_fin: new FormControl(this.Experiencia.fecha_fin,),
     })
-    this.imagen_editada = this.Experiencia.imagen;
+    //this.imagen_editada = this.Experiencia.imagen;
     //TODO Validaciones
     console.log(this.Experiencia);
     console.log(this.formulario);
@@ -66,6 +66,7 @@ export class ExperienciaItemEditComponent implements OnInit {
       fecha_fin: this.formulario.value.fecha_fin,
       imagen:  this.imagen_editada,
     };
+    console.log(this.imagen_editada)
 
     let accion;
 
@@ -108,36 +109,16 @@ export class ExperienciaItemEditComponent implements OnInit {
   }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editando = false;
     this.editable_imagen= false;
     this.onClickCancel.emit();
   }
 
-  onEditImage(editable: Boolean) {
-    //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
-   this.editable_imagen = editable;
+  onSendImage(imagen: string) {
+    console.log("llegó")
+    this.imagen_editada = imagen;
   }
 
-  onAceptImage() {
-    let imagen;
-
-    if (document.getElementById("new_image_url")) {
-      imagen = (document.getElementById("new_image_url") as HTMLInputElement).value
-    } else {
-      imagen = this.Experiencia.imagen
-    }
-
-    this.imagen_editada = imagen
-    console.log( this.imagen_editada)
-
-    this.editable_imagen= false
-  }
-
-  onCancelImage() {
-    console.log("No se modifica la imagen")
-    this.editable_imagen = false
-  }
 
 }

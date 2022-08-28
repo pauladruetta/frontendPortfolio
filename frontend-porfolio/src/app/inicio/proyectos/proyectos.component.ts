@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { LoginService } from 'src/app/services/login.service';
 import { ProyectosService } from 'src/app/services/proyectos.service';
@@ -18,7 +18,8 @@ export class ProyectosComponent implements OnInit {
     private proyectosService: ProyectosService,
     private loginService: LoginService
   ) {
-    this.loginService.toggleView.subscribe(data =>  {
+   // this.visibleButton = this.loginService.getView();
+     this.loginService.toggleView.subscribe(data =>  {
       console.log('toggleView')
       this.visibleButton = data
     })
@@ -26,7 +27,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   async ngOnInit() {
-
+    this.visibleButton = this.loginService.getView();
     this.proyectosService.getAllProyectos().subscribe(data => {
       this.arrProyectos = data;
       console.log(this.arrProyectos);
@@ -40,7 +41,6 @@ export class ProyectosComponent implements OnInit {
   }
 
   onCancelAdd() {
-    //TODO Falta dar estilo
     console.log("No se Agregó nuevo Proyecto");
     this.agregandoNuevo = false;
     // this.agregandoNuevo = false
@@ -53,5 +53,6 @@ export class ProyectosComponent implements OnInit {
       console.log(this.arrProyectos);
     })
   }
+
 
 }

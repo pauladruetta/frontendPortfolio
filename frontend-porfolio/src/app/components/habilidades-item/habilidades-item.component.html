@@ -28,8 +28,7 @@
       ></app-habilidad-item-edit>
     </div>
   </div>
-
-  <!--TODO: Estilo-->
+<!--FIXME Al borrar avisar cuando no es posible-->
   <div class="buttons d-flex">
     <app-edition-button
       *ngIf="visibleButton && !editable"
@@ -41,6 +40,7 @@
       *ngIf="visibleButton && !editable"
       class="px-2"
       (onClickButton)="onDelete()"
+      [element]="'Hb'+habilidad.id"
     >
     </app-eliminate-button>
     <!-- <app-aceptar-button

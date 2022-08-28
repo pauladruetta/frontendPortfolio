@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Habilidad } from 'src/app/models/habilidad.model';
 import { Proyecto } from 'src/app/models/proyecto.model';
+import { ActualizarService } from 'src/app/services/actualizar.service';
+import { HabilidadesService } from 'src/app/services/habilidades.service';
 import { ProyectosService } from 'src/app/services/proyectos.service';
 
 @Component({
@@ -31,10 +33,16 @@ export class ProyectoItemEditComponent implements OnInit {
   editable_imagen: Boolean = false;
   imagen_editada: string;
   agregando_habilidad: Boolean = false;
+  writeNew: Boolean = false;
+  arrHabilidades: Habilidad[] = [];
 
   constructor(
-    private proyectosService: ProyectosService
+    private proyectosService: ProyectosService,
+    private habilidadService: HabilidadesService,
+    private actualizarService: ActualizarService
   ) {
+    habilidadService.getAllHabilidades().subscribe(habilidades  => this.arrHabilidades = habilidades)
+    //this.arrHabilidades = hablidadService.getAllHabilidades();
 
   }
 
@@ -49,6 +57,7 @@ export class ProyectoItemEditComponent implements OnInit {
       descripcion: new FormControl(this.Proyecto.descripcion,),
       habilidades: new FormArray([],),
       imagen: new FormControl( this.Proyecto.imagen),
+      added_habilidad: new FormControl(''),
       nueva_habilidad: new FormControl('')
     })
     // this.habilidades = this.Proyecto.habilidades;
@@ -66,12 +75,16 @@ export class ProyectoItemEditComponent implements OnInit {
     // };
   }
 
-  initFormHabilidad(habilidad: Habilidad): FormGroup {
+/*   initFormHabilidad(habilidad: String): FormGroup {
     return new FormGroup(
       {
-        nombre: new FormControl(habilidad.nombre)
+        nombre: new FormControl(habilidad)
       }
     )
+  } */
+
+  initFormHabilidad(habilidad: String): FormControl {
+    return new FormControl(habilidad)
   }
 
   getCtrl(key: string, form: FormGroup): any {
@@ -104,6 +117,7 @@ export class ProyectoItemEditComponent implements OnInit {
 
       if (this.editando){
         console.log("Editando")
+        console.log(this.Nuevo)
         this.proyectosService.editProyecto(this.Nuevo).subscribe(data =>
           {
             console.log(data);
@@ -111,6 +125,7 @@ export class ProyectoItemEditComponent implements OnInit {
             //TODO validaciones
             console.log(this.Nuevo)
             this.onClickAcept.emit();
+            this.actualizarService.getInfoBD()
           })
       } else {
         console.log("Agregando Nuevo")
@@ -121,6 +136,7 @@ export class ProyectoItemEditComponent implements OnInit {
             //TODO validaciones
             console.log(this.Nuevo)
             this.onClickAcept.emit();
+            this.actualizarService.getInfoBD()
           })
       }
 
@@ -132,7 +148,6 @@ export class ProyectoItemEditComponent implements OnInit {
   }
 
   onCancel() {
-    //TODO Falta dar estilo
     console.log("No se hicieron modificaciones")
     this.editando = false;
     this.editable_imagen= false;
@@ -141,22 +156,35 @@ export class ProyectoItemEditComponent implements OnInit {
 
   OnAddHabilidad($event: any) {
     $event.preventDefault();
-    console.log("Nueva Habilidad de proyecto");
-    let nueva = this.formulario.get('nueva_habilidad') as FormControl;
+    let nueva;
+    if (this.writeNew == true) {
+      nueva = this.formulario.get('nueva_habilidad') as FormControl;
+      this.writeNew = false;
+    } else {
+      nueva = this.formulario.get('added_habilidad') as FormControl;
+    }
     console.log(nueva)
     console.log(nueva.value)
-    let refHab = this.formulario.get('habilidades') as FormArray;
-    let habilidad: FormGroup = new FormGroup(
-      {
-        nombre: new FormControl(nueva.value)
-      });
-      console.log(habilidad);
-    refHab.push(habilidad);
-    console.log(refHab);
+    console.log("Nueva Habilidad de proyecto");
+    if (nueva.value == "nueva" ){
+      this.writeNew = true;
+    } else {
+      let refHab = this.formulario.get('habilidades') as FormArray;
+      /*     let habilidad: FormGroup = new FormGroup(
+            {
+              nombre: new FormControl(nueva.value)
+            });
+            console.log(habilidad); */
+            let habilidad: FormControl = new FormControl(nueva.value)
+            console.log(habilidad);
+          refHab.push(habilidad);
+          console.log(refHab);
+    }
+
+
 
     // let habilidad = (document.getElementById("nueva_habilidad") as HTMLInputElement).value
     // this.habilidadesNombres.push(habilidad)
-    //TODO controlar que las habilidades no puedan tener el mismo nombre. Usar un Select o algo
     //En el caso de que exista buscarla y rellenar
     // this.habilidades.push({id: 0 , nombre: habilidad, porcentaje: 10})
     //Si no existe pedir agregar un porcentaje
@@ -173,6 +201,9 @@ export class ProyectoItemEditComponent implements OnInit {
   //   console.log( this.habilidadesNombres)
   // }
 
+  OnHover($event: any) {
+    console.log("Hover")
+  }
 
   onDelete(habilidad: FormControl){
     console.log(habilidad);
@@ -185,29 +216,31 @@ export class ProyectoItemEditComponent implements OnInit {
   }
 
 
-  onEditImage(editable: Boolean) {
-    //TODO Falta poder subir una imagen de perfil desde archivo - investigar - dar ambas opciones
-   this.editable_imagen = editable;
- }
+//   onEditImage(editable: Boolean) {
+//    this.editable_imagen = editable;
+//  }
 
- onAceptImage() {
-  let imagen;
+//  onAceptImage() {
+//   let imagen;
 
-  if (document.getElementById("new_image_url")) {
-    imagen = (document.getElementById("new_image_url") as HTMLInputElement).value
-  } else {
-    imagen = this.Proyecto.imagen
-  }
+//   if (document.getElementById("new_image_url")) {
+//     imagen = (document.getElementById("new_image_url") as HTMLInputElement).value
+//   } else {
+//     imagen = this.Proyecto.imagen
+//   }
 
-  this.imagen_editada = imagen
-  console.log( this.imagen_editada)
+//   this.imagen_editada = imagen
+//   console.log( this.imagen_editada)
 
-  this.editable_imagen= false
+//   this.editable_imagen= false
+// }
+
+// onCancelImage() {
+//   console.log("No se modifica la imagen")
+//   this.editable_imagen = false
+// }
+onSendImage(imagen: string) {
+  console.log("llegó")
+  this.imagen_editada = imagen;
 }
-
-onCancelImage() {
-  console.log("No se modifica la imagen")
-  this.editable_imagen = false
-}
-
 }

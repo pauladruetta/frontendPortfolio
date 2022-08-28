@@ -34,7 +34,7 @@ export class ProyectosItemComponent implements OnInit {
   async ngOnInit() {
 
     this.visibleButton = this.loginService.getView();
-
+    console.log(this.proyecto )
     // ;
     // var length = this.proyecto.habilidades.length;
     // for (let i = 0; i < length; i++) {
@@ -59,7 +59,6 @@ export class ProyectosItemComponent implements OnInit {
 
   onDelete() {
     this.visibleItem = false;
-    //TODO confirmaciones
     try {
         this.proyectoServise.deleteProyecto(this.proyecto.id).subscribe(data =>
           {
@@ -73,69 +72,65 @@ export class ProyectosItemComponent implements OnInit {
     }
   }
 
-  onAcept() {
-    //FIXME validaciones
-    //TODO Falta dar estilo
+  // onAcept() {
+  //   let descripcion;
+  //   let titulo;
+  //   let url;
+  //   let fecha;
 
-    let descripcion;
-    let titulo;
-    let url;
-    let fecha;
+  //   if (document.getElementById("descripcion_edition")){
+  //     descripcion = (document.getElementById("descripcion_edition") as HTMLInputElement).value
+  //   } else {
+  //     descripcion = this.proyecto.descripcion
+  //   }
+  //   if (document.getElementById("url_edition")){
+  //     url = (document.getElementById("url_edition") as HTMLInputElement).value
+  //   } else {
+  //     url = this.proyecto.url
+  //   }
+  //   if (document.getElementById("titulo_edition")){
+  //     titulo = (document.getElementById("titulo_edition") as HTMLInputElement).value
+  //   } else {
+  //     titulo = this.proyecto.titulo
+  //   }
+  //   if (document.getElementById("fecha_edition")){
+  //     fecha = Number((document.getElementById("fecha_edition") as HTMLInputElement).value)
+  //   } else {
+  //     fecha = this.proyecto.fecha
+  //   }
 
-    if (document.getElementById("descripcion_edition")){
-      descripcion = (document.getElementById("descripcion_edition") as HTMLInputElement).value
-    } else {
-      descripcion = this.proyecto.descripcion
-    }
-    if (document.getElementById("url_edition")){
-      url = (document.getElementById("url_edition") as HTMLInputElement).value
-    } else {
-      url = this.proyecto.url
-    }
-    if (document.getElementById("titulo_edition")){
-      titulo = (document.getElementById("titulo_edition") as HTMLInputElement).value
-    } else {
-      titulo = this.proyecto.titulo
-    }
-    if (document.getElementById("fecha_edition")){
-      fecha = Number((document.getElementById("fecha_edition") as HTMLInputElement).value)
-    } else {
-      fecha = this.proyecto.fecha
-    }
+  //   this.proyectoEditado = {
+  //     id: this.proyecto.id,
+  //     titulo: titulo,
+  //     url: url,
+  //     descripcion: descripcion,
+  //     fecha: fecha,
+  //     imagen:  this.imagen_editada,
+  //     habilidades: this.proyecto.habilidades
+  //   }
 
-    this.proyectoEditado = {
-      id: this.proyecto.id,
-      titulo: titulo,
-      url: url,
-      descripcion: descripcion,
-      fecha: fecha,
-      imagen:  this.imagen_editada,
-      habilidades: this.proyecto.habilidades
-    }
+  //   console.log(this.proyectoEditado.habilidades)
 
-    console.log(this.proyectoEditado)
-
-    this.editable = false
-    this.editable_imagen= false
+  //   this.editable = false
+  //   this.editable_imagen= false
 
 
-    try {
-      this.proyectoServise.editProyecto(this.proyectoEditado).subscribe(data =>
-        {
-          console.log(data);
-          console.log("Se modificó la base de datos");
-          this.proyectoServise.getProyectoByID(this.proyecto.id).subscribe(data => {
-            console.log(data);
-            this.proyecto = data;
-          })
+  //   try {
+  //     this.proyectoServise.editProyecto(this.proyectoEditado).subscribe(data =>
+  //       {
+  //         console.log(data);
+  //         console.log("Se modificó la base de datos");
+  //         this.proyectoServise.getProyectoByID(this.proyecto.id).subscribe(data => {
+  //           console.log(data);
+  //           this.proyecto = data;
+  //         })
 
-          //TODO validaciones
-        })
-    } catch (error) {
-      console.log(error);
-      console.log("No se modificó la base de datos")
-    }
-  }
+  //       })
+  //   } catch (error) {
+  //     console.log(error);
+  //     console.log("No se modificó la base de datos")
+  //   }
+  // }
 
   onConfirm() {
     console.log("Se hicieron modificaciones")

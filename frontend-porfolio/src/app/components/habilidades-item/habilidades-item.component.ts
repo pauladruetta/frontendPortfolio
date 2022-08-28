@@ -41,8 +41,6 @@ export class HabilidadesItemComponent implements OnInit {
   onDelete() {
     console.log("Item Eliminado");
     this.visibleItem = false;
-
-    //TODO confirmaciones
     try {
         this.habilidadesService.deleteHabilidad(this.habilidad.id).subscribe(data =>
           {
@@ -56,53 +54,50 @@ export class HabilidadesItemComponent implements OnInit {
     }
   }
 
-  onAcept() {
-    //FIXME validaciones
-    //TODO Falta dar estilo
-    let nombre;
-    let porcentaje;
+  // onAcept() {
+  //   let nombre;
+  //   let porcentaje;
 
-    if (document.getElementById("nombre_edition")){
-      nombre = (document.getElementById("nombre_edition") as HTMLInputElement).value
-    } else {
-      nombre = this.habilidad.nombre
-    }
+  //   if (document.getElementById("nombre_edition")){
+  //     nombre = (document.getElementById("nombre_edition") as HTMLInputElement).value
+  //   } else {
+  //     nombre = this.habilidad.nombre
+  //   }
 
-    if (document.getElementById("porcentaje_edition")){
-      porcentaje = (document.getElementById("porcentaje_edition") as HTMLInputElement).value
-      porcentaje = Number(porcentaje)
-    } else {
-      porcentaje = this.habilidad.porcentaje
-    }
+  //   if (document.getElementById("porcentaje_edition")){
+  //     porcentaje = (document.getElementById("porcentaje_edition") as HTMLInputElement).value
+  //     porcentaje = Number(porcentaje)
+  //   } else {
+  //     porcentaje = this.habilidad.porcentaje
+  //   }
 
-    this.habilidadEditada  = {
-      id: this.habilidad.id,
-      nombre: nombre,
-      porcentaje: porcentaje,
-    }
+  //   this.habilidadEditada  = {
+  //     id: this.habilidad.id,
+  //     nombre: nombre,
+  //     porcentaje: porcentaje,
+  //   }
 
-    console.log(this.habilidadEditada)
+  //   console.log(this.habilidadEditada)
 
-    this.editable = false
+  //   this.editable = false
 
-    try {
-      this.habilidadesService.editEHabilidad(this.habilidadEditada).subscribe(data =>
-        {
-          console.log(data);
-          console.log("Se modificó la base de datos");
-          this.habilidadesService.getHabilidadByID(this.habilidad.id).subscribe(data => {
-            console.log(data);
-            this.habilidad = data;
-          })
+  //   try {
+  //     this.habilidadesService.editEHabilidad(this.habilidadEditada).subscribe(data =>
+  //       {
+  //         console.log(data);
+  //         console.log("Se modificó la base de datos");
+  //         this.habilidadesService.getHabilidadByID(this.habilidad.id).subscribe(data => {
+  //           console.log(data);
+  //           this.habilidad = data;
+  //         })
 
-          //TODO validaciones
-        })
-    } catch (error) {
-      console.log(error);
-      console.log("No se modificó la base de datos")
-    }
+  //       })
+  //   } catch (error) {
+  //     console.log(error);
+  //     console.log("No se modificó la base de datos")
+  //   }
 
-  }
+  // }
 
 
   onConfirm() {

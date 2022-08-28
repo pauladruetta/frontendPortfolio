@@ -1,0 +1,23 @@
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModel">
+  Launch demo modal
+</button> -->
+
+<div class="modal fade" [id]="idModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+        <button id="closeButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="OnCancel()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Usted está a punto de {{ texto }} permanentemente, está seguro de continuar?
+      </div>
+      <div class="modal-footer">
+        <button id="cancelButton" type="button" class="btn btn-secondary"  data-bs-dismiss="modal" (click)="OnCancel()">Cancelar</button>
+        <button id="okButton" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="OnAcept()" >Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
