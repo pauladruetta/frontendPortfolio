@@ -21,29 +21,33 @@ export class EducacionService {
     // this.baseUrl = "https://backendapdruetta.herokuapp.com/educacion";
     this.baseUrl = this.API_URL +'/educacion';
 //    this.baseUrl = this.loginService.getBackUrl() +'/educacion';
-    console.log("El servicio de educacion está corriendo hasta acá")
-
+    //console.log("El servicio de educacion está corriendo hasta acá")
   }
 
   getAllEducacion(): Observable<Educacion[]> {
-    console.log("trayendo educacion");
+    console.log("trayendo todo educacion");
     return this.http.get<Educacion[]>(this.baseUrl+`/ver-todas`);
   }
 
   getEducacionByID(id: number): Observable<Educacion> {
-    console.log("trayendo educacion por id :" + id);
+    console.log("trayendo educacion por id");
     return this.http.get<Educacion>(this.baseUrl+`/${id}`);
+  }
+
+  getEducacionByPersona(id: number): Observable<Educacion[]> {
+    console.log("Trayendo toda la Educacion de persona")
+    return this.http.get<Educacion[]>(this.baseUrl+`/persona/${id}`);
   }
 
   editEducacion( Educacion: Educacion ): Observable<Educacion> {
     let id = Educacion.id
-    console.log("Editando Educacion" + id)
+    console.log("Editando Educacion" )
     return this.http.put<Educacion>(this.baseUrl+"/edit", Educacion);
 
   }
 
   deleteEducacion( id: number ): Observable<Educacion> {
-    console.log("borrando Educacion" + id)
+    console.log("borrando Educacion" )
     return this.http.delete<Educacion>(this.baseUrl+`/delete/${id}`);
   }
 

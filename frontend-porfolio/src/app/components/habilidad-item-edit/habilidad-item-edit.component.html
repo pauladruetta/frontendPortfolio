@@ -1,14 +1,37 @@
 <form [formGroup]="formulario" (ngSubmit)="onAcept()">
   <div class="form-group">
-    <label></label>
-    <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" >
+    <!--<label class="m-2" *ngIf="!editando" >Nombre</label>
+    <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" *ngIf="!editando" >-->
+
+    <div
+    class="form-group"
+    *ngIf="!editando"
+  >
+    <label>Habilidad a agregar</label>
+    <select class="form-select" aria-label="Default select example"  formControlName="added_habilidad">
+      <option value="Elije Habilidad" disabled>Elije Habilidad</option>
+      <option *ngFor="let habilidad of arrHabilidadesNuevas" [value]="habilidad.nombre">{{habilidad.nombre}}</option>
+      <option value="nueva">Nueva</option>
+    </select>
+    <input *ngIf="writeNew" id="nueva_habilidad" class="form-control" [ngClass]="{'errorInput':existe}" type="text" placeholder="nueva habilidad" formControlName="nueva_habilidad">
+    <label class="m-2 error" *ngIf="existe">Esa habilidad ya existe</label>
+    <!-- <button
+
+    class="btn btn-light"
+    *ngIf="writeNew"
+    (click)="OnAddHabilidad($event)"
+  >
+    Agregar
+  </button> -->
   </div>
-  <div class="form-group">
-    <label></label>
+    <label class="m-2" *ngIf="editando">{{Habilidad.habilidad.nombre}}</label>
+    <label class="m-2" *ngIf="!editando">Porcentaje</label>
     <input class="form-control" type="text" placeholder="Porcentaje" formControlName="porcentaje">
   </div>
 
-  <input type="submit" value="Aceptar" class="btn btn-ligth float-end">
+  <input
+    type="submit" value="Aceptar" class="btn btn-ligth float-end"
+  >
   <app-cancelar-button
     texto="Cancelar"
     [cruz]="false"

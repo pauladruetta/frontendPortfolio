@@ -1,3 +1,5 @@
+import { Persona } from "./persona.model";
+
 export class Educacion {
   id: number;
   titulo: string;
@@ -6,4 +8,5 @@ export class Educacion {
   fecha_inicio: number;
   fecha_fin: number;
   imagen: string;
+  persona: Persona;
 }

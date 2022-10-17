@@ -1,4 +1,4 @@
-<app-card title="Educacion">
+<app-card title="Educacion" cardClass="border-0 ">
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <h5 class="card-title"> Educación </h5>
@@ -20,6 +20,7 @@
         (onClickAcept)="onAddConfirm()"
         (onClickCancel)="onCancelAdd()"
         [editando]="false"
+        [Persona] = persona
       ></app-educacion-item-edit>
     </div>
     <app-educacion-item

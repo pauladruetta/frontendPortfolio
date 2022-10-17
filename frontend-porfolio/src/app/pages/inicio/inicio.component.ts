@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Habilidad } from 'src/app/models/habilidad.model';
-import { HabilidadesService } from 'src/app/services/habilidades.service';
+import { Persona } from 'src/app/models/persona.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-inicio',
@@ -8,18 +8,17 @@ import { HabilidadesService } from 'src/app/services/habilidades.service';
   styleUrls: ['./inicio.component.sass']
 })
 
-
 export class InicioComponent implements OnInit {
-
+  @Output() persona: Persona
   //@Output() onEditHabilidad: EventEmitter<Boolean> = new EventEmitter();
   //arrHabilidad: Habilidad[];
-  constructor( private habilidadesService: HabilidadesService) { }
+  constructor( private dataService: DataService) { }
 
   ngOnInit(): void {
-    // this.habilidadesService.getAllHabilidades().subscribe(data => {
-    //   this.arrHabilidad = data;
+     this.dataService.persona.subscribe(data => {
+       this.persona = data;
     //   console.log(this.arrHabilidad);
-    // })
+    })
     // // this.habilidadesService.refreshHabilidades()
     // // this.arrHabilidad = this.habilidadesService.getAllHabilidades();
     // console.log(this.arrHabilidad);

@@ -1,7 +1,36 @@
+$layout-breakpoint-small: 500px
+$layout-breakpoint-medium: 768px
+$layout-breakpoint-large: 1000px
+
 .buttons
   bottom: 1rem
   right: 1rem
 
+.portada-container
+  background-position: center
+  background-color: #b0adad
+  background-repeat: no-repeat
+  background-size: cover
+  max-height: 80vh
+  height: 15rem
+
+
 // .buttons-image
 //   right: auto
 //   bottom: 5rem
+@media screen and (min-width: $layout-breakpoint-small)
+  .edit-image
+    position: absolute
+  .portada-container
+    flex-direction: row !important
+
+
+@media screen and (min-width: $layout-breakpoint-medium)
+
+  .portada-container
+    max-height: 80vh
+    object-fit: cover
+
+@media screen and (min-width: $layout-breakpoint-large)
+  .portada-container
+    height: 50vh

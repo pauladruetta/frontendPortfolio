@@ -25,11 +25,10 @@ export class EducacionItemComponent implements OnInit {
 
   ) {
    this.loginService.toggleView.subscribe(data =>  {
-    console.log('toggleView')
+    console.log('toggleView: ' +data)
     this.visibleButton = data
    })
-
-    console.log(this.visibleButton )
+    //console.log(this.visibleButton )
   }
 
   async ngOnInit() {
@@ -39,7 +38,7 @@ export class EducacionItemComponent implements OnInit {
   onEdit(editable: Boolean) {
     this.editable = editable;
     this.imagen_editada = this.educacion.imagen;
-    console.log(this.imagen_editada )
+    //console.log(this.imagen_editada )
   }
 
   onConfirm() {
@@ -48,7 +47,7 @@ export class EducacionItemComponent implements OnInit {
     this.editable_imagen= false
     try {
           this.educacionService.getEducacionByID(this.educacion.id).subscribe(data => {
-            console.log("educacion: " + data);
+            //console.log("educacion: " + data);
             this.educacion = data;
           })
     } catch (error) {
@@ -64,12 +63,12 @@ export class EducacionItemComponent implements OnInit {
 
   onDelete(elemento:any) {
     this.visibleItem = false;
-    console.log(elemento)
-    console.log(event)
+    //console.log(elemento)
+    //console.log(event)
     try {
         this.educacionService.deleteEducacion(this.educacion.id).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Item Eliminado");
           })
     } catch (error) {

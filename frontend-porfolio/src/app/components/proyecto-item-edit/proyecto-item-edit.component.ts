@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Habilidad } from 'src/app/models/habilidad.model';
+import { Persona } from 'src/app/models/persona.model';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { ActualizarService } from 'src/app/services/actualizar.service';
+import { EditionService } from 'src/app/services/edition.service';
 import { HabilidadesService } from 'src/app/services/habilidades.service';
 import { ProyectosService } from 'src/app/services/proyectos.service';
 
@@ -13,15 +15,8 @@ import { ProyectosService } from 'src/app/services/proyectos.service';
 })
 export class ProyectoItemEditComponent implements OnInit {
 
-  @Input()Proyecto: Proyecto = {
-    id: 0,
-    titulo: "",
-    url: "",
-    fecha: 0,
-    descripcion: "",
-    imagen: "",
-    habilidades: []
-  };
+  @Input()Proyecto: Proyecto = {} as Proyecto;
+  @Input() Persona: Persona = {} as Persona;
   @Input() editando: boolean = true;
   @Output() onClickAcept: EventEmitter<Boolean> = new EventEmitter();
   @Output() onClickCancel: EventEmitter<Boolean> = new EventEmitter();
@@ -39,7 +34,8 @@ export class ProyectoItemEditComponent implements OnInit {
   constructor(
     private proyectosService: ProyectosService,
     private habilidadService: HabilidadesService,
-    private actualizarService: ActualizarService
+    private actualizarService: ActualizarService,
+    private editionService: EditionService
   ) {
     habilidadService.getAllHabilidades().subscribe(habilidades  => this.arrHabilidades = habilidades)
     //this.arrHabilidades = hablidadService.getAllHabilidades();
@@ -56,20 +52,24 @@ export class ProyectoItemEditComponent implements OnInit {
       fecha: new FormControl(this.Proyecto.fecha,),
       descripcion: new FormControl(this.Proyecto.descripcion,),
       habilidades: new FormArray([],),
-      imagen: new FormControl( this.Proyecto.imagen),
+      // imagen: new FormControl( this.Proyecto.imagen),
       added_habilidad: new FormControl(''),
-      nueva_habilidad: new FormControl('')
+      nueva_habilidad: new FormControl(''),
+
     })
+    this.imagen_editada = this.Proyecto.imagen
+    console.log(this.Proyecto)
     // this.habilidades = this.Proyecto.habilidades;
     let refHab = this.formulario.get('habilidades') as FormArray
     this.Proyecto.habilidades.forEach(habilidad => {
+      //console.log(habilidad)
       // this.habilidadesNombres.push(habilidad.nombre)
       refHab.push(this.initFormHabilidad(habilidad))
     })
     // this.imagen_editada = this.Proyecto.imagen;
 //TODO Validaciones
-    console.log(this.Proyecto);
-    console.log(this.formulario);
+    //console.log(this.Proyecto);
+    //console.log(this.formulario);
     // if(this.Proyecto.id == 0){
     //   this.habilidades_edit = true
     // };
@@ -100,15 +100,18 @@ export class ProyectoItemEditComponent implements OnInit {
       descripcion: this.formulario.value.descripcion,
       imagen: this.imagen_editada,
       // habilidades: this.habilidades,
-      habilidades: this.formulario.value.habilidades
+      habilidades: this.formulario.value.habilidades,
+      persona: this.Proyecto.persona
     };
 //TODO Encontrar la forma de reutilizar código, estoy copiando y pegando mucho entre las distintas partes
     let accion;
-
+            //console.log(data);
+    console.log(this.imagen_editada);
     if (this.editando){
       accion = "Editando"
     } else {
       accion = "Agregando"
+      this.Nuevo.persona = this.Persona;
     }
 
     console.log(accion +" proyecto item" )
@@ -117,7 +120,7 @@ export class ProyectoItemEditComponent implements OnInit {
 
       if (this.editando){
         console.log("Editando")
-        console.log(this.Nuevo)
+        //console.log(this.Nuevo)
         this.proyectosService.editProyecto(this.Nuevo).subscribe(data =>
           {
             console.log(data);
@@ -125,26 +128,27 @@ export class ProyectoItemEditComponent implements OnInit {
             //TODO validaciones
             console.log(this.Nuevo)
             this.onClickAcept.emit();
-            this.actualizarService.getInfoBD()
+            //this.actualizarService.getInfoBD()
           })
       } else {
         console.log("Agregando Nuevo")
         this.proyectosService.addProyecto(this.Nuevo).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
             console.log(this.Nuevo)
             this.onClickAcept.emit();
-            this.actualizarService.getInfoBD()
+            //this.actualizarService.getInfoBD()
           })
       }
-
+      this.onDisactivete()
     } catch (error) {
       console.log("catch")
       console.log(error);
       console.log("No se modificó la base de datos")
     }
+
   }
 
   onCancel() {
@@ -160,11 +164,13 @@ export class ProyectoItemEditComponent implements OnInit {
     if (this.writeNew == true) {
       nueva = this.formulario.get('nueva_habilidad') as FormControl;
       this.writeNew = false;
+      console.log("Es una habilidad nueva")
     } else {
+      console.log("No es una habilidad nueva")
       nueva = this.formulario.get('added_habilidad') as FormControl;
     }
     console.log(nueva)
-    console.log(nueva.value)
+    //console.log(nueva.value)
     console.log("Nueva Habilidad de proyecto");
     if (nueva.value == "nueva" ){
       this.writeNew = true;
@@ -176,9 +182,10 @@ export class ProyectoItemEditComponent implements OnInit {
             });
             console.log(habilidad); */
             let habilidad: FormControl = new FormControl(nueva.value)
-            console.log(habilidad);
+            //console.log(habilidad);
           refHab.push(habilidad);
           console.log(refHab);
+          //FIXME la nueva habilidad se agrega al proyecto pero no a la persona - ver Back
     }
 
 
@@ -205,15 +212,30 @@ export class ProyectoItemEditComponent implements OnInit {
     console.log("Hover")
   }
 
-  onDelete(habilidad: FormControl){
+  onDelete(habilidad: String){
+    //console.log(habilidad);
+    console.log("Se borró habilidad ")
     console.log(habilidad);
-    console.log("Se borró habilidad " + habilidad.value.nombre);
     let refHab = this.formulario.get('habilidades') as FormArray;
+    console.log(refHab);
     // for (let hab of this.getCtrl('habilidades', this.formulario)?.controls) {
-    refHab.removeAt(habilidad.value)
-    // }
-    console.log(this.formulario);
+    let  index = 0
+    for (let hab of refHab.value) {
+      console.log(hab)
+      if (hab == habilidad) {
+        console.log(hab)
+        break
+      } else {
+        index = index+1
+      }
+    }
+    console.log(index)
+    refHab.removeAt(index)
+    //refHab.removeAt(index)
+    //
+    //console.log(this.formulario);
   }
+
 
 
 //   onEditImage(editable: Boolean) {
@@ -242,5 +264,10 @@ export class ProyectoItemEditComponent implements OnInit {
 onSendImage(imagen: string) {
   console.log("llegó")
   this.imagen_editada = imagen;
+}
+
+onDisactivete() {
+  console.log("activar botón")
+  this.editionService.sendDesactivete(true)
 }
 }

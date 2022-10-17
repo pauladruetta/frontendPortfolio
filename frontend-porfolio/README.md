@@ -81,3 +81,8 @@ ejemplo de uso:
 - Cada cambio en el FRONT:
 1) ng build o ng build --configuration=productiond
 2) firebase deploy 
+
+
+#ADD tags
+git tag v0.0.1 -m "Primera versión"
+git push origin v1.0.1 / git push --tags

@@ -1,5 +1,8 @@
+import { Persona } from "./persona.model";
+
 export class Habilidad {
-  id: number;
+  id?: number;
   nombre: string;
-  porcentaje: number;
+  //porcentaje: number;
 }
+

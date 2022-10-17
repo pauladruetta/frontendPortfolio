@@ -1,16 +1,26 @@
-<div class="portada-container w-100 p-3 position-relative d-flex justify-content-center">
-  <img
+<div
+  class="portada-container w-100 p-3 position-relative d-flex flex-column flex-md-row justify-content-center"
+  [ngStyle]="{'background-image': ' url('+ persona.imagen_portada + ')'}"
+>
+<!--TODO sanitizar-->
+  <!-- <img
     class="img-fluid w-100"
     [src]="persona.imagen_portada"
     alt="LogoAp"
-  />
-  <div class="edit-image d-flex justify-content-center mt-3 flex-column position-absolute">
+  /> -->
+  <div
+    class="edit-image d-flex justify-content-center mt-3 mb-3 flex-column"
+    [ngClass]="{'mb-3': editable}"
+  >
     <app-lector-imagen
-      *ngIf="editable"
+      *ngIf="visibleButton && editable"
       textColor=" text-light"
       class=" d-flex justify-content-center text-light bg-black bg-opacity-50 "
     ></app-lector-imagen>
-    <div class="buttons-image d-flex justify-content-center flex-row ">
+    <div
+      class="buttons-image d-flex justify-content-center flex-row"
+      [ngClass]="{'mb-3': editable}"
+    >
       <app-aceptar-button
         *ngIf="visibleButton && editable"
         class="m-2"
@@ -32,8 +42,5 @@
         (onClickButton)="onEdit($event)"
       >
       </app-edition-button>
-      <!--FIXME en movil al editar la foto de portada, la foto de perfil tapa los botones--
-        >
-            <!--FIXME En pantalla grande supera la hoja, queda mal, en celu queda chico, pensar diseño No se ve el botón de editar-->
   </div>
 </div>

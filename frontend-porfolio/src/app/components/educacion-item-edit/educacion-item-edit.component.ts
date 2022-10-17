@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Educacion } from 'src/app/models/educacion.model';
+import { Persona } from 'src/app/models/persona.model';
+import { EditionService } from 'src/app/services/edition.service';
 import { EducacionService } from 'src/app/services/educacion.service';
 
 
@@ -11,15 +13,8 @@ import { EducacionService } from 'src/app/services/educacion.service';
 })
 export class EducacionItemEditComponent implements OnInit {
 
-  @Input()Educacion: Educacion = {
-    id: 0,
-    titulo: "",
-    institucion: "",
-    fecha_inicio: 0,
-    fecha_fin: 0,
-    pais: "",
-    imagen: ""
-  };
+  @Input() Educacion: Educacion = {} as Educacion;
+  @Input() Persona: Persona = {} as Persona;
   @Input() editando: boolean = true;
   @Output() onClickAcept: EventEmitter<Boolean> = new EventEmitter();
   @Output() onClickCancel: EventEmitter<Boolean> = new EventEmitter();
@@ -30,6 +25,7 @@ export class EducacionItemEditComponent implements OnInit {
 
   constructor(
     private educacionService: EducacionService,
+    private editionService: EditionService
   ) {
 
   }
@@ -45,10 +41,10 @@ export class EducacionItemEditComponent implements OnInit {
       fecha_inicio: new FormControl(this.Educacion.fecha_inicio,),
       fecha_fin: new FormControl(this.Educacion.fecha_fin,),
     })
-    //this.imagen_editada = this.Educacion.imagen;
+    this.imagen_editada = this.Educacion.imagen;
     //TODO Validaciones
-    console.log(this.Educacion);
-    console.log(this.formulario);
+    //console.log(this.Educacion);
+    //console.log(this.formulario);
   }
 
   onAcept() {
@@ -60,6 +56,7 @@ export class EducacionItemEditComponent implements OnInit {
       fecha_inicio: this.formulario.value.fecha_inicio,
       fecha_fin: this.formulario.value.fecha_fin,
       imagen: this.imagen_editada,
+      persona: this.Educacion.persona
     };
 
     let accion;
@@ -68,6 +65,7 @@ export class EducacionItemEditComponent implements OnInit {
       accion = "Editando"
     } else {
       accion = "Agregando"
+      this.educacionNueva.persona = this.Persona;
     }
 
     console.log(accion +" educaion item" )
@@ -84,15 +82,17 @@ export class EducacionItemEditComponent implements OnInit {
           })
       } else {
         console.log("Agregando Nuevo")
+        console.log(this.educacionNueva)
         this.educacionService.addEducacion(this.educacionNueva).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
-            console.log(this.educacionNueva)
+           //console.log(this.educacionNueva)
             this.onClickAcept.emit();
           })
       }
+      this.onDisactivete()
     } catch (error) {
       console.log("catch")
       console.log(error);
@@ -133,5 +133,10 @@ export class EducacionItemEditComponent implements OnInit {
   onSendImage(imagen: string) {
     console.log("llegó")
     this.imagen_editada = imagen;
+  }
+
+  onDisactivete() {
+    console.log("activar botón")
+    this.editionService.sendDesactivete(true)
   }
 }

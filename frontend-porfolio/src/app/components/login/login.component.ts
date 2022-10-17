@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { InterceptorService } from 'src/app/services/interceptor.service';
 import { LoginService } from 'src/app/services/login.service';
 import { TokenService } from 'src/app/services/token.service';
 
@@ -22,9 +23,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private interceptorService: InterceptorService
   ) {
     this.toggleEdit = new EventEmitter();
+
     this.formulario = new FormGroup({
       nombreUsuario: new FormControl("",[
         Validators.required,
@@ -44,19 +47,45 @@ export class LoginComponent implements OnInit {
       //   notificationToken: new FormControl("asdfasdfasd",[])
       // })
    })
+
    //FIXME: no se desconecta cuando el token está caduco, o no pide uno nuevo
-   if (this.tokenService.getToken()){
-    this.loggin = true;
-    this.isLoginFail = false;
-    this.roles = this.tokenService.getAuthorities();
-    this.loginService.isAdmin()
-    this.toggleEdit.emit(true);
-   }
-    console.log('Login: '+this.loggin)
+    const token = this.tokenService.getToken();
+    if (token){
+      if (this.tokenService.tokenExpired(token)) {
+        console.log("el token expiró")
+        console.log("Iniciando Log Out")
+        window.alert("Su token expiró, vuelva a iniciar sesión")
+        //TODO hacer un modal
+        this.onLogOut()
+      } else {
+        console.log('Login: ya logeado')
+        this.loggin = true;
+        this.isLoginFail = false;
+        this.roles = this.tokenService.getAuthorities();
+        this.loginService.isAdmin()
+        this.toggleEdit.emit(true);
+        // if (this.isAdmin()) {
+        //   this.showEdit = true;
+        //   console.log('Auth: Admin')
+        //   console.log('Mostrar edición: '+ this.showEdit)
+        // }
+      }
   }
+}
 
   ngOnInit(): void {
-    console.log("Login component")
+    //console.log("Login component")
+    this.loginService.tokenExpired.subscribe(data => {
+      console.log("Iniciando Log Out")
+      window.alert("Su token expiró, vuelva a iniciar sesión")
+      this.onLogOut()
+    })
+    //console.log("escucho a interceptor")
+    this.loginService.usuarioError.subscribe(data => {
+      console.log("Mensaje de error recibido")
+      this.onUserError(data)
+    })
+
   }
 
   onEnviar(event:Event){
@@ -79,13 +108,14 @@ export class LoginComponent implements OnInit {
       this.toggleEdit.emit(true);
     },
     err => {
-      console.log(err.status)
-      console.log("Error en el login");
-      this.isLoginFail = true
-      if (err.status == 401) {
-        this.error_mensaje = "Usuario no Autorizado"
-      }
-      setTimeout(() => this.resetForm(), 1000)
+      this.onUserError(err)
+      // console.log(err.status)
+      // console.log("Error en el login");
+      // this.isLoginFail = true
+      // if (err.status == 401) {
+      //   this.error_mensaje = "Usuario no Autorizado"
+      // }
+      // setTimeout(() => this.resetForm(), 1000)
     })
 
   };
@@ -99,12 +129,7 @@ export class LoginComponent implements OnInit {
 
   onClick() {
     if (this.loggin) {
-      this.loggin = false
-      this.toggleEdit.emit(true);
-      // this.loginService.editView();
-      this.formulario.reset;
-      console.log("Se cerró sesión");
-      this.tokenService.logOut();
+      this.onLogOut()
     } else {
       console.log("Toggle button");
       if (this.iniciarLogin) {
@@ -139,10 +164,29 @@ export class LoginComponent implements OnInit {
   //   // }
   // }
 
+  onLogOut() {
+    this.loggin = false
+    this.toggleEdit.emit(true);
+    //this.loginService.editView();
+    this.formulario.reset;
+    console.log("Se cerró sesión");
+    this.tokenService.logOut();
+  }
+
   onCancel() {
     console.log("Cancelo inicio de sesión")
     this.onClickCancel.emit();
     this.formulario.reset();
     this.iniciarLogin = false;
+  }
+
+  onUserError(err: any) {
+    console.log(err.status)
+    console.log("Error en el login");
+    this.isLoginFail = true
+    if (err.status == 401) {
+      this.error_mensaje = "Usuario no Autorizado"
+    }
+    setTimeout(() => this.resetForm(), 1000)
   }
 }

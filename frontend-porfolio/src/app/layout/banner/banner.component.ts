@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Persona } from 'src/app/models/persona.model';
+import { DataService } from 'src/app/services/data.service';
 import { PersonasService } from 'src/app/services/personas.service';
 
 @Component({
@@ -17,16 +18,19 @@ export class BannerComponent implements OnInit {
   imagen_editada: string;
 
   constructor(
+    private dataService: DataService,
     private personasServices: PersonasService,
     private loginService: LoginService
 
   ) {
    this.loginService.toggleView.subscribe(data =>  {
-    console.log('toggleView')
+    console.log('toggleView: ' + data)
     this.visibleButton = data
+    if (!this.visibleButton){
+      this.editable =false
+    }
    })
-
-    console.log(this.visibleButton )
+    //console.log(this.visibleButton )
   }
 
   // ngOnInit() {}
@@ -38,13 +42,19 @@ export class BannerComponent implements OnInit {
   // }
 
   async ngOnInit() {
-    console.log("banner");
+    //console.log("banner");
     this.visibleButton = this.loginService.getView();
-    this.personasServices.getAllPersonas().subscribe(data => {
-      console.log(data);
-      this.arrPersonas = data
-      this.persona = this.arrPersonas[0];
-      console.log(this.persona);
+    // this.personasServices.getAllPersonas().subscribe(data => {
+    //   console.log(data);
+    //   this.arrPersonas = data
+    //   this.persona = this.arrPersonas[0];
+    //   console.log(this.persona);
+    // this.personasServices.getPersona(281).subscribe(data=> {
+    this.dataService.persona.subscribe(data=> {
+      //console.log(data);
+      this.persona = data;
+      //console.log("traigo persona");
+      //console.log(this.persona);
     }, err => {
       console.log("error")
       console.log(err)
@@ -75,7 +85,6 @@ export class BannerComponent implements OnInit {
       console.log(error);
       console.log("No se modificó la base de datos")
     }
-
     this.editable = false
   }
 

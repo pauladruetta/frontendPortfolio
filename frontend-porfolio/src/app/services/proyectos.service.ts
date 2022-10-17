@@ -21,28 +21,34 @@ export class ProyectosService {
     //this.baseUrl = "https://backendapdruetta.herokuapp.com/proyecto";
     //this.baseUrl = this.loginService.getBackUrl() +'/proyecto';
     this.baseUrl = this.API_URL +'/proyecto';
-    console.log("El servicio de proyectos está corriendo")
-
+    //console.log("El servicio de proyectos está corriendo")
   }
 
   getAllProyectos(): Observable<Proyecto[]> {
+    console.log("trayendo todos los proyectos")
     return this.http.get<Proyecto[]>(this.baseUrl+"/ver-todos");
   }
 
   getProyectoByID(id: number): Observable<Proyecto> {
+    console.log("trayendo un proyecto")
     return this.http.get<Proyecto>(this.baseUrl+`/${id}`);
+  }
+
+  getProyectosByPersona(id: number): Observable<Proyecto[]> {
+    console.log("Trayendo todas los proyectos de persona")
+    return this.http.get<Proyecto[]>(this.baseUrl+`/persona/${id}`);
   }
 
   editProyecto( Proyecto: Proyecto ): Observable<Proyecto> {
     let id = Proyecto.id
-    console.log("Editando Proyecto" + id)
-    console.log(Proyecto)
+    console.log("Editando Proyecto")
+    //console.log(Proyecto)
     return this.http.put<Proyecto>(this.baseUrl+"/edit", Proyecto);
 
   }
 
     deleteProyecto( id: number ): Observable<Proyecto> {
-      console.log("borrando Proyecto" + id)
+      console.log("borrando Proyecto")
       return this.http.delete<Proyecto>(this.baseUrl+`/delete/${id}`);
     }
 

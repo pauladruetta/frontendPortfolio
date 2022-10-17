@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Habilidad } from 'src/app/models/habilidad.model';
 import { HabilidadesService } from 'src/app/services/habilidades.service';
+import { HabilidadPersona } from 'src/app/models/habilidadPersona.model';
+import { ActualizarService } from 'src/app/services/actualizar.service';
 
 @Component({
   selector: 'app-habilidades-item',
@@ -11,7 +13,8 @@ import { HabilidadesService } from 'src/app/services/habilidades.service';
 export class HabilidadesItemComponent implements OnInit {
 
 
-  @Input() habilidad: Habilidad;
+  //@Input() habilidad: Habilidad;
+  @Input() habilidad: HabilidadPersona;
   visibleButton: Boolean;
   visibleItem: Boolean = true;
   editable: Boolean = false;
@@ -19,14 +22,16 @@ export class HabilidadesItemComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private habilidadesService: HabilidadesService
+    private habilidadesService: HabilidadesService,
 
   ) {
    this.loginService.toggleView.subscribe(data =>  {
     console.log('toggleView')
     this.visibleButton = data
+    if (!this.visibleButton){
+      this.editable = false
+    }
    })
-
   }
 
   async ngOnInit() {
@@ -34,6 +39,7 @@ export class HabilidadesItemComponent implements OnInit {
   }
 
   onEdit(editable: Boolean) {
+    console.log(editable)
     this.editable = editable;
   }
 
@@ -42,9 +48,9 @@ export class HabilidadesItemComponent implements OnInit {
     console.log("Item Eliminado");
     this.visibleItem = false;
     try {
-        this.habilidadesService.deleteHabilidad(this.habilidad.id).subscribe(data =>
+        this.habilidadesService.deleteHabilidadPersona(this.habilidad.id).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
           })
@@ -104,7 +110,7 @@ export class HabilidadesItemComponent implements OnInit {
     console.log("Se hicieron modificaciones")
     this.editable = false
     try {
-          this.habilidadesService.getHabilidadByID(this.habilidad.id).subscribe(data => {
+          this.habilidadesService.getHabilidadPersonaByID(this.habilidad.id).subscribe(data => {
             console.log(data);
             this.habilidad = data;
           })

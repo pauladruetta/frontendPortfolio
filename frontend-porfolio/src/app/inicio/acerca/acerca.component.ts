@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Persona } from 'src/app/models/persona.model';
 import { PersonasService } from 'src/app/services/personas.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-acerca',
@@ -25,10 +26,11 @@ export class AcercaComponent implements OnInit {
 
   constructor(
     private personasServices: PersonasService,
+    private dataService: DataService,
     private loginService: LoginService
 
   ) {
-    console.log("creo al componente acerca");
+    //console.log("creo al componente acerca");
    this.loginService.toggleView.subscribe(data =>  {
     console.log('toggleView')
     this.visibleButton = data
@@ -39,7 +41,7 @@ export class AcercaComponent implements OnInit {
       this.editable.person_info= false;
     }
    })
-    console.log(this.visibleButton )
+    //console.log(this.visibleButton )
     this.editable = {
       "imagen_perfil": false,
       "person_info": false,
@@ -64,14 +66,28 @@ export class AcercaComponent implements OnInit {
   async ngOnInit() {
 //    this.arrPersonas = await this.personasServices.getAllPromise()
     this.visibleButton = this.loginService.getView();
-    console.log("llamo a servicio personas");
-    this.personasServices.getAllPersonas().subscribe(data => {
-      this.arrPersonas = data
-      console.log(data);
-      this.persona = this.arrPersonas[0];
-      console.log("traigo personas");
-      console.log(this.arrPersonas);
+    //console.log("llamo a servicio personas");
+    // this.personasServices.getAllPersonas().subscribe(data => {
+    //   this.arrPersonas = data
+    //   console.log(data);
+    //   this.persona = this.arrPersonas[0];
+    //   console.log("traigo personas");
+    //   console.log(this.arrPersonas);
 
+    // })
+    // this.personasServices.getPersona(281).subscribe(data=> {
+    //   this.persona = data;
+    //   console.log("traigo persona");
+    //   console.log(this.persona);
+    // })
+    this.dataService.persona.subscribe(data=> {
+      //console.log(data);
+      this.persona = data;
+      //console.log("traigo persona");
+      //console.log(this.persona);
+    }, err => {
+      console.log("error")
+      console.log(err)
     })
   }
 
@@ -100,11 +116,10 @@ export class AcercaComponent implements OnInit {
     let imagen_perfil;
 
     if (document.getElementById("acerca_edition")){
-      descripcion = (document.getElementById("acerca_edition") as HTMLTextAreaElement).value
+      descripcion = (document.getElementById("acerca_edition") as HTMLTextAreaElement).value.trim()
     } else {
-      descripcion = this.persona.descripcion
+      descripcion = this.persona.descripcion.trim()
     }
-
     if (document.getElementById("person-name-editable")){
       nombre = (document.getElementById("person-name-editable") as HTMLInputElement).value
     } else {
@@ -131,6 +146,7 @@ export class AcercaComponent implements OnInit {
 
     this.personaEditada = {
       "id": this.persona.id,
+      //"id": 286,
       "nombre": nombre,
       "apellido": apellido,
       "titulo": titulo,
@@ -139,19 +155,20 @@ export class AcercaComponent implements OnInit {
       "imagen_portada": this.persona.imagen_portada,
       "descripcion": descripcion,
       "edad":37,
+      "habilidades":this.persona.habilidades
     }
 
-    console.log(this.personaEditada)
+    //console.log(this.personaEditada)
 
     try {
       this.personasServices.editPersona(this.personaEditada).subscribe(data =>
         {
-          console.log(data);
+          //console.log(data);
           console.log("Se modificó la base de datos");
           this.personasServices.getAllPersonas().subscribe(data => {
           this.arrPersonas = data
           this.persona = this.arrPersonas[0];
-          console.log(this.arrPersonas);
+          //console.log(this.arrPersonas);
           })
           // this.persona =  this.personaEditada
 

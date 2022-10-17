@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Experiencia } from 'src/app/models/experiencia.model';
+import { Persona } from 'src/app/models/persona.model';
 import { ExperienciasService } from 'src/app/services/experiencias.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -11,6 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class ExperienciaComponent implements OnInit {
 
   arrExperiencias: Experiencia[];
+  @Input() persona: Persona;
   visibleButton: Boolean = false;
   agregandoNuevo: Boolean = false;
 
@@ -19,7 +21,7 @@ export class ExperienciaComponent implements OnInit {
     private loginService: LoginService
     ) {
       this.loginService.toggleView.subscribe(data =>  {
-        console.log('toggleView')
+        console.log('toggleView: '+ data)
         this.visibleButton = data
       })
       // this.visibleButton = this.loginService.getView();
@@ -29,12 +31,16 @@ export class ExperienciaComponent implements OnInit {
 
   async ngOnInit() {
     this.visibleButton = this.loginService.getView();
-    this.experienciasServise.getAllExperiencias().subscribe(data => {
+/*     this.experienciasServise.getAllExperiencias().subscribe(data => {
       this.arrExperiencias = data;
-      console.log(this.arrExperiencias);
-    })
-
-    console.log();
+      //console.log(this.arrExperiencias);
+    }) */
+/*     this.experienciasServise.getExperienciasByPersona(281).subscribe(data => {
+      this.arrExperiencias = data;
+      console.log(data);
+    }) */
+    this.getExperiencias()
+    //console.log();
   }
 
   onAdd(agregandoNuevo: Boolean) {
@@ -50,10 +56,20 @@ export class ExperienciaComponent implements OnInit {
 
   onAddConfirm(){
     this.agregandoNuevo = false;
-    this.experienciasServise.getAllExperiencias().subscribe(data => {
+    this.getExperiencias()
+/*     this.experienciasServise.getAllExperiencias().subscribe(data => {
       this.arrExperiencias = data;
-      console.log(this.arrExperiencias);
-    })
+      //console.log(this.arrExperiencias);
+    }) */
+  }
+
+  getExperiencias() {
+    if(this.persona.id != null){
+      this.experienciasServise.getExperienciasByPersona(this.persona.id!).subscribe(data => {
+        this.arrExperiencias = data;
+        //console.log(data);
+      })
+    }
   }
 
 }

@@ -38,19 +38,19 @@
     (SendImage)="onSendImage($event)"
   ></app-newimage>
   <div class="form-group">
-    <label></label>
+    <label class="m-2">Título</label>
     <input class="form-control" type="text" placeholder="Título" formControlName="titulo">
   </div>
   <div class="form-group">
-    <label></label>
+    <label class="m-2">Fecha</label>
     <input class="form-control" type="number" placeholder="Fecha" formControlName="fecha">
   </div>
   <div class="form-group">
-    <label></label>
+    <label class="m-2">Url</label>
     <input class="form-control" type="text" placeholder="Url" formControlName="url">
   </div>
   <div class="form-group">
-    <label></label>
+    <label class="m-2">Descripción</label>
     <textarea class="form-control" type="text" placeholder="Descripción" formControlName="descripcion"></textarea>
   </div>
   <label class=" d-block m-2">Habilidades</label>
@@ -98,7 +98,8 @@
         </span>
         <app-eliminate-button
           class="px-2"
-          (onClickButton)="onDelete(habilidad)"
+          [element]="habilidad.value"
+          (onClickButton)="onDelete($event)"
         >
         </app-eliminate-button>
       <!-- </div> -->

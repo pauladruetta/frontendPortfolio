@@ -1,4 +1,5 @@
 import { Habilidad } from "./habilidad.model";
+import { Persona } from "./persona.model";
 
 export class Proyecto {
   id: number;
@@ -8,4 +9,5 @@ export class Proyecto {
   fecha: number;
   imagen: string;
   habilidades: Array<String>;
+  persona: Persona;
 }
