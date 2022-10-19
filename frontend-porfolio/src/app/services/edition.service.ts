@@ -12,6 +12,7 @@ export class EditionService {
 
   sendDesactivete(state: boolean) {
     console.log('Get Info')
+    console.log(state)
     this.desactivete.emit(state)
   }
 }

@@ -1,4 +1,4 @@
-<app-card title="Habilidades">
+<app-card title="Habilidades" cardClass="border-0 ">
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <h5 class="card-title"> Habilidades blandas y duras </h5>
@@ -13,17 +13,18 @@
       ></app-cancelar-button>
     </div>
     <div
-    class="row habilidad-item-editable g-0"
-    *ngIf="agregandoNuevo"
-  >
-    <app-habilidad-item-edit
-      (onClickAcept)="onAddConfirm()"
-      (onClickCancel)="onCancelAdd()"
-      [editando]="false"
-    ></app-habilidad-item-edit>
-  </div>
+      class="row habilidad-item-editable g-0"
+      *ngIf="visibleButton && agregandoNuevo"
+    >
+      <app-habilidad-item-edit
+        (onClickAcept)="onAddConfirm()"
+        (onClickCancel)="onCancelAdd()"
+        [editando]="false"
+        [Persona] = persona
+      ></app-habilidad-item-edit>
+    </div>
     <app-habilidades-item
-      *ngFor="let habilidad of arrHabilidad"
+      *ngFor="let habilidad of arrHabilidadPersona"
       [habilidad]="habilidad"
     ></app-habilidades-item>
   </div>

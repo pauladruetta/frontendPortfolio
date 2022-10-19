@@ -74,10 +74,17 @@ ejemplo de uso:
 1) Abrir el CMD como administrador, en la carpeta del back del proyecto.
 2) git add .
 3) git commit -m "mensaje"
-4) git push heroku main (o máster, el que usaron al principio)
+4) heroku logins
+5) git push heroku main (o máster, el que usaron al principio)
   (ver en que rama estoy)
   si no es la main git push heroku rama:main
+6) Es necesario correr la aplicacion en el back para actualizar la estructura de carpetas
 
 - Cada cambio en el FRONT:
-1) ng build o ng build --configuration=productiond
+1) ng build o ng build --configuration=production
 2) firebase deploy 
+
+
+#ADD tags
+git tag v0.0.1 -m "Primera versión"
+git push origin v1.0.1 / git push --tags

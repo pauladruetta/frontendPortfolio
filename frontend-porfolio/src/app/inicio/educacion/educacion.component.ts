@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Educacion } from 'src/app/models/educacion.model';
+import { Persona } from 'src/app/models/persona.model';
 import { EducacionService } from 'src/app/services/educacion.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -11,6 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class EducacionComponent implements OnInit {
 
   arrEducacion: Educacion[];
+  @Input() persona: Persona;
   visibleButton: Boolean = false;
   agregandoNuevo: Boolean = false;
 
@@ -19,28 +21,25 @@ export class EducacionComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.loginService.toggleView.subscribe(data =>  {
-      console.log('toggleView')
+      console.log('toggleView: ' + data)
       this.visibleButton = data
     })
     // this.visibleButton = this.loginService.getView();
     // console.log(this.visibleButton )
     //   console.log(this.visibleButton );
-      console.log("creo al componente Educacion");
+      //console.log("creo al componente Educacion");
   }
 
   async ngOnInit() {
-    console.log("llamo al servicio de Educacion");
+    //console.log("llamo al servicio de Educacion");
     this.visibleButton = this.loginService.getView();
-
-    this.educacionService.getAllEducacion().subscribe(data => {
-      console.log("llamando al servicio de Educacion");
-      this.arrEducacion = data;
-      console.log(this.arrEducacion);
-    })
-
-    console.log();
+    this.getEducacion()
+    //this.educacionService.getAllEducacion().subscribe(data => {
+     // console.log("llamando al servicio de Educacion");
+      //this.arrEducacion = data;
+      //console.log(this.arrEducacion);
+    //})
   }
-
 
   onAdd(agregandoNuevo: Boolean) {
     this.agregandoNuevo = agregandoNuevo;
@@ -54,11 +53,21 @@ export class EducacionComponent implements OnInit {
 
   onAddConfirm(){
     this.agregandoNuevo = false;
-    this.educacionService.getAllEducacion().subscribe(data => {
-      this.arrEducacion = data;
-      console.log("Educacion : ");
-      console.log(this.arrEducacion);
-    })
+    this.getEducacion()
+    // this.educacionService.getAllEducacion().subscribe(data => {
+    //   this.arrEducacion = data;
+          //console.log("Educacion : ");
+      //console.log(this.arrEducacion);
+    //})
+  }
+
+  getEducacion() {
+    if(this.persona.id != null){
+      this.educacionService.getEducacionByPersona(this.persona.id!).subscribe(data => {
+        this.arrEducacion = data;
+        //console.log(data);
+      })
+    }
   }
   // onCancel() {
   //   console.log("No se Agregó");

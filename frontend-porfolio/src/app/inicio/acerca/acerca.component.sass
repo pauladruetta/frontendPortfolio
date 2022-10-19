@@ -1,5 +1,6 @@
 $layout-breakpoint-small: 500px
 $layout-breakpoint-medium: 768px
+$layout-breakpoint-large: 1000px
 
 .imagen-box
   width: 60vw
@@ -13,10 +14,13 @@ img
   bottom: 1rem
   right: 1rem
 
+.person_info
+  position: relative
+  top: -3rem
+  padding-bottom: 0rem
 
 .datos-personales
   width: 100%
-  padding-bottom: 2rem
   border: 0
 
 #acerca
@@ -36,7 +40,9 @@ img
 .buttons.acerca-edit
   position: absolute
 
-
+.card.acerca
+  border: 2px solid #0e4f024d
+  padding: 1.5rem
 
 @media screen and (min-width: $layout-breakpoint-small)
   .datos-personales
@@ -44,7 +50,7 @@ img
 
   .imagen-box
     top: -4rem
-    width: 40vw
+    width: 15rem
 
   .buttons-image
     bottom: 11rem
@@ -52,6 +58,7 @@ img
 @media screen and (min-width: $layout-breakpoint-medium)
   .datos-personales
     width: 30rem
+    height: 16rem
 
   .imagen-box
     top: -6rem
@@ -63,7 +70,7 @@ img
 
   .acerca
     .card-body
-      padding: 2rem
+      padding: 2rem 2rem 0rem 2rem
       justify-items: center
 
   #acerca_edition
@@ -72,3 +79,6 @@ img
 
   .card.acerca
     border: 0
+
+  .person_info
+    top: -5rem

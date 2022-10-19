@@ -26,15 +26,17 @@ export class ProyectosItemComponent implements OnInit {
    this.loginService.toggleView.subscribe(data =>  {
     console.log('toggleView')
     this.visibleButton = data
+    if (!this.visibleButton){
+      this.editable = false
+    }
    })
-
-    console.log(this.visibleButton )
+    //console.log(this.visibleButton )
   }
 
   async ngOnInit() {
 
     this.visibleButton = this.loginService.getView();
-    console.log(this.proyecto )
+    //console.log(this.proyecto )
     // ;
     // var length = this.proyecto.habilidades.length;
     // for (let i = 0; i < length; i++) {
@@ -54,7 +56,7 @@ export class ProyectosItemComponent implements OnInit {
   onEdit(editable: Boolean) {
     this.editable = editable;
     this.imagen_editada = this.proyecto.imagen;
-    console.log(this.imagen_editada )
+    //console.log(this.imagen_editada )
   }
 
   onDelete() {
@@ -62,7 +64,7 @@ export class ProyectosItemComponent implements OnInit {
     try {
         this.proyectoServise.deleteProyecto(this.proyecto.id).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Item Eliminado");
             //TODO validaciones
           })
@@ -138,7 +140,7 @@ export class ProyectosItemComponent implements OnInit {
     this.editable_imagen= false
     try {
           this.proyectoServise.getProyectoByID(this.proyecto.id).subscribe(data => {
-            console.log(data);
+            //console.log(data);
             this.proyecto = data;
           })
           //TODO validaciones

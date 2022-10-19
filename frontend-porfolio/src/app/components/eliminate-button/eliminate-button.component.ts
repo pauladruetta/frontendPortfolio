@@ -9,7 +9,8 @@ import { EditionService } from 'src/app/services/edition.service';
 export class EliminateButtonComponent implements OnInit {
 
   @Input() myStyles: object = {}
-  @Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
+  @Output() onClickButton: EventEmitter<String> = new EventEmitter()
+  //@Output() onClickButton: EventEmitter<Boolean> = new EventEmitter()
   isActived: boolean = true;
   @Input() element: string;
   idModel: string;
@@ -20,12 +21,17 @@ export class EliminateButtonComponent implements OnInit {
       data => {
         this.isActived = data;
         })
-    this.idModel="confirmElement"+this.element
+
+      let id = this.element.split(" ").join("");
+      //console.log(id)
+    this.idModel="confirmElement"+id
+    //this.idModel="confirmElement"+"elemnte"
   }
   onClick(elemento:any){
     console.log('Click on delete button');
     console.log(elemento)
-    console.log(event)
+    console.log(this.idModel)
+    //console.log(event)
     //this.mostrarModal()
     //this.editionService.sendDesactivete(false)
   }
@@ -33,9 +39,10 @@ export class EliminateButtonComponent implements OnInit {
   OnAccion(isAcepted: Boolean) {
     if (isAcepted) {
       console.log("acepted")
-      console.log(isAcepted)
-      console.log(this.element)
-      this.onClickButton.emit(true);
+      //console.log(isAcepted)
+      //console.log(this.element)
+      // this.onClickButton.emit(true);
+      this.onClickButton.emit(this.element);
       //this.mostrarModal()
     } else {
       console.log("no acepted")
@@ -44,7 +51,8 @@ export class EliminateButtonComponent implements OnInit {
 
   mostrarModal(){
     if (window.confirm("Está por eliminar de la base de datos este elemento")){
-      this.onClickButton.emit(true);
+      // this.onClickButton.emit(true);
+      this.onClickButton.emit(this.element);
 //      this.editionService.sendDesactivete(false)
     } else {
 

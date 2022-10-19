@@ -1,4 +1,4 @@
-<app-card title="Proyectos">
+<app-card title="Proyectos" cardClass="border-0 ">
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <h5 class="card-title"> Proyectos </h5>
@@ -14,12 +14,13 @@
     </div>
     <div
     class="row proyecto-item-editable g-0"
-    *ngIf="agregandoNuevo"
+    *ngIf="visibleButton && agregandoNuevo"
   >
     <app-proyecto-item-edit
       (onClickAcept)="onAddConfirm()"
       (onClickCancel)="onCancelAdd()"
       [editando]="false"
+      [Persona] = persona
     ></app-proyecto-item-edit>
   </div>
     <app-proyectos-item
@@ -29,3 +30,6 @@
   ></app-proyectos-item>
   </div>
 </app-card>
+<!--FIXME al agregar habilidades al proyecto no agrega a la persona las habilidades-->
+<!--FIXME aparecen dos botones agregar-->
+<!--FIXME Los botones de editar y eliminar se superponen a las habilidades-->

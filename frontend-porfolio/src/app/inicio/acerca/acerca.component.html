@@ -1,4 +1,4 @@
-<app-card title="Acerca" >
+<app-card title="Acerca" cardClass="border-0 " >
   <div class="d-flex flex-column flex-md-row">
     <div class="card datos-personales align-items-center ">
       <div class="box-container position-relative justify-content-center justify-content-md-evenly imagen-box">
@@ -6,7 +6,7 @@
           <img [src]="persona.imagen_perfil" class="card-img-top" id="imagen_perfil" alt="Foto">
         </div>
         <app-lector-imagen
-          *ngIf="editable.imagen_perfil"
+          *ngIf="visibleButton && editable.imagen_perfil"
           class=" d-flex justify-content-center "
         ></app-lector-imagen>
 
@@ -45,7 +45,7 @@
       </div>
 
       <div class="card-body person_info editable"
-        *ngIf="editable.person_info"
+        *ngIf="visibleButton && editable.person_info"
       >
         <div class="form-group name mb-3 d-flex ">
           <input  class="form-control" id="person-name-editable" type="text" [value]=persona.nombre>
@@ -55,6 +55,7 @@
           <input class="form-control" id="person-tittle-editable" [value]="persona.titulo">
         </div>
       </div>
+      <!--FIXME al apretar el botón de editar aceptar y cancelar se superponen a los inputs-->
       <div class="buttons d-flex position-absolute">
         <app-edition-button
           *ngIf="visibleButton && !editable.person_info"
@@ -72,7 +73,7 @@
         ></app-cancelar-button>
       </div>
     </div>
-    <div class="card acerca w-100">
+    <div class="card acerca w-100" >
       <div class="card-body ">
         <h5 class="card-title"> Acerca </h5>
         <p
@@ -80,12 +81,12 @@
           id="acerca"
           *ngIf="!editable.acerca"
         >
-          {{ persona.descripcion }}
+          {{ persona.descripcion}}
         </p>
         <div class="form-group h-100">
           <textarea
             class="form-control"
-            *ngIf="editable.acerca"
+            *ngIf="visibleButton && editable.acerca"
             id="acerca_edition"
           >
             {{ persona.descripcion }}

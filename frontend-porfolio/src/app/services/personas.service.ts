@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Persona } from '../models/persona.model';
-import { LoginService } from './login.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -20,8 +19,8 @@ export class PersonasService {
   //  this.baseUrl = "http://localhost:8080/persona"
     //this.baseUrl = 'https://backendapdruetta.herokuapp.com/persona';
     this.baseUrl = this.API_URL +'/persona';
-    console.log("El servicio de usuario está corriendo")
-    console.log(this.API_URL)
+    //console.log("El servicio de usuario está corriendo")
+    //console.log(this.API_URL)
   }
 
   // getAll(): Persona[] {
@@ -37,10 +36,19 @@ export class PersonasService {
   // }
 
   getAllPersonas(): Observable<Persona[]> {
-    console.log("trayendo personas")
+    console.log("trayendo todas las personas")
     return this.http.get<Persona[]>(this.baseUrl + `/ver-todas`);
   }
 
+  getPersona(id_persona: number): Observable<Persona> {
+    console.log("trayendo persona completa")
+    return this.http.get<Persona>(this.baseUrl + `/details/${id_persona}`);
+  }
+
+  getPersonalInfo(id_persona: number): Observable<Persona> {
+    console.log("trayendo personal info ")
+    return this.http.get<Persona>(this.baseUrl + `/personal-info/${id_persona}`);
+  }
   // getAllPersonas(): Observable<Persona[]> {
   //   console.log("trayendo personas")
   //   return this.http.get<Persona[]>(this.baseUrl + `/ver-todas`);
@@ -48,6 +56,7 @@ export class PersonasService {
 
   editPersona( persona: Persona ): Observable<Persona> {
     console.log("Editando persona")
+    //console.log(persona)
     return this.http.put<Persona>(this.baseUrl+"/edit", persona);
 
   }

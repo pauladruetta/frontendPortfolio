@@ -27,14 +27,17 @@ export class ExperienciaItemComponent implements OnInit {
    this.loginService.toggleView.subscribe(data =>  {
     console.log('toggleView')
     this.visibleButton = data
+    if (!this.visibleButton){
+      this.editable = false
+    }
    })
 
   }
 
   async ngOnInit() {
     this.visibleButton = this.loginService.getView();
-    console.log(this.visibleButton )
-    console.log(this.experiencia )
+    //console.log(this.visibleButton )
+    //console.log(this.experiencia )
     if  (this.experiencia.fecha_fin == 0) {
       this.fecha_fin = "Actualidad"
     } else {
@@ -46,7 +49,7 @@ export class ExperienciaItemComponent implements OnInit {
   onEdit(editable: Boolean) {
     this.editable = editable;
     this.imagen_editada = this.experiencia.imagen;
-    console.log(this.imagen_editada )
+    //console.log(this.imagen_editada )
   }
 
 //   onEditImage(editable: Boolean) {
@@ -81,7 +84,7 @@ export class ExperienciaItemComponent implements OnInit {
     try {
         this.experienciasServise.deleteExperiencia(this.experiencia.id).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Item Eliminado");
             //TODO validaciones
           })
@@ -184,7 +187,7 @@ export class ExperienciaItemComponent implements OnInit {
     this.editable_imagen= false
     try {
           this.experienciasServise.getExperienciaByID(this.experiencia.id).subscribe(data => {
-            console.log(data);
+            //console.log(data);
             this.experiencia = data;
           })
           //TODO validaciones

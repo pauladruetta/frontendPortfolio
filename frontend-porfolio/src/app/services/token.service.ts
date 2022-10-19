@@ -33,7 +33,7 @@ export class TokenService {
 
   public setAuthorities(authorities: string[]): void {
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
-    console.log(authorities)
+    //console.log(authorities)
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
 
@@ -44,10 +44,10 @@ export class TokenService {
       JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)!).forEach( (authority: any )=> {
         this.roles.push(authority.authority);
       })
-      console.log(this.roles)
+      //console.log(this.roles)
       return this.roles;
     }
-    console.log(this.roles)
+    //console.log(this.roles)
     return this.roles;
   }
 
@@ -64,5 +64,11 @@ export class TokenService {
       }
 
     }
+
+    public tokenExpired(token: string) {
+      const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+      return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+    }
+//TODO Faltaría correr esta función cada tanto para checkear si ya exipiró
 
 }

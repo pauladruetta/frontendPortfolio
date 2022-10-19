@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Experiencia } from 'src/app/models/experiencia.model';
+import { Persona } from 'src/app/models/persona.model';
+import { EditionService } from 'src/app/services/edition.service';
 import { ExperienciasService } from 'src/app/services/experiencias.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { ExperienciasService } from 'src/app/services/experiencias.service';
 })
 export class ExperienciaItemEditComponent implements OnInit {
 
-  @Input()Experiencia: Experiencia = {
+/*   @Input()Experiencia: Experiencia = {
     id: 0,
     titulo: "",
     empresa: "",
@@ -19,8 +21,10 @@ export class ExperienciaItemEditComponent implements OnInit {
     provincia: "",
     fecha_fin: 0,
     fecha_inicio: 0,
-    imagen: ""
-  };
+    imagen: "",
+  }; */
+  @Input() Experiencia: Experiencia = {} as Experiencia;
+  @Input() Persona: Persona = {} as Persona;
   @Input() editando: boolean = true;
   @Output() onClickAcept: EventEmitter<Boolean> = new EventEmitter();
   @Output() onClickCancel: EventEmitter<Boolean> = new EventEmitter();
@@ -30,7 +34,8 @@ export class ExperienciaItemEditComponent implements OnInit {
   formulario: FormGroup;
 
   constructor(
-    private experienciasService: ExperienciasService
+    private experienciasService: ExperienciasService,
+    private editionService: EditionService
   ) {
 
   }
@@ -48,13 +53,14 @@ export class ExperienciaItemEditComponent implements OnInit {
       fecha_inicio: new FormControl(this.Experiencia.fecha_inicio,),
       fecha_fin: new FormControl(this.Experiencia.fecha_fin,),
     })
-    //this.imagen_editada = this.Experiencia.imagen;
+    this.imagen_editada = this.Experiencia.imagen;
     //TODO Validaciones
-    console.log(this.Experiencia);
-    console.log(this.formulario);
+    //console.log(this.Experiencia);
+    //console.log(this.formulario);
   }
 
   onAcept() {
+    //this.editable = false
     this.Nuevo = {
       id: this.Experiencia.id,
       titulo: this.formulario.value.titulo,
@@ -65,8 +71,9 @@ export class ExperienciaItemEditComponent implements OnInit {
       fecha_inicio: this.formulario.value.fecha_inicio,
       fecha_fin: this.formulario.value.fecha_fin,
       imagen:  this.imagen_editada,
+      persona: this.Experiencia.persona
     };
-    console.log(this.imagen_editada)
+    console.log(this.Experiencia.persona)
 
     let accion;
 
@@ -74,6 +81,7 @@ export class ExperienciaItemEditComponent implements OnInit {
       accion = "Editando"
     } else {
       accion = "Agregando"
+      this.Nuevo.persona = this.Persona;
     }
 
     console.log(accion +" experiencia item" )
@@ -83,7 +91,7 @@ export class ExperienciaItemEditComponent implements OnInit {
         console.log("Editando")
         this.experienciasService.editExperiencia(this.Nuevo).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
             console.log(this.Nuevo)
@@ -93,14 +101,14 @@ export class ExperienciaItemEditComponent implements OnInit {
         console.log("Agregando Nuevo")
         this.experienciasService.addExperiencia(this.Nuevo).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
-            console.log(this.Nuevo)
+            //console.log(this.Nuevo)
             this.onClickAcept.emit();
           })
       }
-
+      this.onDisactivete()
     } catch (error) {
       console.log("catch")
       console.log(error);
@@ -118,6 +126,12 @@ export class ExperienciaItemEditComponent implements OnInit {
   onSendImage(imagen: string) {
     console.log("llegó")
     this.imagen_editada = imagen;
+  }
+
+
+  onDisactivete() {
+    console.log("activar botón")
+    this.editionService.sendDesactivete(true)
   }
 
 

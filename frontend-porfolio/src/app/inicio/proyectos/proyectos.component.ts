@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Persona } from 'src/app/models/persona.model';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { LoginService } from 'src/app/services/login.service';
 import { ProyectosService } from 'src/app/services/proyectos.service';
@@ -11,6 +12,7 @@ import { ProyectosService } from 'src/app/services/proyectos.service';
 export class ProyectosComponent implements OnInit {
 
   arrProyectos: Proyecto[];
+  @Input() persona: Persona;
   visibleButton: Boolean = false;
   agregandoNuevo: Boolean = false;
 
@@ -23,17 +25,27 @@ export class ProyectosComponent implements OnInit {
       console.log('toggleView')
       this.visibleButton = data
     })
-      console.log(this.visibleButton )
+      //console.log(this.visibleButton )
   }
 
   async ngOnInit() {
     this.visibleButton = this.loginService.getView();
-    this.proyectosService.getAllProyectos().subscribe(data => {
-      this.arrProyectos = data;
-      console.log(this.arrProyectos);
-    })
+    // this.proyectosService.getAllProyectos().subscribe(data => {
+    //   this.arrProyectos = data;
+    //   //console.log(this.arrProyectos);
+    // })
+    this.getProyectos()
+      //console.log(this.arrProyectos);
+     //console.log();
+  }
 
-    console.log();
+  getProyectos() {
+    if(this.persona.id != null){
+      this.proyectosService.getProyectosByPersona(this.persona.id!).subscribe(data => {
+        this.arrProyectos = data;
+        //console.log(data);
+      })
+    }
   }
 
   onAdd(agregandoNuevo: Boolean) {
@@ -48,10 +60,11 @@ export class ProyectosComponent implements OnInit {
 
   onAddConfirm(){
     this.agregandoNuevo = false;
-    this.proyectosService.getAllProyectos().subscribe(data => {
-      this.arrProyectos = data;
-      console.log(this.arrProyectos);
-    })
+    this.getProyectos()
+    // this.proyectosService.getAllProyectos().subscribe(data => {
+    //   this.arrProyectos = data;
+    //   //console.log(this.arrProyectos);
+    // })
   }
 
 

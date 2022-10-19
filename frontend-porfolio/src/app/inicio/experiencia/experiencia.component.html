@@ -1,4 +1,4 @@
-<app-card title="Experiencia">
+<app-card title="Experiencia" cardClass="border-0 ">
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <h5 class="card-title"> Experiencia </h5>
@@ -14,12 +14,13 @@
     </div>
     <div
       class="row experiencia-item-editable g-0"
-      *ngIf="agregandoNuevo"
+      *ngIf="visibleButton && agregandoNuevo"
     >
       <app-experiencia-item-edit
         (onClickAcept)="onAddConfirm()"
         (onClickCancel)="onCancelAdd()"
         [editando]="false"
+        [Persona] = persona
       ></app-experiencia-item-edit>
     </div>
     <app-experiencia-item

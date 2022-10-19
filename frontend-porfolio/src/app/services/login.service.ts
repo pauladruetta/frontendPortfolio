@@ -21,33 +21,45 @@ export class LoginService {
   showEdit: boolean = false
   roles: string[]=[];
   @Output() public toggleView: EventEmitter<boolean>
+  @Output() public tokenExpired: EventEmitter<boolean>
+  @Output() public usuarioError: EventEmitter<any>
   // currentUserSubject: BehaviorSubject<any>;
 
   constructor( private http:HttpClient, private tokenService: TokenService) {
+    //console.log('Login: '+ this.loggin)
+    this.toggleView = new EventEmitter();
+    this.tokenExpired = new EventEmitter();
+    this.usuarioError = new EventEmitter();
     this.showEdit = false
     // this.currentUserSubject = new BehaviorSubject<any>({});
-    if (this.tokenService.getToken()){
-      console.log('Login: ya logeado')
-      this.loggin = true;
-      this.isLoginFail = false;
-      this.roles = this.tokenService.getAuthorities();
+    const token = this.tokenService.getToken();
+    if (token){
+      if (this.tokenService.tokenExpired(token)) {
+        console.log("el token expiró")
+        this.onlogOut()
+      } else {
+        console.log('Login: ya logeado')
+        this.loggin = true;
+        this.isLoginFail = false;
+        this.roles = this.tokenService.getAuthorities();
+        if (this.isAdmin()) {
+          this.showEdit = true;
+          console.log('Auth: Admin')
+          //console.log('Mostrar edición: '+ this.showEdit)
+        }
+      }
+    //TODO si tengo dos tipos de usuario, uno puede editar, pero no puede crear usuarios, el otro si
       //  this.currentUserSubject = new BehaviorSubject<any>(
       //   {
       //     token: true,
       //   });
-      if (this.isAdmin()) {
-        this.showEdit = true;
-        console.log('Auth: Admin')
-        console.log('Mostrar edición: '+ this.showEdit)
-      }
+
     }
-      console.log('Login: '+ this.loggin)
-      this.toggleView = new EventEmitter();
     // this.baseUrl = "http://localhost:8080";
       this.baseUrl = this.API_URL +'/auth';
 //    this.baseUrl = "https://backendapdruetta.herokuapp.com";
     //this.baseUrl = "https://backendapdruetta.herokuapp.com/auth";
-    console.log("El servicio de login está corriendo");
+    //console.log("El servicio de login está corriendo");
     // this.currentUserSubject = new BehaviorSubject<JwtDTO>(
     //   {
     //     token: tokenService.getToken(),
@@ -88,7 +100,8 @@ export class LoginService {
   }
 
   public login(loginUsuario: LoginUsuario): Observable<JwtDTO> {
-    console.log("Login:" + JSON.stringify(loginUsuario));
+    //console.log("Login:" + JSON.stringify(loginUsuario));
+    console.log("Login")
     return this.http.post<JwtDTO>(this.baseUrl+"/login", loginUsuario)
   }
 
@@ -104,5 +117,16 @@ export class LoginService {
   public getBackUrl(){
     return this.baseUrl
   }
+
+  public onlogOut(){
+    console.log("login service send event token expired")
+    this.tokenExpired.emit(true)
+  }
+
+  public onUsuarioError(err: any){
+    console.log("login service send event token expired")
+    this.usuarioError.emit(err)
+  }
+
 
 }
