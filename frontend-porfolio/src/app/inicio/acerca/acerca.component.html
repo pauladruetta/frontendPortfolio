@@ -55,6 +55,7 @@
           <input class="form-control" id="person-tittle-editable" [value]="persona.titulo">
         </div>
       </div>
+      <!--FIXME al apretar el botón de editar aceptar y cancelar se superponen a los inputs-->
       <div class="buttons d-flex position-absolute">
         <app-edition-button
           *ngIf="visibleButton && !editable.person_info"

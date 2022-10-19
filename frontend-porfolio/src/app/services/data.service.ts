@@ -25,7 +25,10 @@ export class DataService {
     //   console.log(this.persona);
     // })
     //TODO: está hardcodeado, hay que hacer que esté vinculado al usuario
-    this.personasServices.getPersonalInfo(281).subscribe(data=> {
+    //TODO en local
+    //this.personasServices.getPersonalInfo(281).subscribe(data=> {
+    //TODO en remoto
+    this.personasServices.getPersonalInfo(1).subscribe(data=> {
       //console.log("traigo persona");
       //this.persona = this.persona.next(data);
       this.persona.next(data);
