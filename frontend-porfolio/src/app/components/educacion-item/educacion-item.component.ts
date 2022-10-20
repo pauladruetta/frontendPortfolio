@@ -33,6 +33,14 @@ export class EducacionItemComponent implements OnInit {
 
   async ngOnInit() {
     this.visibleButton = this.loginService.getView();
+    console.log(this.educacion.fecha_fin)
+    if  (this.educacion.fecha_fin == 0) {
+      //console.log("actualidad")
+      this.fecha_fin = "Actualidad"
+    } else {
+      this.fecha_fin = String(this.educacion.fecha_fin)
+    }
+    //console.log(this.fecha_fin)
   }
 
   onEdit(editable: Boolean) {

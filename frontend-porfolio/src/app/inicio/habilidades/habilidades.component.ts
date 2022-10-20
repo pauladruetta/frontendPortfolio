@@ -34,15 +34,11 @@ export class HabilidadesComponent implements OnInit {
       this.visibleButton = data
     })
 
-    //this.actualizarService.getInfoBD()
-      // this.habilidadesService.getAllHabilidades().subscribe(data => {
-      //   this.arrHabilidad = data;
-      //   //console.log(this.arrHabilidad);
-      // })
-      //this.getHabilidades()
-    //})
-
-    //TODO ver que pasa
+    // this.habilidadesService.getAllHabilidades().subscribe(data => {
+    //   this.arrHabilidad = data;
+    //   //console.log(this.arrHabilidad);
+    // })
+    // this.getHabilidades()    //TODO ver que pasa
   }
 
   async ngOnInit() {
@@ -54,10 +50,14 @@ export class HabilidadesComponent implements OnInit {
 
     this.visibleButton = this.loginService.getView();
     this.getHabilidades()
-    // this.habilidadesService.refreshHabilidades()
-    // this.arrHabilidad = this.habilidadesService.getAllHabilidades();
-    //console.log(this.arrHabilidad);
-    // })
+    this.actualizarService.getInfo.subscribe(
+      console.log('ACTUALIZAR HABILIDADES')
+    )
+    this.actualizarService.info.subscribe(data => {
+      console.log('ACTUALIZAR HABILIDADES')
+   // this.habilidadesService.refreshHabilidades()
+        this.getHabilidades()
+  })
     //console.log();
   }
 

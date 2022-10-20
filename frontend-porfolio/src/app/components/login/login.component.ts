@@ -94,14 +94,14 @@ export class LoginComponent implements OnInit {
     //   console.log("DATA:" + JSON.stringify(data));
     // })
     this.loginService.login(this.formulario.value).subscribe(data => {
-      console.log("DATA:" + JSON.stringify(data));
+      //console.log("DATA:" + JSON.stringify(data));
       this.loggin = true;
 
       this.tokenService.setToken(data.token);
       this.tokenService.setUserName(data.nombreUsuario);
       this.tokenService.setAuthorities(data.authorities);
       this.roles = data.authorities;
-      console.log(data.authorities);
+      //console.log(data.authorities);
       console.log("Se inició sesión");
       this.iniciarLogin = !this.iniciarLogin;
       this.resetForm();

@@ -73,7 +73,7 @@ export class ExperienciaItemEditComponent implements OnInit {
       imagen:  this.imagen_editada,
       persona: this.Experiencia.persona
     };
-    console.log(this.Experiencia.persona)
+    //console.log(this.Experiencia.persona)
 
     let accion;
 
@@ -94,7 +94,7 @@ export class ExperienciaItemEditComponent implements OnInit {
             //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
-            console.log(this.Nuevo)
+            //console.log(this.Nuevo)
             this.onClickAcept.emit();
           })
       } else {
