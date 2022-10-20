@@ -39,7 +39,6 @@ export class ProyectoItemEditComponent implements OnInit {
   ) {
     habilidadService.getAllHabilidades().subscribe(habilidades  => this.arrHabilidades = habilidades)
     //this.arrHabilidades = hablidadService.getAllHabilidades();
-
   }
 
   ngOnInit(): void {
@@ -58,7 +57,7 @@ export class ProyectoItemEditComponent implements OnInit {
 
     })
     this.imagen_editada = this.Proyecto.imagen
-    console.log(this.Proyecto)
+    //console.log(this.Proyecto)
     // this.habilidades = this.Proyecto.habilidades;
     let refHab = this.formulario.get('habilidades') as FormArray
     this.Proyecto.habilidades.forEach(habilidad => {
@@ -73,6 +72,9 @@ export class ProyectoItemEditComponent implements OnInit {
     // if(this.Proyecto.id == 0){
     //   this.habilidades_edit = true
     // };
+    this.actualizarService.getInfo.subscribe(
+      console.log('ACTUALIZAR HABILIDADES')
+    )
   }
 
 /*   initFormHabilidad(habilidad: String): FormGroup {
@@ -106,7 +108,7 @@ export class ProyectoItemEditComponent implements OnInit {
 //TODO Encontrar la forma de reutilizar código, estoy copiando y pegando mucho entre las distintas partes
     let accion;
             //console.log(data);
-    console.log(this.imagen_editada);
+    //console.log(this.imagen_editada);
     if (this.editando){
       accion = "Editando"
     } else {
@@ -123,12 +125,12 @@ export class ProyectoItemEditComponent implements OnInit {
         //console.log(this.Nuevo)
         this.proyectosService.editProyecto(this.Nuevo).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
-            console.log(this.Nuevo)
+            //console.log(this.Nuevo)
             this.onClickAcept.emit();
-            //this.actualizarService.getInfoBD()
+            this.actualizarService.getInfoBD(true)
           })
       } else {
         console.log("Agregando Nuevo")
@@ -137,9 +139,9 @@ export class ProyectoItemEditComponent implements OnInit {
             //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
-            console.log(this.Nuevo)
+            //console.log(this.Nuevo)
             this.onClickAcept.emit();
-            //this.actualizarService.getInfoBD()
+            this.actualizarService.getInfoBD(true)
           })
       }
       this.onDisactivete()
@@ -161,15 +163,17 @@ export class ProyectoItemEditComponent implements OnInit {
   OnAddHabilidad($event: any) {
     $event.preventDefault();
     let nueva;
+    //console.log(this.writeNew)
     if (this.writeNew == true) {
+      //FIXME No controla que efectivamente sea nueva
       nueva = this.formulario.get('nueva_habilidad') as FormControl;
       this.writeNew = false;
       console.log("Es una habilidad nueva")
     } else {
-      console.log("No es una habilidad nueva")
+      console.log("No es una habilidad nueva o aún no se escribió")
       nueva = this.formulario.get('added_habilidad') as FormControl;
     }
-    console.log(nueva)
+    //console.log(nueva)
     //console.log(nueva.value)
     console.log("Nueva Habilidad de proyecto");
     if (nueva.value == "nueva" ){
@@ -184,8 +188,9 @@ export class ProyectoItemEditComponent implements OnInit {
             let habilidad: FormControl = new FormControl(nueva.value)
             //console.log(habilidad);
           refHab.push(habilidad);
-          console.log(refHab);
-          //FIXME la nueva habilidad se agrega al proyecto pero no a la persona - ver Back
+          //console.log(refHab);
+          this.formulario.get('added_habilidad')?.setValue(null)
+          this.formulario.get('nueva_habilidad')?.setValue(null)
     }
 
 
@@ -217,19 +222,19 @@ export class ProyectoItemEditComponent implements OnInit {
     console.log("Se borró habilidad ")
     console.log(habilidad);
     let refHab = this.formulario.get('habilidades') as FormArray;
-    console.log(refHab);
+    //console.log(refHab);
     // for (let hab of this.getCtrl('habilidades', this.formulario)?.controls) {
     let  index = 0
     for (let hab of refHab.value) {
-      console.log(hab)
+      //console.log(hab)
       if (hab == habilidad) {
-        console.log(hab)
+        //console.log(hab)
         break
       } else {
         index = index+1
       }
     }
-    console.log(index)
+    //console.log(index)
     refHab.removeAt(index)
     //refHab.removeAt(index)
     //

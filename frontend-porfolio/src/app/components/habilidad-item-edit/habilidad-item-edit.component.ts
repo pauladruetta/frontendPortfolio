@@ -51,13 +51,13 @@ export class HabilidadItemEditComponent implements OnInit {
       nueva_habilidad: new FormControl(''),
     })
     this.formulario.valueChanges.subscribe(changes => {
-      console.log(changes)
+      //console.log(changes)
       if (changes.added_habilidad == "nueva") {
         this.writeNew = true;
       }
     });
-    console.log(this.Habilidad)
-    console.log(this.Persona.id)
+    //console.log(this.Habilidad)
+    //console.log(this.Persona.id)
     this.habilidadesService.getAllHabilidadesQueNo(this.Persona.id).subscribe(data =>
       this.arrHabilidadesNuevas = data
     )
@@ -102,8 +102,8 @@ export class HabilidadItemEditComponent implements OnInit {
       let nueva;
       if (this.writeNew == true) {
         this.arrHabilidades.forEach(hab => {
-          console.log(this.formulario.get('nueva_habilidad')?.value )
-          console.log(hab.nombre )
+          //console.log(this.formulario.get('nueva_habilidad')?.value )
+          //console.log(hab.nombre )
           if (this.formulario.get('nueva_habilidad')?.value == hab.nombre){
             this.existe = true;
             console.log("existe")
@@ -138,7 +138,7 @@ export class HabilidadItemEditComponent implements OnInit {
     console.log(accion +" habilidad item" )
     if (!this.existe){
       try {
-        console.log(this.Nuevo)
+        //console.log(this.Nuevo)
         if (this.editando){
           console.log("Editando")
           this.habilidadesService.editHabilidadPersona(this.Nuevo).subscribe(data =>
@@ -169,7 +169,7 @@ export class HabilidadItemEditComponent implements OnInit {
           })
       }
         this.onDisactivete()
-        this.actualizarService.getInfoBD()
+        this.actualizarService.getInfoBD(true)
       } catch (error) {
         console.log("catch")
         console.log(error);
@@ -180,7 +180,7 @@ export class HabilidadItemEditComponent implements OnInit {
       setTimeout(()=> this.existe = false, 2000)
 
     }
-    this.actualizarService.getInfoBD()
+    this.actualizarService.getInfoBD(true)
   }
 
   onCancel() {

@@ -74,15 +74,15 @@ export class EducacionItemEditComponent implements OnInit {
         console.log("Editando")
         this.educacionService.editEducacion(this.educacionNueva).subscribe(data =>
           {
-            console.log(data);
+            //console.log(data);
             console.log("Se modificó la base de datos");
             //TODO validaciones
-            console.log(this.educacionNueva)
+            //console.log(this.educacionNueva)
             this.onClickAcept.emit();
           })
       } else {
         console.log("Agregando Nuevo")
-        console.log(this.educacionNueva)
+        //console.log(this.educacionNueva)
         this.educacionService.addEducacion(this.educacionNueva).subscribe(data =>
           {
             //console.log(data);

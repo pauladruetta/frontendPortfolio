@@ -20,6 +20,7 @@ export class EditionButtonComponent implements OnInit {
   ngOnInit(): void {
     this.editionService.desactivete.subscribe(
       data => {
+        console.log("desactivated recived")
         this.isActived = data ;
         })
   }

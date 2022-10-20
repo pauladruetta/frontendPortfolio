@@ -39,7 +39,7 @@ export class HabilidadesItemComponent implements OnInit {
   }
 
   onEdit(editable: Boolean) {
-    console.log(editable)
+    //console.log(editable)
     this.editable = editable;
   }
 
@@ -111,7 +111,7 @@ export class HabilidadesItemComponent implements OnInit {
     this.editable = false
     try {
           this.habilidadesService.getHabilidadPersonaByID(this.habilidad.id).subscribe(data => {
-            console.log(data);
+            //console.log(data);
             this.habilidad = data;
           })
           //TODO validaciones
